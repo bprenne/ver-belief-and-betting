@@ -7,7 +7,7 @@
 %% - leave the \def\comments{1} uncommented if you do want comments
 %%
 
-\def\comments{1}
+%\def\comments{1}
 
 %% leave the next few lines below alone
 
@@ -188,9 +188,6 @@
 
 \maketitle
 
-\XXXcomment{BR: edited abstract to provide more clear-cut comparison
-  with minimal modal logic and make Lenzen's contribution clear.}
-
 \begin{abstract}
   We investigate modal logics of knowledge and belief in which
   knowledge is probabilistic certainty and belief is probability
@@ -217,8 +214,6 @@
 \end{abstract}
 
 \section{Introduction}
-
-\XXXcomment{BR: edits to intro; similar to abstract.}
 
 A number of authors have studied connections between modal logic and
 probability; see, e.g., \cite{Halpern2003:rau,Herzig2003:mpbaa} and
@@ -779,11 +774,6 @@ We now consider a simple example.
     (Agent $a$ is willing to bet that the winning horse is not any
     particular one.)
 
-    \XXXcomment{BR: changed item \ref{item:conjunction} so that there
-      is a negation before the $B_a$ (instead of a negated turnstyle
-      $\not\models$).  I think this is clearer for the example.
-      Thoughts?}
-
   \item \label{item:conjunction}
     $\M_{\ref{example:non-normality}}\modelsp \lnot B_a(\lnot h_1\land \lnot
     h_2)$.
@@ -820,9 +810,6 @@ properties of the present notion of belief.  One of these is a
 complicated but useful property due to Lenzen \cite{Lenzen2003:kbasp}
 that makes use of notation due to Segerberg
 \cite{Segerberg1971:qpiams}.
-
-\XXXcomment{BR: added subscripted $i$'s to Segerberg and Lenzen
-  property notation throughout.  Hopefully none missed?}
 
 \begin{definition}[Segerberg notation; \cite{Segerberg1971:qpiams}]
   \label{definition:segerberg-notation}
@@ -1203,13 +1190,6 @@ not a normal modal operator (Proposition~\ref{prop:belief}\eqref{item:B-not-norm
 for a neighborhood semantics for $\Lang_\KB$ \cite[Ch.~7]{Chellas:ml}
 with a new epistemic twist.
 
-\XXXcomment{BR: changed name of some EPM properties.  This is because
-  I changed the name of some schemes (in Table~\ref{table:KB}) because
-  they conflict with names from Chellas.  Essentially, I added extra
-  letters to resolve the conflicts.  Please see Table~\ref{table:KB}
-  on page~\pageref{table:KB} first and let me know what you think of
-  the new suggested names.}
-
 \begin{definition} 
   An \emph{epistemic neighborhood model} is a structure
   \[
@@ -1269,10 +1249,6 @@ if and only if it is known that $X$ is believed. Property (kbm) says
 that belief is monotonic: if an agent believes $X$, then she believes
 all propositions $Y\supseteq X$ that follow from $X$.
 
-\XXXcomment{BR: changed informal description of (a) (in paragraph just
-  above) to be an iff (as opposed to an implication).  I think this is
-  right.  Agree?}
-
 We now turn to the definition of truth for the language $\Lang_\KB$.
 
 \begin{definition} 
@@ -1313,9 +1289,6 @@ belief $\check{B}_a \phi$ is true at $w$ iff
 $[w]_a\cap\semn{\neg\phi}^\M\notin N_a(w)$.  The latter says that the
 epistemically possible $\lnot\phi$-worlds do not make up a
 neighborhood of $w$.
-
-\XXXcomment{BR: added extra sentence at end of paragraph just above.
-  This says in words what $\check B_a\phi$ means.}
 
 Here are a few additional properties of epistemic neighborhood models
 that will arise later on.
@@ -1535,20 +1508,6 @@ $P_{a,w}(X)>c$).
 \section{Calculi for Belief as Willingness to Bet}
 \label{Section:Calculi}
 
-\XXXcomment{BR: new scheme names
-\begin{center}
-\begin{tabular}{c@{\;$\to$\;}c}
-  C & KBC \\
-  F & BF \\
-  M & KBM
-\end{tabular}
-\end{center}
-in order to prevent conflicts with names already in Chellas' book.
-Names of related semantic properties (above) changed accordingly as
-well. Renaming enables us to more easily say at the start of the next
-section the exact relationship between our theory and existing
-neighborhood modal logics.  Thoughts?}
-
 \begin{definition}
   \label{definition:calculi}
   We define the following theories in the language $\Lang_\KB$.
@@ -1638,11 +1597,6 @@ neighborhood modal logics.  Thoughts?}
 \end{table}
 
 \subsection{Results for the Basic Calculus \texorpdfstring{$\KB$}{KB}}
-
-\XXXcomment{BR: added initial text before the proposition and text
-  after each item in Prop.~\ref{prop:KBgt-derivables} to provide a
-  clear statement (and explanations) of the neighborhood modal logic
-  we extend.}
 
 The following result shows that if we restrict attention to provable
 statements whose only modality is single-agent belief $B_a\phi$, then
@@ -1892,8 +1846,6 @@ In preparation for the proof of completeness of $\KB$ with respect to
 the class of finite epistemic neighborhood models, we require
 a few preliminary definitions and a key lemma.  The first definition concerns maximal
 consistent sets and definability of collections of these sets.
-
-\XXXcomment{BR: $L'$-definability was not right.  I corrected it.}
 
 \begin{definition}
   \label{definition:definability}
@@ -2656,8 +2608,6 @@ formulating Lenzen's proof of probability completeness for $\KBeq$
   \end{itemize}
 \end{theorem}
 
-\XXXcomment{BR: added comment (and citation in theorem) crediting Lenzen.}
-
 That $\KBeq$ is sound and complete for the probabilistic semantics
 with threshold $c=\frac 12$ was originally proved by Lenzen
 \cite{Lenzen1980:gwuw}.
@@ -2847,9 +2797,6 @@ semantics that may present interesting opportunities for future
 cross-disciplinary work.
 
 \paragraph{Open Questions for Future Work}
-
-\XXXcomment{BR: made enumeration of open questions, added new text on
-  item 1 (high-threshold probability completeness).}
 
 \begin{enumerate}
 \item
