@@ -2,7 +2,7 @@
 ## branch-specific stuff
 ##
 
-*.pdf
+#*.pdf
 
 ##
 ## OS X stuff
