@@ -1,0 +1,3388 @@
+\listfiles
+\documentclass[12pt]{article}
+
+%%
+%% page setup and comments:
+%% - comment out the \def\comments{1} if you do not want comments
+%% - leave the \def\comments{1} uncommented if you do want comments
+%%
+
+\def\comments{1}
+
+%% leave the next few lines below alone
+
+\ifx\comments\undefined
+  % then do normal margins and ignore comments
+  \usepackage[a4paper,margin=4cm,includefoot]{geometry}
+  \newcommand{\XXXcomment}[1]{}
+\else
+  % then do big marginpar margins and insert comments
+  \usepackage[a4paper,margin=.5in,right=2.5in,marginpar=2in,includefoot]{geometry}
+  \newcommand{\XXXcomment}[1]{\marginpar{\color{blue}{\footnotesize #1}}}
+\fi
+
+%%
+%% packages and package-specific settings
+%%
+
+\usepackage{latexsym,amssymb,amsmath,amscd,amsthm,alltt,stmaryrd,graphicx,mathrsfs}
+
+\usepackage{times}
+
+\usepackage{float}
+\floatstyle{boxed}
+\restylefloat{figure}
+\restylefloat{table}
+
+%%
+%% tikz stuff, including custom environment
+%%
+
+\usepackage{tikz}
+\usetikzlibrary{trees,arrows,positioning,patterns,automata,shapes,decorations,decorations.pathmorphing}
+
+\newcommand{\mystretch}{\renewcommand{\arraystretch}{1.5}}
+\newcommand{\normalstretch}{\renewcommand{\arraystretch}{1}}
+
+\newlength{\mysep}
+\setlength{\mysep}{2.7cm}
+\newlength{\mysepFarther}
+\setlength{\mysepFarther}{3cm}
+\newlength{\mysepFarthest}
+\setlength{\mysepFarthest}{4cm}
+
+\newenvironment{mytikz}[1][0em]{
+\begin{tikzpicture}[>=latex,auto,node distance=\mysep,
+  baseline={([yshift=#1]current bounding box.east)}]
+
+  \normalstretch{}
+
+  \tikzstyle{w}=[draw,circle,thick,minimum size=3.8em]
+
+  \tikzstyle{e}=[draw,minimum size=2.5em,node distance=3cm]
+  
+  \tikzstyle{every edge}=[draw,thick,font=\footnotesize]
+  
+  \tikzstyle{every label}=[font=\footnotesize]
+  
+  \tikzstyle{ev}=[anchor=west,node distance=2em]
+
+  \tikzstyle{bigger}=[minimum size=4em]
+
+  \tikzstyle{farther}=[node distance=\mysepFarther]
+
+  \tikzstyle{farthest}=[node distance=\mysepFarthest]
+
+  \tikzstyle{l}=[node distance=3.5em]
+}{\mystretch{}\end{tikzpicture}}
+
+%%
+%% theorem environments
+%%
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{remark}[theorem]{Remark}
+
+%%
+%% custom commands
+%%
+
+\newcommand{\Nat}{\mathbb{N}}  % natural numbers
+\newcommand{\Rat}{\mathbb{Q}}  % rational numbers
+\newcommand{\Ree}{\mathbb{R}}  % real numbers
+\newcommand{\Int}{\mathbb{Z}}  % integers
+
+\newcommand{\pow}{{\cal P}}    % powerset
+
+\newcommand{\M}{{\cal M}}      % caligraphic model M
+\newcommand{\N}{{\cal N}}      % caligraphic model N
+
+\newcommand{\Prop}{{\bf P}}    % propositional letters
+
+\newcommand{\Lang}{{\cal L}}   % language
+
+\newcommand{\conv}{\check{\ }} % dual modality
+
+\newcommand{\KB}{{\mathsf{KB}}}                     % base theory
+\newcommand{\KBlt}{{\mathsf{KB}^{\mathsf{<.5}}}}    % theory for c<.5
+\newcommand{\KBeq}{{\mathsf{KB}^{\mathsf{=.5}}}}    % theory for c=.5
+\newcommand{\KBgt}{{\mathsf{KB}^{\mathsf{>.5}}}}    % theory for c>.5
+
+\newcommand{\Clt}{{\mathcal{C}^{\mathsf{<.5}}}}    % neigh. models for c<.5
+\newcommand{\Ceq}{{\mathcal{C}^{\mathsf{=.5}}}}    % for c=.5
+\newcommand{\Cgt}{{\mathcal{C}^{\mathsf{>.5}}}}    % for c>.5
+
+\newcommand{\Rel}[1]{\stackrel{#1}{\Longrightarrow}}         % #1 over \Longrightarrow
+
+\newcommand{\sem}[1]{\llbracket{#1}\rrbracket}               % [[ #1 ]]
+
+\newcommand{\modelsn}{\models_{\mathsf{n}}}                  % \models_n
+\newcommand{\semn}[1]{\llbracket{#1}\rrbracket_{\mathsf{n}}} % [[ #1 ]]_n
+
+\newcommand{\modelsp}{\models_{\mathsf{p}}}                  % \models_p
+\newcommand{\semp}[1]{\llbracket{#1}\rrbracket_{\mathsf{p}}} % [[ #1 ]]_p
+
+%%
+%% author, title, &c
+%%
+
+\newcommand{\ourtitle}{Belief as Willingness to Bet}
+
+\newcommand{\jan}{Jan van Eijck}
+
+\newcommand{\janAffiliation}{CWI \&\ ILLC, Amsterdam}
+
+\newcommand{\bryan}{Bryan Renne}
+
+\newcommand{\bryanAffiliation}{ILLC, University of Amsterdam}
+
+\newcommand{\bryanFunding}{Funded by an Innovational Research
+  Incentives Scheme Veni grant from the Netherlands Organisation for
+  Scientific Research (NWO).}
+
+\title{\ourtitle{}} 
+
+\author{\jan{}\\{}{\small\janAffiliation{}} \and
+  \bryan{}\footnote{\bryanFunding{}}\\{}{\small\bryanAffiliation{}}}
+
+\usepackage[pdftex,
+            bookmarks=true,
+            bookmarksnumbered=true,
+            pdfborder={0 0 0},
+            plainpages=false,
+            pdfpagelabels]{hyperref}
+
+\hypersetup{ 
+  pdfauthor={\jan{}, \bryan{}}, 
+  pdftitle={\ourtitle{}}
+}
+
+%%
+%% beginning of paper
+%%
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  We investigate the logic of the operator ``I am willing to bet on
+  $\phi$'' by relating a semantics for this in terms of probability
+  models to a more abstract semantics in terms of epistemic
+  neighborhood models.  This relates the perspective on rational
+  decision making of the probabilist with that of the logician, and
+  can perhaps be viewed as a step toward reconciliation.  We show
+  completeness of various calculi, with respect to a class of
+  epistemic neighborhood models with respect to a strictly smaller
+  class of committed epistemic neighborhood models, and with respect a
+  class of probability models that is in turn properly contained in
+  this class. This demonstrates at the same time the power and the
+  weakness of the logical point of view: logic is able to talk about
+  larger classes of models, but at the price of being able to say
+  less.
+\end{abstract}
+
+\section{Introduction}
+
+In thinking about rational decision making there are roughly two
+schools of thought. The probabilist school holds that rational
+decision making should have its foundation in probability theory. See
+\cite{koerner2008naive} for an eloquent example. The AI school holds
+that the reasoning that goes on in rational decision making is a mix
+of doxastic and epistemic logic (perhaps with a dash of non-monotonic
+logic added). See, e.g., \cite{KyburgTeng2012:tlorkr}.  The present
+paper can be viewed as a fresh attempt to reconcile these two views.
+
+Section \ref{Section:EPL} introduces epistemic probability logic and
+probability models as a frame of reference. Section \ref{Section:CB}
+defines modal operators as abbreviations in this language.  Section
+\ref{Section:ENM} introduces epistemic minimal models for knowledge
+and belief. Section \ref{Section:BeliefBet} formulates and proves a
+Betting and Certainty theorem, relating interpretation in epistemic
+minimal models to interpretation in epistemic probability models.
+Section \ref{Section:TreeCalculi} introduces three classes of belief
+models, relates the three classes, and gives a complete calculus for
+each of them.  This shows that the epistemic minimal model semantics
+can be viewed as an abstract version of the epistemic probability
+semantics.  Section \ref{SectionFRW} concludes with plans for future
+work and connections to the literature.
+
+\section{Probability Models}
+\label{Section:EPL} 
+
+Following \cite{Eijck2013:lap}, we define probability models as finite
+multi-agent $\mathsf{S5}$ Kripke models with a probabilistic component
+given by a so-called ``lottery.''
+
+\begin{definition}
+  Given a finite nonempty set $W$ of ``worlds,'' a \emph{$W$-lottery}
+  is a function $l:W\to\Rat^+$ mapping each world $w\in W$ to a
+  positive rational number $l(w)$.  We let $\mathsf{Lot}(W)$ denote
+  the set of $W$-lotteries.  A $W$-lottery will be called a
+  ``lottery'' if the set $W$ ought to be clear from context.
+\end{definition}
+
+\begin{definition}
+  We fix a finite nonempty set $A$ of ``agents'' and a set $\Prop$ of
+  propositional letters.  An \emph{epistemic probability model} $\M$
+  is a tuple $(W,V,R,n,l,E)$ satisfying the following.
+  \begin{itemize} 
+  \item $(W,R,V)$ is a finite multi-agent $\mathsf{S5}$ Kripke model:
+    \begin{itemize}
+    \item $W$ is a finite nonempty set of ``worlds.''
+      
+    \item $R:A\to\pow(W\times W)$ assigns an equivalence relation $R_a$
+      on $W$ to each agent $a\in A$.
+
+    \item $V:W\to\pow(\Prop)$ assigns a set $V(w)$ of propositional
+      letters to each world $w\in W$.
+    \end{itemize}
+
+  \item $n\in\Int^+$ is a positive integer.  We let
+    $\bar{n}=\{0,\dots,n-1\}$ denote the set of nonnegative integers
+    less than $n$.
+
+  \item $l:\bar{n}\to\mathsf{Lot}(W)$ maps each index $i\in\bar{n}$ to
+    a $W$-lottery $l_i:W\to\Rat^+$.
+
+  \item $E:A\to\pow(\bar{n}\times\bar{n})$ assigns an equivalence
+    relation $E_a$ on $\bar{n}$ to each agent $a\in A$.
+  \end{itemize}
+  A \emph{pointed epistemic probability model} is a triple $(\M,w,i)$
+  consisting of an epistemic probability model $\M=(W,V,R,n,l,E)$, a
+  world $w\in W$, and an index $i\in\bar{n}$.
+\end{definition}
+
+Intuitively, a lottery $l$ assigns a positive rational-number
+``weight'' $l(w)$ to each world $w$.  An epistemic probability model
+$\M=(W,V,R,n,l,E)$ consists of $n$ lotteries, indexed by the set
+$\bar{n}=\{0,\dots,n-1\}$.  Agent $a$'s uncertainty as to which
+lottery is the actual lottery is given by the equivalence relation
+$E_a$.  Agent $a$'s uncertainty as to which world is the actual world
+is given by the equivalence relation $R_a$.  We construe an
+\emph{event} as a set of world-index pairs.  If $w$ is the actual
+world and $i$ is the index of the actual lottery, then the probability
+agent $a$ assigns to an event $S$ is given by the ratio
+\begin{equation}
+  P^{\M}_{a,w,i}(S) = \frac{\sum \{l_j(u) \mid wR_au \text{ and } iE_aj
+    \text{ and } (u,j)\in S \}} {\sum \{l_j(u) \mid wR_au \text{ and }
+    iE_aj\}}\enspace.
+  \label{eq:probability}
+\end{equation}
+In words: the probability agent $a$ assigns to event $S$ at
+world-index $(w,i)$ is the fraction of total weight of
+$a$-indistinguishable world-index pairs that come from event $S$.
+
+Since there are finitely many worlds and finitely many lotteries, each
+sum in \eqref{eq:probability} is finite.  Further, since lottery
+weights are positive and each of $R_a$ and $E_a$ is reflexive, the
+denominator in \eqref{eq:probability} is nonzero.  It follows that
+$P^{\M}_{w,a,i}(S)$ is well-defined.  We will drop the superscript
+$\M$ in this notation when doing so ought not cause confusion.  We
+will sometimes abuse notation and write $P^{\M}_{w,a,i}(X)$ for an
+object $X$ that is not an event (i.e., $X$ is not a set of world-index
+pairs); in so doing, what is meant is $P^{\M}_{w,a,i}(S_X)$ for the
+set $S_X$ made up of all world-index pairs at which $X$ holds.  When
+we abuse notation in this way, the exact membership of $S_X$ will
+always be clear from context.
+
+\begin{example}[Horse Racing] 
+  \label{ExampleHorseRacing}
+  Three horses compete in a race.  For each $i\in\{1,2,3\}$, horse
+  $h_i$ wins the race in world $w_i$.  Neither agent can distinguish
+  between these three possibilities. The chances for the horses to win
+  are either $3{:}2{:}1$ or equal. Agent $a$ can distinguish between
+  these two possibilities, but agent $b$ cannot.  We picture this
+  scenario as follows.
+  \begin{center}
+    \begin{mytikz}
+      %%
+      %% nodes
+      %%
+      \node[w,label={left:$w_1$}] (w1) {$h_1$};
+
+      \node[w,below of=w1,label={left:$w_2$}] (w2) {$h_2$};
+
+      \node[w,below of=w2,label={left:$w_3$}] (w3) {$h_3$};
+
+      \node[right of=w1,farthest,yshift=-.5\mysep,label={right:$l_0$}] (l0)
+      {$\{w_1:3,w_2:2,w_3:1\}$};
+
+      \node[below of=l0,label={right:$l_1$}] (l1)
+      {$\{w_1:2,w_2:2,w_3:2\}$};
+
+      \node[right of=w3,yshift=-2em] 
+      {$\M_{\ref{ExampleHorseRacing}}$};
+
+      %%
+      %% edges
+      %%
+      \path (w1) edge[<->] node{$a,b$} (w2);
+
+      \path (w2) edge[<->] node{$a,b$} (w3);
+
+      \path (l0) edge[<->] node{$b$} (l1);
+    \end{mytikz}
+  \end{center}
+  When we picture epistemic probability models, the arrows of each
+  individual agent are to be closed under reflexivity and
+  transitivity.  With this convention in place, it is not difficult to
+  verify the following.
+  \begin{enumerate}
+  \item $P_{a,w_1,0} (l_0) = 1$.
+
+    At $(w_1,0)$, agent $a$ is certain that the winning chances are
+    $3{:}2{:}1$.
+
+  \item $P_{a,w_1,0} (h_1) = \frac{1}{2}$.
+
+    At $(w_1,0)$, agent $a$ assigns probability $\frac 12$ to horse
+    $1$ winning the race.
+
+  \item $P_{b,w_1,0} (l_0) = \frac{1}{2}$.
+
+    At $(w_1,0)$, agent $b$ assigns probability $\frac 12$ to the
+    winning chances being $3{:}2{:}1$.
+
+  \item $P_{b,w_1,0} (h_1) = \frac{5}{12}$.
+
+    At $(w_1,0)$, agent $b$ assigns probability $\frac 5{12}$ to horse
+    $1$ winning the race.
+  \end{enumerate}
+\end{example} 
+
+In our models for epistemic probability logic, lottery values are
+always positive. Therefore, in order to represent a situation in which
+agent $a$ is certain that horse $3$ can never win, we simply make the
+$h_3$-worlds inaccessible via $R_a$.
+
+\begin{example}[Horse Racing, Once More]
+  \label{ExampleHorseRacing2}
+  Consider the following variation of our horse racing example.
+  \begin{center}
+    \begin{mytikz}
+      %%
+      %% nodes
+      %%
+      \node[w,label={left:$w_1$}] (w1) {$h_1$};
+
+      \node[w,below of=w1,label={left:$w_2$}] (w2) {$h_2$};
+
+      \node[w,below of=w2,label={left:$w_3$}] (w3) {$h_3$};
+
+      \node[right of=w1,farthest,yshift=-.5\mysep,label={right:$l_0$}] (l0)
+      {$\{w_1:3,w_2:2,w_3:1\}$};
+
+      \node[below of=l0,label={right:$l_1$}] (l1)
+      {$\{w_1:2,w_2:2,w_3:2\}$};
+
+      \node[right of=w3,yshift=-2em] 
+      {$\M_{\ref{ExampleHorseRacing2}}$};
+
+      %%
+      %% edges
+      %%
+      \path (w1) edge[<->] node{$a,b$} (w2);
+
+      \path (w2) edge[<->] node{$b$} (w3);
+
+      \path (l0) edge[<->] node{$b$} (l1);
+    \end{mytikz}
+  \end{center}
+  At world $w_1$ in this picture, there is no $a$-accessible world at
+  which horse $3$ wins.  Therefore, at world $w_1$, agent $a$ assigns
+  probability $0$ to the event that horse $3$ wins: we have
+  $P_{a,w_1,i}(h_3)=0$ for each $i\in\bar{2}$.
+\end{example}
+
+We define a language $\Lang$ for reasoning about multi-agent
+probability logic over lotteries.
+
+\XXXcomment{Changed language for simpler presentation.  I recall you
+  mentioned this hurts the computational properties, but I wonder if
+  it might be better to have this simpler presentation for this paper.
+  (Later we could mention a variant of the language that has better
+  computational properties, perhaps when these are
+  studied?)\hfill{}--br}
+
+\begin{definition}
+  The language $\Lang$ of \emph{multi-agent probability logic} is
+  defined by the following grammar.
+  \begin{eqnarray*}
+    \phi & ::= & 
+    \top \mid p \mid \neg\phi \mid \phi\land\phi \mid
+    l_j \mid @_j \phi \mid t\geq q
+    \\
+    t   & ::= & q \mid q \cdot P_a(\phi) \mid t+t
+    \\
+    &&
+    \text{\footnotesize 
+      $p\in\Prop$,
+      $j\in\Nat$,
+      $q\in\Rat$,
+      $a\in A$
+    }
+  \end{eqnarray*}
+  We adopt the usual abbreviations for Boolean connectives.  We define
+  the relational symbols $\leq$, $>$, $<$, and $=$ in terms of $\geq$
+  as usual.  For example, $t=s$ abbreviates $(t\geq s)\land(s\geq t)$.
+\end{definition}
+
+\begin{definition} 
+  Let $\M=(W,R,V,n,l,E)$ be an epistemic probability model.  We define
+  a binary truth relation $\modelsp$ between a pointed epistemic
+  probability model $(\M,w)$ and $\Lang$-formulas as follows.
+  \[
+  \renewcommand{\arraystretch}{1.3}
+  \begin{array}{lcl}
+    \M,w,i\modelsp\top 
+    \\
+    \M,w,i\modelsp p & \text{iff} & 
+    p \in V(w) 
+    \\
+    \M,w,i\modelsp\neg\phi & \text{iff} &
+    \M,w,i\not\modelsp\phi
+    \\
+    \M,w,i\modelsp\phi\land\psi & \text{iff} &
+    \M,w,i\modelsp\phi \text{ and } \M,w,i\modelsp\psi
+    \\
+    \M,w,i\modelsp l_j & \text{iff} & 
+    i = j \;(\text{mod}\; n)
+    \\
+    \M,w,i\modelsp @_j \phi & \text{iff} &
+    \M, w,(j \text{ mod } n)\modelsp \phi
+    \\
+    \M,w,i\modelsp t\geq s & \text{iff} &
+    \sem{t}^{\M}_{w,i}\geq\sem{s}^{\M}_{w,i}
+  \end{array}
+  \]
+  \[
+  \renewcommand{\arraystretch}{1.3}
+  \begin{array}{rcl}
+    \semp{\phi}^{\M} & := &
+    \{ (u,j) \in W\times\bar{n} \mid \M,u,j\modelsp\phi \}
+    \\[1em]
+    \sem{q}^{\M}_{w,i} & := & q
+    \\
+    \sem{q\cdot P_a(\phi)}^{\M}_{w,i} & := & 
+    q\cdot P^{\M}_{a,w,i}(\semp{\phi}^{\M}) 
+    \text{ with $P^{\M}_{a,w,i}$ given by \eqref{eq:probability}}
+    \\
+    \sem{t+s}^{\M}_{w,i} & := &
+    \sem{t}^{\M}_{w,i} + \sem{s}^{\M}_{w,i}
+  \end{array}
+  \]
+  Validity of $\phi\in\Lang$ in epistemic probability model $\M$,
+  written $\M\modelsp\phi$, means that $\M,w\modelsp\phi$ for each
+  world $w\in W$.  Validity of $\phi\in\Lang$, written $\modelsp\phi$,
+  means that $\M\modelsp\varphi$ for each epistemic probability model
+  $\M$.
+\end{definition} 
+
+$P_{a,w,i} (\phi)$ is the probability agent $a$ assigns to $\phi$ at
+world $w$ under lottery $l_i$. According to \eqref{eq:probability},
+this value is normalized for the set of all world-index pairs that
+agent $a$ cannot distinguish from $(w,i)$.  Note that $P_{a,w,i} (l_i)
+= 1$ if and only if agent $a$ does not confuse $l_i$ with any other
+lottery.
+
+\begin{example}
+  Referring to the epistemic probability models
+  $\M_{\ref{ExampleHorseRacing}}$ of Example~\ref{ExampleHorseRacing}
+  and $\M_{\ref{ExampleHorseRacing2}}$ of
+  Example~\ref{ExampleHorseRacing2}, the following are easily
+  verified.
+  \begin{enumerate}
+  \item $\M_{\ref{ExampleHorseRacing}},w_1,0\modelsp P_a(l_0)= 1$.
+    
+    At $(w_1,0)$ in $\M_{\ref{ExampleHorseRacing}}$, agent $a$ is
+    certain that $l_0$ is the actual lottery.
+    
+  \item $\M_{\ref{ExampleHorseRacing}},w_1,0\modelsp P_a(h_1) =
+    \frac{1}{2}$.
+    
+    At $(w_1,0)$ in $\M_{\ref{ExampleHorseRacing}}$, agent $a$ assigns
+    probability $\frac 12$ to $h_1$.
+    
+  \item $\M_{\ref{ExampleHorseRacing}},w_1,0\modelsp P_b(l_0) =
+    \frac{1}{2}$.
+    
+    At $(w_1,0)$ in $\M_{\ref{ExampleHorseRacing}}$, agent $b$ assigns
+    probability $\frac 12$ to the lottery being $l_0$.
+    
+  \item $\M_{\ref{ExampleHorseRacing}},w_1,0\modelsp P_b(h_1) = \frac{5}{12}$.
+
+    At $(w_1,0)$ in $\M_{\ref{ExampleHorseRacing}}$, agent $b$ assigns
+    probability $\frac 5{12}$ to $h_1$.
+
+  \item $\M_{\ref{ExampleHorseRacing2}},w_1,i\modelsp P_a(h_3)=0$ for
+    each $i\in\bar 2$.
+
+    At world $w_1$ in $\M_{\ref{ExampleHorseRacing2}}$, agent $a$
+    assigns probability $0$ to $h_3$.
+  \end{enumerate}
+\end{example}
+
+
+\section{Certainty and Belief} 
+\label{Section:CB} 
+
+\cite{Eijck2013:lap} formulates and proves a ``certainty theorem''
+relating certainty in epistemic probability models to knowledge in a
+version of these models in which the lottery information is removed.
+This motivates the following definition.
+
+\begin{definition}[Knowledge as certainty]
+  We adopt the following abbreviations.
+  \begin{itemize}
+  \item $K_a\phi$ abbreviates $P_a(\phi)=1$. 
+
+    We read $K_a\phi$ as ``agent $a$ knows $\phi$.''
+
+  \item $\check K_a\phi$ abbreviates $\lnot K_a\lnot\phi$.
+
+    We read $\check K_a\phi$ as ``$\phi$ is consistent with agent
+    $a$'s knowledge.''
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}[Properties of knowledge as certainty;
+  \cite{Eijck2013:lap}]
+  \label{prop:knowledge}
+  $K_a$ is an $\mathsf{S5}$ modal operator:
+  \begin{enumerate}
+  \item $\modelsp \phi$ for each $\Lang$-instance $\phi$ of a scheme
+    of classical propositional logic.
+
+    Axioms of classical propositional logic are valid.
+
+  \item $\modelsp K_a(\varphi\to\psi)\to(K_a\varphi\to K_a\psi)$
+    
+    Knowledge is closed under logical consequence.
+
+  \item $\modelsp K_a\varphi\to \varphi$
+
+    Knowledge is veridical.
+    
+  \item $\modelsp K_a\varphi\to K_aK_a\varphi$
+
+    Knowledge is positive introspective:  it is known what is known.
+    
+  \item $\modelsp \lnot K_a\varphi\to K_a\lnot K_a\varphi$
+
+    Knowledge is negative introspective: it is known what is not
+    known.
+    
+  \item $\modelsp\varphi$ implies $\modelsp K_a\varphi$
+
+    All validities are known.
+
+  \item $\modelsp\varphi\to\psi$ and $\modelsp\varphi$ together imply
+    $\modelsp\psi$.
+
+    Validities are closed under the rule of Modus Ponens.
+  \end{enumerate}
+\end{proposition}
+
+We define belief in a proposition $\phi$ as willingness to take bets
+on $\phi$ with the odds being better than some rational number
+$c\in[0,1]\cap\Rat$.  This leads to a number of degrees of belief, one
+for each threshold $c$.
+
+\begin{definition}[Belief as willingness to bet]
+  Fix a threshold $c\in(0,1)\cap\Rat$.\footnote{We do not allow the
+    thresholds $c=0$ or $c=1$ because many forthcoming results would
+    require us to continually add the proviso that the threshold is
+    neither $0$ nor $1$, and this would soon become tiresome.
+    Furthermore, the two natural definitions of threshold-$1$ belief
+    $B^1_a\phi$ (as $P_a(\phi)>1$ or as $P_a(\phi)=1$) are already
+    expressible in the language (respectively as $\bot$ and as
+    $K_a\phi$).  Similarly, the two natural definitions of
+    threshold-$0$ belief $B^0_a\phi$ (as $P_a(\phi)>0$ or as
+    $P_a(\phi)=0$) are also expressible (respectively as $\check
+    K_a\phi$ and as $K_a\lnot\phi$).  This being said, we do not allow
+    the thresholds $c=0$ or $c=1$ anywhere else in this paper.}
+  \begin{itemize}
+  \item $B_a^c\phi$ abbreviates $P_a(\phi)>c$.
+
+    We read $B_a^c\phi$ as ``agent $a$ believes $\phi$ with threshold
+    $c$.''
+
+  \item $\check B_a^c\phi$ abbreviates $\lnot B_a^c\lnot\phi$.
+
+    We read $\check B_a\phi$ as ``$\phi$ is consistent with agent
+    $a$'s threshold-$c$ beliefs.''
+  \end{itemize}
+  If the threshold $c$ is omitted (either in the notations $B_a^c\phi$
+  and $\check B_a^c\phi$ or in the informal readings of these
+  notations), it is assumed that $c=\frac 12$.
+\end{definition}
+
+This notion of belief comes from subjective probability
+\cite{Jeffrey2004:sptrt}.  In particular, fix a threshold
+$c=p/q\in(0,1)\cap\Rat$.  Suppose that agent $a$ believes $\phi$ with
+threshold $c=p/q$; that is, $P_a(\phi)>p/q$.  If the agent wagers $p$
+dollars for a chance to win $q-p$ dollars on a bet that $\phi$ is
+true, then she expects to win
+\[
+(q-p)\cdot P_a(\phi) - p\cdot(1-P_a(\phi)) = q\cdot P_a(\phi) - p
+\]
+dollars on this bet.  This is a positive number of dollars if and only
+if $q\cdot P_a(\phi)>p$.  But notice that the latter is guaranteed by
+the assumption $P_a(\phi)>p/q$.  Therefore, it is rational for agent
+$a$ to take this bet.  Said in the parlance of the subjective
+probability literature, ``If agent $a$ stakes $p$ to win $q-p$ in a
+bet on $\phi$, then her winning expectation is positive in case she
+believes $\phi$ with threshold $c$.''  Or in a short motto: ``Belief
+is willingness to bet.''
+
+In this paper, we will ignore ``low-threshold'' beliefs; that is, we
+ignore thresholds $c\in(0,\frac 12)$.  Low-threshold beliefs are
+studied in a separate paper \cite{EijRen13:Manu}.  Our present
+interest will be in ``high-threshold'' beliefs: those with thresholds
+$c\in[\frac 12,1)$.
+
+The following lemma provides a useful characterization of the dual
+$\check B^c_a\phi$.
+
+\begin{lemma}
+  \label{lemma:dual}
+  Let $\M=(W,R,V,n,l,E)$ be an epistemic probability model.
+  \begin{enumerate}
+  \item \label{item:dual} $\M,w,i\modelsp\check B_a^c\phi$ iff
+    $\M,w,i\modelsp P_a(\phi)\geq c'$, where $c':=1-c$.
+
+  \item \label{item:dual-half} $\M,w,i\modelsp\check B_a^{1/2}\phi$ iff
+    $\M,w,i\modelsp P_a(\phi)\geq \frac 12$.
+
+  \item \label{item:dual-low} For $c\in(0,\frac 12)\cap\Rat$:
+    \[
+    \M,w,i\modelsp\check B_a^c\phi \text{ implies } \M,w,i\modelsp
+    P_a(\phi)>c\enspace\text{.}
+    \]
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  For Item~\ref{item:dual}, we have the following:
+  \[
+  \renewcommand{\arraystretch}{1.3}
+  \begin{array}{lll}
+    &
+    \M,w,i\modelsp\check B^c_a\phi
+    \\
+    \text{iff} &
+    \M,w,i\modelsp\lnot B^c_a\lnot\phi 
+    & \text{by definition of $\check B^c_a\phi$}
+    \\
+    \text{iff} &
+    P^\M_{a,w,i}(\semp{\lnot\phi}^\M)\not>c
+    & \text{by definition of $B^c_a\phi$ and $\models$}
+    \\
+    \text{iff} &
+    P^\M_{a,w,i}(\semp{\lnot\phi}^\M)\leq c
+    & \text{since $\Rat$ is totally ordered}
+    \\
+    \text{iff} &
+    P^\M_{a,w,i}(\semp{\phi}^\M)\geq 1-c
+    & \text{since $\semp{\lnot\phi}^\M=W-\semp{\phi}^\M$}
+    \\
+    \text{iff} &
+    \M,w,i\modelsp P_a(\phi)\geq c'
+    & \text{definition of $\models$ and $c'$}
+  \end{array}
+  \]
+  For Item~\ref{item:dual-half}, we observe that $1-\frac 12=\frac 12$
+  and apply Item~\ref{item:dual}.  For Item~\ref{item:dual-low}, we
+  observe that $c\in(0,\frac 12)$ implies $c'=1-c>c$, so the result
+  follows by Item~\ref{item:dual}.  Note that the converse of
+  Item~\ref{item:dual-low} does not follow: since $c\in(0,\frac 12)$
+  implies $c'=1-c>c$, it is not the case that $\M,w,i\modelsp
+  P_a(\phi)>c$ implies $\M,w,i\modelsp P_a(\phi)\geq c'$.
+\end{proof}
+
+We now consider a simple example.
+
+\begin{example}[Horse Racing, Single-Agent Version]
+  \label{ExampleHorseRacing3}
+  In this variation, all horses have equal chances of winning and
+  agent $a$ knows this.
+  \begin{center}
+    \begin{mytikz}
+      %%
+      %% nodes
+      %%
+      \node[w,label={left:$w_1$}] (w1) {$h_1$};
+
+      \node[w,below of=w1,label={left:$w_2$}] (w2) {$h_2$};
+
+      \node[w,below of=w2,label={left:$w_3$}] (w3) {$h_3$};
+
+      \node[right of=w1,farthest,yshift=-.5\mysep,label={right:$l_0$}] (l0)
+      {$\{w_1:1,w_2:1,w_3:1\}$};
+
+      \node[right of=w3,yshift=-2em] 
+      {$\M_{\ref{ExampleHorseRacing3}}$};
+
+      %%
+      %% edges
+      %%
+      \path (w1) edge[<->] node{$a$} (w2);
+
+      \path (w2) edge[<->] node{$a$} (w3);
+    \end{mytikz}
+  \end{center}
+  The following are readily verified.
+  \begin{enumerate}
+  \item $\M_{\ref{ExampleHorseRacing3}}\modelsp B_a(h_1\lor h_2\lor
+    h_3)$.
+
+    Agent $a$ believes the winning horse is among the three.
+
+    (Agent $a$ is willing to bet that the winning horse is among the three.)
+
+  \item $\M_{\ref{ExampleHorseRacing3}}\modelsp B_a(h_1\lor h_2)\land
+    B_a(h_1\lor h_3)\land B_a(h_2\lor h_3)$.
+
+    Agent $a$ believes the winning horse is among any two.
+
+    (Agent $a$ is willing to bet that the winning horse is among any two.)
+
+  \item \label{item:conjuncts} $\M_{\ref{ExampleHorseRacing3}}\modelsp
+    B_a\lnot h_1\land B_a\lnot h_2\land B_a\lnot h_3$.
+
+    Agent $a$ believes the winning horse is not any particular one.
+
+    (Agent $a$ is willing to bet that the winning horse is not any
+    particular one.)
+
+  \item \label{item:conjunction}
+    $\M_{\ref{ExampleHorseRacing3}}\not\modelsp B_a(\lnot h_1\land
+    \lnot h_2)$.
+
+    Agent $a$ does not believe that both horses $1$ and $2$ do not
+    win.
+
+    (Agent $a$ is not willing to bet that both horses $1$ and $2$ do
+    not win.)
+  \end{enumerate}
+\end{example} 
+
+It follows from Items~\ref{item:conjuncts} and \ref{item:conjunction}
+of Example~\ref{ExampleHorseRacing3} that the present notion of belief
+is not closed under conjunction.  This is known as the ``Lottery
+Paradox'' \cite{Kyburg1961:patlorb}.\footnote{The usual formulation of
+  the Lottery Paradox: it is paradoxical for an agent to believe that
+  one of $n$ lottery tickets will be a winner (i.e., ``some ticket is
+  a winner'') without believing of any particular ticket that it is
+  the winner (i.e., ``for each $i\in\{1,\dots,n\}$, ticket $i$ is not
+  a winner'').}  However, there is no reason in general that it is
+paradoxical to assign a conjunction $\phi \land \psi$ a lower
+probability than either of its conjunctions.  Indeed, if $\phi$ and
+$\psi$ are independent, then the probability of their conjunction
+equals the product of their probabilities, so unless one of $\phi$ or
+$\psi$ is certain or impossible, the probability of $\phi \land \psi$
+will be less than the probability of $\phi$ and less than the
+probability of $\psi$.
+
+We set aside philosophical arguments for or against closure of belief
+under conjunction and instead turn our attention to the study of the
+properties of the present notion of belief.  One of these is a
+complicated but useful property due to Lenzen \cite{Lenzen2003:kbasp}
+that makes use of notation due to Segerberg
+\cite{Segerberg1971:qpiams}.  Another is a similarly complicated
+property related to the Lenzen property.
+
+\begin{definition}[Segerberg notation; \cite{Segerberg1971:qpiams}]
+  \label{definition:segerberg-notation}
+  Fix a positive integer $m\in\Int^+$ and formulas
+  $\phi_1,\dots,\phi_m$ and $\psi_1,\dots,\psi_m$.  The expression
+  \begin{equation}
+    (\phi_1,\dots,\phi_m\mathbb{E}_a\psi_1,\dots,\psi_m)
+    \label{eq:segerberg}
+  \end{equation}
+  abbreviates the formula
+  \[
+  K_a(C_0\lor C_1\lor C_2 \lor \cdots \lor C_m)\enspace,
+  \]
+  where $C_i$ is the disjunction of all conjunctions
+  \[
+  d_1\phi_1\land\cdots\land d_m\phi_m \land
+  e_1\psi_1\land\cdots\land e_m\psi_m
+  \]
+  satisfying the property that exactly $i$ of the $d_i$'s are the
+  empty string, exactly $i$ of the $e_i$'s are the empty string, and
+  the rest of the $d_i$'s and $e_i$'s are the negation sign $\lnot$.
+  We may write $\overline\phi\mathbb{E}\overline\psi$ as an
+  abbreviation for \eqref{eq:segerberg} when doing so ought not cause
+  confusion.
+\end{definition}
+
+The formula $\overline\phi\mathbb{E}_q\overline\psi$ says that agent
+$a$ knows that the number of true $\phi_i$'s is equal to the number of
+true $\psi_i$'s.  Put another way,
+$\overline\phi\mathbb{E}_q\overline\psi$ is true if and only if every
+epistemically accessible world satisfies just as many $\phi_i$'s as
+$\psi_i$'s.
+
+\begin{definition}[Lenzen schemes; \cite{Lenzen2003:kbasp}]
+  \label{definition:lenzen-schemes}
+  We define the following schemes:
+  \[
+  \begin{array}{cl}
+    \textstyle [(\phi_1,\dots,\phi_m\mathbb{E}_a\psi_1,\dots,\psi_m)
+    \land B_a^c\phi_1 \land \bigwedge_{i=2}^m \check B_a^c\phi_i] \to
+    \bigvee_{i=1}^m B_a^c\psi_i
+    &
+    \text{(Len)}
+    \\[1em]
+    \textstyle [(\phi_1,\dots,\phi_m\mathbb{E}_a\psi_1,\dots,\psi_m)
+    \land \bigwedge_{i=1}^m B_a^c\phi_i] \to
+    \bigvee_{i=1}^m B_a^c\psi_i
+    &
+    \text{(wLen)}
+  \end{array}
+  \]
+  If $m=1$, then $\bigwedge_{i=2}^m \check B_a^c\phi_i$ is $\top$.
+  Note that (Len) and (wLen) are meant to encompass the respectively
+  indicated schemes for each positive integer $m\in\Int^+$.
+\end{definition}
+
+(Len) says that if agent $a$ knows the number of true $\phi_i$'s is
+equal to the number of true $\psi_i$'s, agent $a$ believes $\phi_1$
+with threshold $c$, and the remaining $\phi_i$'s are each consistent
+with agent $a$'s threshold-$c$ beliefs, then agent $a$ believes one of
+the $\psi_i$'s with threshold $c$.  Adapting a proof of Segerberg
+\cite{Segerberg1971:qpiams}, we show that belief with threshold
+$c\in(0,\frac 12]\cap\Rat$ satisfies (Len).
+
+(wLen) is a weaker version of (Len), in the sense that its antecedent
+has stronger requirements.  In particular, (wLen) says that if agent
+$a$ knows the number of true $\phi_i$'s is equal to the number of true
+$\psi_i$'s and agent $a$ believes all $\psi_i$'s with threshold $c$,
+then agent $a$ believes one of the $\psi_i$'s with threshold $c$.  The
+proof of Segerberg can also be adapted to show that belief with any
+threshold $c\in(0,1)\cap\Rat$ satisfies (wLen).
+
+We report these two results along with a number of other properties
+in the following proposition.
+
+\begin{proposition}[Properties of belief as willingness to bet]
+  \label{prop:belief}
+  We have:
+  \begin{enumerate}
+  \item \label{item:B-not-normal} $\not\modelsp
+    B_a^c(\varphi\to\psi)\to(B_a^c\varphi\to B_a^c\psi)$.
+
+    Belief is not closed under logical consequence.
+
+    (So $B_a^c$ is not a normal modal operator.)
+
+  \item \label{item:B-not-T} $\not\modelsp B_a^c\varphi\to\varphi$.
+
+    Belief is not veridical.
+
+  \item \label{item:B-C} $\modelsp K_a\phi\to B_a^c\phi$.
+
+    What is known is believed.
+
+  \item \label{item:B-B} $\modelsp\lnot B^c_a\bot$.
+
+    The propositional constant $\bot$ for falsehood is not believed.
+
+  \item \label{item:B-N} $\modelsp B_a^c\top$.
+
+    The propositional constant $\top$ for truth is believed.
+
+  \item \label{item:B-Ap} $\modelsp B_a^c\phi\to K_aB_a^c\phi$.
+
+    What is believed is known to be believed.
+
+  \item \label{item:B-An} $\modelsp \lnot B_a^c\phi\to K_a\lnot
+    B_a^c\phi$.
+
+    What is not believed is known to be not believed.
+
+  \item \label{item:B-M} $\modelsp K_a(\phi\to\psi)\to(B_a^c\phi\to B_a^c\psi)$.
+
+    Belief is closed under known logical consequence.
+
+  \item \label{item:B-LT} If $c\in(0,\frac 12)$, then $\modelsp \check
+    B_a^c\phi \to B_a^c\phi$.
+
+    Low-threshold belief is decisive: disbelief in $\lnot\phi$ implies
+    belief in $\phi$.
+
+  \item \label{item:B-D} If $c\in[\frac 12,1)$, then $\modelsp
+    B_a^c\phi\to \check B_a^c\phi$.
+
+    High-threshold belief is consistent: belief in $\phi$ implies
+    disbelief in $\lnot\phi$.
+
+  \item \label{item:B-SC} If $c\in(0,\frac 12]$, then $\modelsp
+    \check{B}_a^c \phi \land \check{K}_a(\neg \phi \land \psi)
+    \rightarrow B_a^c (\phi \lor \psi)$.
+    
+    For each threshold $c\in(0,\frac 12]$, if $\phi$ is consistent
+    with agent $a$'s threshold-$c$ beliefs and $\lnot\phi\land\psi$ is
+    consistent with agent $a$'s knowledge, then agent $a$ believes
+    $\phi\lor\psi$ with threshold $c$.
+
+  \item \label{item:B-Len} If $c\in(0,\frac 12]$, then
+    \[
+    \textstyle \modelsp
+    [(\phi_1,\dots,\phi_m\mathbb{E}_a\psi_1,\dots,\psi_m) \land
+    B_a^c\phi_1 \land \bigwedge_{i=2}^m \check B_a^c\phi_i] \to
+    \bigvee_{i=1}^m B_a^c\psi_i\enspace.
+    \]
+
+    Belief with threshold $c\in(0,\frac 12]$ satisfies (Len).
+
+  \item \label{item:B-wLen}
+    $\modelsp[(\phi_1,\dots,\phi_m\mathbb{E}_a\psi_1,\dots,\psi_m) \land
+    \bigwedge_{i=1}^m B_a^c\phi_i] \to \bigvee_{i=1}^m B_a^c\psi_i$.
+
+    Belief satisfies (wLen).
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  We consider each item in turn.
+  \begin{enumerate}
+  \item Given $c\in(0,1)\cap\Rat$ and integers $p$ and $q$ such that
+    $p/q=c$, we define $\M$ as the modification of the model
+    $\M_{\ref{ExampleHorseRacing3}}$ of
+    Example~\ref{ExampleHorseRacing3} obtained by changing lottery
+    $l_0$ as follows:
+    \[
+    l_0 := \left\{ w_1:\frac{q-p}2,\; w_2:p,\; w_3:\frac{q-p}2
+    \right\}\enspace.
+    \]
+    Since $1\leq p<q$, it follows that
+    \begin{eqnarray*}
+      P^\M_{a,w_1,0}(\semp{\lnot h_1\to h_2}^\M) &=& 
+      (p+(q-p)/2)/q > p/q \enspace,
+      \\
+      P^\M_{a,w_1,0}(\semp{\lnot h_1}^\M) &=& 
+      (p+(q-p)/2)/q > p/q 
+      \enspace,\text{ and}
+      \\
+      P^\M_{a,w_1,0}(\semp{h_2}^M)&=&p/q\enspace.
+    \end{eqnarray*}
+    Therefore, we have
+    \[
+    \M,w_1,0\modelsp B^c_a(\lnot h_1\to h_2)\land B^c_a\lnot h_1\land
+    \lnot B^c_ah_2\enspace.
+    \]
+    
+  \item For $\M$ defined in the proof of Item~\ref{item:B-not-normal},
+    we have
+    \[
+    \M,w_1,0\modelsp h_1\land B_a^c\lnot h_1\enspace.
+    \]
+    
+  \item $\M,w,i\modelsp K_a\phi$ means $P^\M_{a,w,i}(\semp{\phi}^\M)=1$.
+    Since $c\in(0,1)$, it follows that
+    $P^\M_{a,w,i}(\semp{\phi}^\M)>c$, which is what it means to have
+    $\M,w,i\modelsp B_a^c\phi$.
+
+  \item $P^\M_{a,w,i}(\semp{\bot}^\M)=0<c\in(0,1)$.  Hence
+    $\M,w,i\models\lnot B^c_a\bot$.
+
+  \item $P^\M_{a,w,i}(\semp{\top}^\M)=1>c\in(0,1)$. Hence
+    $\M,w,i\modelsp B_a^c\top$.
+
+  \item We note that since $R_a$ and $E_a$ are equivalence relations,
+    we have
+    \begin{equation}
+      wR_au \text{ and } iE_aj \text{ implies } 
+      P^\M_{a,w,i}(\semp{\phi}^\M)= P^\M_{a,u,j}(\semp{\phi}^\M)\enspace.
+      \label{eq:PeqP}
+    \end{equation}
+    So for Item~\ref{item:B-Ap}, it follows from $\M,w,i\modelsp
+    B_a^c\phi$ that $P^\M_{a,w,i}(\semp{\phi}^\M)>c$.  To show that
+    $\M,w,i\modelsp K_aB_a^c\phi$, we must argue that
+    \[
+    P^M_{a,w,i}(\semp{B_a^c\phi}^\M)= \frac{\sum\{l_j(u) \mid
+      (u,j)\in[w,i]_a\cap \semp{B_a^c\phi}^\M\}} {\sum\{l_j(u) \mid
+      (u,j)\in[w,i]_a\}} = 1\enspace.
+    \]
+    Choosing $(u,j)\in[w,i]_a$, it suffices to show that
+    $(u,j)\in\semp{B_a^c\phi}^\M$.  By \eqref{eq:PeqP}, we have
+    $P^\M_{a,u,j}(\semp{\phi}^\M)=P^\M_{a,w,i}(\semp{\phi}^\M)>c$, which
+    implies $(u,j)\in\semp{B_a^c\phi}^\M$.  The result follows.
+    
+  \item The argument is similar to that for Item~\ref{item:B-Ap},
+    though we note that $\M,w,i\modelsp\lnot B_a^c\phi$ implies
+    $P^\M_{a,w,i}(\semp{\phi}^\M)\leq c$.
+    
+  \item Let us assume that $\M,w,i\modelsp K_a(\phi\to\psi)$ and
+    $\M,w,i\modelsp B_a^c\phi$.  This means that
+    $P^\M_{a,w,i}(\semp{\phi\to\psi}^\M)=1$ and
+    $P^\M_{a,w,i}(\semp{\phi}^\M)>c$.  But then it follows that
+    $P^\M_{a,w,i}(\semp{\psi}^\M)>c$ as well, which is what it means to
+    have $\M,w,i\modelsp B_a^c\psi$.
+
+  \item By Lemma~\ref{lemma:dual}.
+
+  \item Assume $c\in[\frac 12,1)$ and $\M,w,i\modelsp B_a^c\phi$.
+    Then $P^\M_{a,w,i}(\semp{\phi}^\M)>c$.  But $c\in[\frac 12,1)$
+    implies $c\geq 1-c$, so $P^\M_{a,w,i}(\semp{\phi}^\M)\geq 1-c$.
+    The result therefore follows by Lemma~\ref{lemma:dual}.
+
+  \item Assume $c\in(0,\frac 12]$ and $\M,w,i\modelsp\check B^c_a\phi$.  By
+    Lemma~\ref{lemma:dual}, it follows that
+    $P^\M_{a,w,i}(\semp{\phi}^\M)\geq c$.  Let us assume further that
+    $\M,w,i\modelsp\check K_a(\lnot\phi\land\psi)$.  This means
+    \[
+    P^\M_{a,w,i}(\semp{\lnot(\lnot\phi\land\psi)}^\M)\neq 1\enspace,
+    \]
+    which implies there exists $(v,k)\in[w,i]_a\cap
+    \semp{\lnot\phi\land\psi}^\M$.  Since $l_k(v)>0$, it follows that
+    \[
+    \renewcommand{\arraystretch}{1.3}
+    \begin{array}{cl}
+      &
+      \textstyle \sum\{l_j(u) \mid (u,j)\in[w,i]_a\cap
+      \semp{\phi\lor\psi}^\M\}
+      \\
+      \geq &
+      \textstyle \sum\{l_j(u) \mid (u,j)\in[w,i]_a\cap
+      \semp{\phi}^\M\} + l_k(v)
+      \\
+      \geq &
+      c+l_k(v) > c
+    \end{array}
+    \]
+    Hence $P^\M_{a,w,i}(\semp{\phi\lor\psi}^\M)>c$.  That is,
+    $\M,w,i\modelsp B_a^c(\phi\lor\psi)$.
+    
+  \item Given $c\in(0,\frac 12)$, we assume the following:
+    \begin{eqnarray}
+      &&
+      \M,w,i\modelsp \phi_1,\dots,\phi_m\mathbb{E}_a\psi_1,\dots,\psi_m
+      \label{eq:S}
+      \\
+      &&
+      \M,w,i\modelsp B^c_a\phi_1
+      \label{eq:Bphi1}
+      \\
+      &&
+      \textstyle \M,w,i\modelsp \bigwedge_{i=2}^m\check B^c_a\phi_i
+      \label{eq:checkB}
+    \end{eqnarray}
+    For each formula $\chi$, we define the set
+    \[
+    s(\chi):=\{l_j(u)\mid wR_au \text{ and } iE_aj \text{ and }
+    M,u,j\modelsp\chi\}
+    \]
+    of all weights from world-index pairs that are epistemically
+    accessible from $(w,i)$ and that satisfy $\chi$. Setting $A:=\sum
+    s(\top)$, we observe that
+    \[
+    P^\M_{a,w,i}(\semp{\chi}^\M)=\frac{\sum s(\chi)}A\enspace.
+    \]
+    Adapting a proof due to Segerberg \cite{Segerberg1971:qpiams}, a
+    subset $X\subseteq s(\top)$ is called a \emph{cell} if there
+    exists an $r\in\{0,\dots,m\}$ such that
+    \begin{equation}
+      \textstyle X=s(\bigwedge_{i=1}^m d_i\phi_i \land \bigwedge_{i=1}^m
+      e_i\psi_i)\enspace,
+      \label{eq:cell}
+    \end{equation}
+    where exactly $r$ of the $d_i$'s are the empty string, exactly $r$
+    of the $e_i$'s are the empty string, and the rest of the $d_i$'s
+    and $e_i$'s are the negation sign $\lnot$.  We say that
+    \emph{$d_i$ is empty} in a cell $X$ to mean that in the equation
+    \eqref{eq:cell}, the symbol $d_i$ denotes the empty string.  The
+    meaning of saying \emph{$e_i$ is empty} in a cell is defined
+    analogously. We let $\mathcal{C}$ denote the set of cells.  As a
+    consequence of \eqref{eq:S}, it follows that
+    \begin{eqnarray*}
+      \textstyle \bigcup\{X\in\mathcal{C}\mid\text{$d_i$ is empty in
+        $X$}\} 
+      &=&
+      s(\phi_i) \enspace\text{and}
+      \\
+      \textstyle
+      \bigcup\{X\in\mathcal{C}\mid\text{$e_i$ is empty in $X$}\}
+      &=&
+      s(\psi_i) \enspace\text{.}
+    \end{eqnarray*}
+    The cells are pairwise disjoint.  Hence
+    \begin{eqnarray*}
+      \textstyle
+      \sum s(\phi_i) &=&
+      \sum_{\text{$d_i$ is empty in $X\in\mathcal{C}$}} X \enspace\text{and}
+      \\
+      \textstyle
+      \sum s(\psi_i) &=&
+      \sum_{\text{$e_i$ is empty in $X\in\mathcal{C}$}} X \enspace\text{.}
+    \end{eqnarray*}
+    We define $S:=\sum_{i=1}^m\sum s(\phi_i)$ and $T:=\sum_{i=1}^m\sum
+    s(\psi_i)$.  It follows that
+    \begin{eqnarray*}
+      S &=&
+      \sum_{i=1}^m\sum_{\text{$d_i$ is empty in $X\in\mathcal{C}$}} X \enspace\text{and}
+      \\
+      T &=&
+      \sum_{i=1}^m\sum_{\text{$e_i$ is empty in $X\in\mathcal{C}$}} X \enspace\text{.}
+    \end{eqnarray*}
+    Given $X\in\mathcal{C}$, the set $X$ will occur in the sum $S$
+    exactly as many times as it occurs in the sum $T$.  Hence $S=T$.
+    By \eqref{eq:Bphi1}, we have $(\sum s(\phi_1))/A>c$.  By
+    \eqref{eq:checkB}, our assumption that $c\in(0,\frac 12)$, and
+    Lemma~\ref{lemma:dual}, we have $(\sum s(\phi_i))/A\geq c$ for
+    each $i\in\{2,\dots,m\}$.  Hence
+    \[
+    \frac SA = \frac{\sum s(\phi_1)}A + \sum_{i=2}^m\frac{\sum
+      s(\phi_i)}A > c + (m-1)c = mc\enspace.
+    \]
+    It follows that $T/A>mc$; that is,
+    \begin{equation}
+      \sum_{i=1}^m \frac{\sum s(\psi_i)}A > mc\enspace.
+      \label{eq:Len-sum}
+    \end{equation}
+    But since $\sum s(\psi_i)>0$ for each $i\in\{1,\dots,m\}$, each
+    term $(\sum s(\psi_i))/A$ of the sum \eqref{eq:Len-sum} is
+    positive.  Therefore, at least one of these terms must exceed $c$.
+    Hence $\M,w,i\modelsp\bigvee_{i=1}^m B_a^c\psi_i$.
+
+    \XXXcomment{Not sure I am completely happy with the clarity of the
+      proof of Item~\ref{item:B-Len} (my adaptation of Segerberg's
+      proof).  I wonder if it might be more straightforward to simply
+      argue $ \sum s(\phi_1) + \cdots + \sum s(\phi_m) = \sum
+      s(\psi_1) + \cdots + \sum s(\psi_m) $ directly, maybe using our
+      notation $F(\phi)$ for $\sum s(\phi)$. \hfill --br}
+
+  \item The proof is similar to that for the previous item, except
+    that $c\in(0,1)$ and the assumption \eqref{eq:checkB} is replaced
+    the by assumption
+    \begin{equation}
+      \textstyle
+      \M,w,i\modelsp \bigwedge_{i=2}^m B^c_a\phi_i
+      \label{eq:wLen-B}
+    \end{equation}
+    It follows from \eqref{eq:Bphi1} and \eqref{eq:wLen-B} that $(\sum
+    s(\phi_i))/A>c$ for each $i\in\{1,\dots,m\}$ and hence we have
+    $T/A=S/A>mc$ by the argument in the previous item.  It follows
+    that $\M,w,i\modelsp\bigvee_{i=1}^m B_a^c\psi_i$.  \qedhere
+  \end{enumerate}
+\end{proof}
+
+\section{Epistemic Neighborhood Models}
+\label{Section:ENM}
+
+The modal formulas $K_a\phi$ and $B_a^c\phi$ were taken as
+abbreviations in the language $\Lang$ of multi-agent probability
+logic.  We wish to consider a propositional modal language that has
+knowledge and belief operators as primitives.
+
+\begin{definition}
+  The language $\Lang_\KB$ of \emph{multi-agent knowledge and belief}
+  is defined by the following grammar.
+  \begin{eqnarray*}
+    \phi & ::= & 
+    \top \mid p \mid \neg\phi \mid \phi\land\phi \mid
+    K_a\phi \mid B_a\phi
+    \\
+    &&
+    \text{\footnotesize 
+      $p\in\Prop$,
+      $a\in A$
+    }
+  \end{eqnarray*}
+  We adopt the usual abbreviations for other Boolean connectives and
+  define the dual operators $\check K_a:=\lnot K_a\lnot$ and $\check
+  B_a:=\lnot B_a\lnot$.
+\end{definition}
+
+Our goal will be to develop a possible worlds semantics for
+$\Lang_\KB$ that links with the probabilistic setting by making the
+following translation truth-preserving.
+
+\begin{definition}
+  \label{definition:s}
+  For each $c\in(0,1)\cap\Rat$, we define a translation $c:
+  \Lang_\KB \to \Lang$ as follows.
+  \[
+  \renewcommand{\arraystretch}{1.3}
+  \begin{array}{ccl@{\qquad}l}
+    \top^c & := & \top
+    \\
+    p^c & := & p 
+    \\
+    (\neg \phi)^c & := & \neg \phi^c 
+    \\
+    (\phi \land \psi)^c & := & \phi^c \land \psi^c 
+    \\
+    (K_a\phi)^c & := & P_a(\phi^c) = 1
+    & (= K_a\phi^c \text{ in } \Lang)
+    \\
+    (B_a\phi)^c & := & \textstyle P_a(\phi^c) > c
+    & (= B_a^c\phi^c \text{ in } \Lang)
+  \end{array}
+  \]
+\end{definition} 
+
+Since we have seen that the probabilistic belief operator $B_a^c$ is
+not a normal modal operator (Proposition~\ref{prop:belief}), we opt
+for a neighborhood semantics for $\Lang_\KB$ \cite[Ch 7]{Chellas:ml}
+with a new epistemic twist.
+
+\begin{definition} 
+  An \emph{epistemic neighborhood model} is a structure
+  \[
+  \M=(W,R,N,V)
+  \]
+  satisfying the following.
+  \begin{itemize}
+  \item $W$ is a nonempty set of ``worlds.''
+
+  \item $R : A \to \pow (W \times W)$ is a function that assigns to each
+    agent $a\in A$ an equivalence relation $R_a$ on $W$.  We let
+    \[
+    [w]^\M_a:=\{v\in W\mid wR_av\}
+    \]
+    denote the equivalence class of $w$ under $R_a$.  The superscript
+    $\M$ may be dropped when doing so ought not cause confusion.
+
+  \item $N : A\times W \to \pow(\pow(W))$ is a \emph{neighborhood
+      function} that assigns to each agent $a\in A$ and world $w\in W$
+    a collection $N_a(w)$ of sets of worlds---each such set called a
+    \emph{neighborhood} of $w$---subject to the following conditions.
+    \begin{description}
+    \item[(c)] $\forall X \in N_a(w) : X \subseteq [w]_a$.
+
+    \item[(f)] $\emptyset\notin N_a(w)$.
+      
+    \item[(n)] $[w]_a\in N_a(w)$.
+      
+    \item[(a)] $\forall v \in [w]_a : N_a(v) = N_a(w)$.
+
+    \item[(m)] $\forall X \subseteq Y \subseteq [w]_a : 
+      \text{ if } X \in N_a(w) \text{, then } Y \in N_a(w)$.
+    \end{description}
+
+  \item $V:W\to\pow(\Prop)$ assigns a set $V(w)$ of propositional
+    letters to each world $w\in W$.
+  \end{itemize}
+  A \emph{pointed epistemic neighborhood model} is a pair $(\M,w)$
+  consisting of an epistemic neighborhood model $\M$ and a world $w$
+  in $M$.
+\end{definition} 
+
+An epistemic minimal model is a variation of a minimal model that
+includes an epistemic component $R_a$ for each agent $a$.
+Intuitively, $[w]_a$ is the set of worlds agent $a$ knows to be
+possible at $w$ and each $X\in N_a(w)$ represents a proposition that
+the agent believes at $w$.  The condition that $R_a$ be an equivalence
+relation ensures that knowledge is closed under logical consequence,
+veridical (i.e., only true things can be known), positive
+introspective (i.e., the agent knows what she knows), and negative
+introspective (i.e., the agent knows what she does not know).
+
+Property (c) ensures that the agent does not believe a proposition
+$X\subseteq W$ that she knows to be false: if $X$ contains a world in
+$w'\in(W-[w]_a)$ that the agent knows is not possible with respect to
+the actual world $w$, then she knows that $X$ cannot be the case and
+hence she does not believe $X$.  Property (f) ensures that no logical
+falsehood is believed, while Property (n) ensures that every logical
+truth is believed.  Property (a) ensures that if $X$ is believed, then
+it is known that $X$ is believed.  Property (m) says that belief is
+monotonic: if an agent believes $X$, then she believes all
+propositions $Y\supseteq X$ that follow from $X$.
+
+Here are a few other properties that will arise later on.
+
+\begin{definition}[Extra Properties]
+  \label{definition:extra-properties}
+  Let $\M=(W,R,N,V)$ be an epistemic neighborhood model.  The
+  following are a list of properties that $\M$ may satisfy.
+  \begin{description}
+  \item[(lt)] $\forall X\subseteq[w]_a: \text{ if } [w]_a-X\notin
+    N_a(w) \text{, then } X\in N_a(w)$.
+
+  \item[(d)] $\forall X \in N_a(w): [w]_a - X \notin  N_a(w)$.
+
+  \item[(sc)] $\forall X,Y\subseteq[w]_a: \text{ if } [w]_a-X\notin
+    N_a(w) \text{ and } Y\supsetneq X \text{, then } Y\in N_a(w)$.
+
+  \item[(l)] $\forall m\in\Int^+,\forall
+    X_1,\dots,X_m,Y_1,\dots,Y_m\subseteq[w]_a:$
+    \[
+    \renewcommand{\arraystretch}{1.3}
+    \begin{array}{ll}
+      \text{if }
+      &
+      \begin{array}[t]{l}
+        X_1,\dots,X_m\mathbb{E}_aY_1,\dots,Y_n \quad\text{and}
+        \\
+        X_1\in N_a(w) \quad\text{and}
+        \\{}
+        \forall i\in\{2,\dots,m\}:
+        [w]_a-X_i\notin N_a(w) \text{,}
+      \end{array}
+      \\
+      \text{then }
+      &
+      \exists j\in\{1,\dots,m\}: Y_j\in N_a(w)\text{.}
+    \end{array}
+    \]
+
+    Notation: $X_1,\dots,X_m\mathbb{E}_aY_1,\dots,Y_n$ means that for
+    each $v\in W$, the number of $X_i$'s containing $v$ is equal to
+    the number of $Y_i$'s containing $v$.
+
+  \item[(wl)] $\forall m\in\Int^+,\forall
+    X_1,\dots,X_m,Y_1,\dots,Y_m\subseteq[w]_a:$
+    \[
+    \renewcommand{\arraystretch}{1.3}
+    \begin{array}{ll}
+      \text{if }
+      &
+      \begin{array}[t]{l}
+        X_1,\dots,X_m\mathbb{E}_aY_1,\dots,Y_n \quad\text{and}
+        \\
+        \forall i\in\{1,\dots,m\}:
+        X_i\in N_a(w) \text{,}
+      \end{array}
+      \\
+      \text{then }
+      &
+      \exists j\in\{1,\dots,m\}: Y_j\in N_a(w)\text{.}
+    \end{array}
+    \]
+  \end{description}
+\end{definition}
+
+Property (lt) says that if the agent does not believe the complement
+of $X$, then she must believe $X$.  Property (d) ensures that beliefs
+are consistent (in the sense that the agent does not believe both $X$
+and its complement $[w]_a-X$). Property (sc) is a form of ``strong
+commitment'': if the agent does not believe the complement of $X$,
+then she must believe any strict superset $Y\supsetneq X$ that follows
+from $X$.  Properties (l) and (wl) are versions of the Lenzen scheme
+(Len) and the weak Lenzen scheme (wLen) from
+Definition~\ref{definition:lenzen-schemes}.  We will come back to
+these properties later.
+
+We now turn to the definition of truth for the language $\Lang_\KB$.
+
+\begin{definition} 
+  Let $\M = (W,R,N,V)$ be an epistemic neighborhood model.  We define
+  a binary truth relation $\modelsn$ between a pointed epistemic
+  neighborhood model $(\M,w)$ and $\Lang_\KB$-formulas and a function
+  $\semn{\cdot}^\M:\Lang_\KB\to \pow(W)$ as follows.
+  \begin{eqnarray*} 
+    \semn{\phi}^\M & := & \{v\in W\mid \M,v\modelsn\phi\}
+    \\
+    \M, w \modelsn p & \text{ iff } & p \in V(w) 
+    \\
+    \M, w \modelsn \neg \phi & \text{ iff } & \M, w \not\modelsn \phi 
+    \\
+    \M, w \modelsn \phi\land\psi  & \text{ iff } 
+    & \M, w \modelsn \phi \text{ and } \M, w \modelsn \psi
+    \\
+    \M, w \modelsn K_a \phi  & \text{ iff } & 
+    [w]_a\subseteq\semn{\phi}^\M
+    \\
+    \M, w \modelsn B_a \phi  & \text{ iff } &
+    [w]_a\cap \semn{\phi}^\M \in N_a(w)
+  \end{eqnarray*}
+  Validity of $\phi\in\Lang_\KB$ in an epistemic neighborhood model
+  $\M$, written $\M\modelsn\phi$, means that $\M,w\modelsn\phi$ for
+  each world $w\in W$.  Validity of $\phi\in\Lang_\KB$, written
+  $\modelsn\phi$, means that $\M\modelsn\varphi$ for each epistemic
+  neighborhood model $\M$.  For a class $\mathcal{C}$ of epistemic
+  neighborhood models, we write $\mathcal{C}\modelsn\phi$ to mean that
+  $\M\modelsn\phi$ for each $\M\in\mathcal{C}$.
+\end{definition}
+
+Intuitively, $K_a\phi$ is true at $w$ iff $\phi$ holds at all worlds
+epistemically possible with respect to $w$, and $B_a\phi$ holds at $w$
+iff the epistemically possible $\phi$-worlds make up a neighborhood of
+$w$.  Note that it follows from this definition that the dual for
+belief $\check{B}_a \phi$ is true at $w$ iff
+$[w]_a\cap\semn{\neg\phi}^\M\notin N_a(w)$.
+
+\section{Relating Belief with Willingness to Bet}
+\label{Section:BeliefBet}
+
+We now relate the definition of belief in neighborhood models to the
+notion of belief as willingness to bet. For every epistemic
+probability model $\M$ and threshold $c\in(0,1)\cap\Rat$, we define
+an epistemic neighborhood model $\M^c$ in which the lotteries are
+eliminated.
+
+\begin{definition} Given a probability model $\M = (W,R,V,n,l,E)$ and
+  a threshold $c\in(0,1)\cap\Rat$, we define the structure
+ \[
+ \M^c = (W^c,R^c,N^c, V^c)
+ \]
+ as follows.
+ \begin{itemize} 
+ \item $W^c := W\times\bar{n}$.
+
+ \item $R^c_a:=\{((w,i),(u,j))\in W^c\times W^c\mid wR_au \text{ and }
+   iE_aj\}$.
+
+   When it ought not cause confusion, we let $[w,i]_a$ denote the set
+   \[
+   [(w,i)]^{\M^c}_a:=\{(u,j)\in W^c\mid (w,i)R^c_a(u,j)\} \enspace.
+   \]
+
+ \item To define $N^c$, let $F:\pow(W\times \bar{n})\to \Rat^+$ be
+   given by
+   \[
+   F(X) := 
+   \sum \{ l_j(u) \mid (u,j) \in X \} \enspace,
+   \]
+   and then set
+   \[
+   \textstyle N^c_a (w,i) := \{ X \subseteq [w,i]_a
+   \mid F(X) > c\cdot F([w,i]_a) \} \enspace.
+   \]
+   
+ \item $V^c(w,i) := V(w)$.
+ \end{itemize}
+\end{definition}
+
+The worlds of $\M^c$ are world-index pairs from $\M$, the worlds that
+are epistemically indistinguishable from $(w,i)$ are determined
+coordinatewise by the indistinguishability relations $R_a$ and $E_a$,
+and the neighborhoods of $(w,i)$ consist of all collections
+$X\subseteq [w]_a$ of epistemically indistinguishable worlds whose
+total lottery value $F(X)$ exceeds $c$ times the total lottery value
+$F([w,i]_a)$ of all epistemically indistinguishable worlds.
+Intuitively, agent $a$ believes a proposition $X\in N^c_a(w,i)$ if and
+only if $X$ is epistemically possible (i.e., $X\subseteq[w,i]_a$) and
+the probability of $X$ is greater than $c$ (i.e.,
+$F(X)/F([w,i]_a)>c$).
+
+\begin{lemma}[Correctness]
+  \label{lemma:correctness}
+  If $\M$ is a probability model and $c\in(0,1)\cap\Rat$, then $\M^c$
+  is an epistemic neighborhood model.  Furthermore:
+  \begin{itemize}
+  \item if $c\in(0,\frac 12)\cap\Rat$, then $\M^c$ satisfies (lt),
+    (sc), and (l);
+
+  \item $\M^{1/2}$ satisfies (d), (sc), and (l); and
+
+  \item if $c\in(\frac 12,1)\cap\Rat$, then $\M^c$ satisfies (d) and
+    (wl).
+  \end{itemize}
+\end{lemma}
+\begin{proof}
+  % XXX; check this!
+  $W^c$ is nonempty because $W$ and $\bar{n}$ are nonempty.  $R^c_a$
+  is an equivalence relation because it is the product of the
+  equivalence relations $R_a$ and $E_a$.  We verify that $N^c_a$
+  satisfies properties (c), (f), (n), (a), and (m).  Notation: let
+  $A:=[w,i]_a$, let $X$ and $Y$ (possibly with subscripts) denote
+  subsets of $A$, and let $X'$ denote $A-X$.
+  \begin{itemize}
+  \item For (c), $X\in N^c_a(w,i)$ implies $X\subseteq[w,i]_a$ by
+    definition.
+
+  \item For (f), we have $F(\emptyset)=0<c\cdot F(A)$ because
+    $c\in(0,1)\cap\Rat$ and $F(A)>0$.  Hence $\emptyset\notin
+    N^c_a(w,i)$.
+
+  \item For (n), we have $F(A) > c\cdot F(A)$ because
+    $c\in(0,1)\cap\Rat$, and therefore $[w,i]_a \in N^c_a(w,i)$.
+
+  \item For (a), suppose $X \in N^c_a(w,i)$. Then $F(X) > c\cdot
+    F([w,i]_a)$.  Let $(v,j) \in [w,i]_a$. Then $[w,i]_a = [v,j]_a$,
+    and therefore $F(X) > c\cdot F([v,j]_a)$. Thus $X \in N^c_a(v,j)$.
+
+  \item For (m), assume $X \in N^c_a(w,i)$.  Then $F(X) > c\cdot
+    F(A)$. Hence for $Y$ satisfying $X \subseteq Y \subseteq A$, we
+    have $F(Y) \geq F(X) > c\cdot F(A)$ and therefore that $Y \in
+    N^c_a(w,i)$.
+  \end{itemize}
+  Now let us check the remaining properties conditional on the value
+  of the threshold $c\in(0,1)\cap\Rat$.
+  \begin{itemize}
+  \item For (lt), we assume $c\in(0,\frac 12)\cap\Rat$ and $X'\notin
+    N^c_a(w,i)$.  Then $F(X')\leq c\cdot F(A)$ and therefore $F(X)\geq
+    (1-c)\cdot F(A)$.  Since $1-c>c$, it follows that $F(X)> c\cdot
+    F(A)$ and hence that $X\in N^c_a(w,i)$.
+
+  \item For (d), we assume $c\in[\frac 12,1)\cap\Rat$ and $X \in
+    N^c_a(w,i)$. Then $F(X) > c\cdot F(A)$ and therefore $F(X') \leq
+    (1-c)\cdot F(A)$. Since $1-c\leq c$, it follows that $F(X')\leq
+    c\cdot F(A)$ and hence that $X' \notin N^c_a(w,i)$.
+
+  \item For (sc), we assume $c\in(0,\frac 12]\cap\Rat$, $X'\notin
+    N^c_a(w,i)$, and $Y\supsetneq X$.  Now the second assumption
+    implies $F(X')\leq c\cdot F(A)$.  Hence $F(X)\geq(1-c)\cdot F(A)$.
+    Since $1-c\geq c$ and $Y\supsetneq X$, we have $F(Y)>F(x)\geq
+    c\cdot F(A)$ and hence that $Y\in N^c_a(w,i)$.
+
+  \item For (l), we assume $c\in(0,\frac 12]\cap\Rat$ along with the
+    following:
+    \begin{eqnarray}
+      &&
+      X_1,\dots,X_m\mathbb{E}_aY_1,\dots,Y_n
+      \label{eq:prop-l:E}
+      \\
+      &&
+      X_1\in N^c_a(w,i) 
+      \label{eq:prop-l:X1}
+      \\
+      &&
+      \forall i\in\{2,\dots,m\}: X_i'\notin N^c_a(w,i)
+      \label{eq:prop-l:Xcs}
+    \end{eqnarray}
+    From \eqref{eq:prop-l:E} it follows (by an argument similar to the
+    argument that $S=T$ in the proof of Item~\ref{item:B-Len} of
+    Proposition~\ref{prop:belief}) that \XXXcomment{If we drop the
+      Segerberg argument in Prop.~\ref{prop:belief}, then we need to
+      change the wording here.\hfill--br}
+    \[
+    F(X_1)+\cdots+F(X_m)=F(Y_1)+\cdots+F(Y_m)\enspace.
+    \]
+    Therefore,
+    \begin{equation}
+      \frac{F(X_1)}{F(A)}+\cdots+\frac{F(X_m)}{F(A)}=
+      \frac{F(Y_1)}{F(A)}+\cdots+\frac{F(Y_n)}{F(A)}\enspace.
+      \label{eq:sums-eq}
+    \end{equation}
+    From \eqref{eq:prop-l:X1}, we have $F(X_1)>c\cdot F(A)$.  From
+    \eqref{eq:prop-l:Xcs}, we have for each $i\in\{2,\dots,m\}$ that
+    $F(X_i')\leq c\cdot F(A)$ and therefore that
+    \[
+    F(X_i)\geq (1-c)\cdot F(A)\geq c\cdot F(A)\enspace,
+    \]
+    here making use of the fact that $c\in(0,\frac 12)$ implies
+    $1-c\geq c$.  Hence the left-hand side of the sum
+    \eqref{eq:sums-eq} is strictly greater than $mc$.  Since every
+    summand on either side of the equality is positive, it follows
+    that at least one member of the right-hand side of
+    \eqref{eq:sums-eq} must exceed $c$.  That is, there exists
+    $j\in\{1,\dots,m\}$ such that $F(Y_j)>c\cdot F(A)$ and hence
+    $Y_i\in N^c_a(w,i)$.
+
+  \item For (wl), we assume $c\in(\frac 12,1)\cap\Rat$,
+    \eqref{eq:prop-l:E}, and the following:
+    \begin{eqnarray}
+      &&
+      \forall i\in\{1,\dots,m\}: X_i\in N^c_a(w,i)
+      \label{eq:prop-wl:Xis}
+    \end{eqnarray}
+    As in the argument for (l), we have \eqref{eq:sums-eq}.  Further,
+    it follows from \eqref{eq:prop-wl:Xis} that $F(X_i)>c\cdot F(A)$
+    for each $i\in\{1,\dots,m\}$.  But then the left-hand side of
+    \eqref{eq:sums-eq} exceeds $mc$, and hence the right-hand side of
+    this sum does as well. That is, there exists $j\in\{1,\dots,m\}$
+    such that $F(Y_j)>c\cdot F(A)$ and hence $Y_i\in N^c_a(w,i)$.
+    \qedhere
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}[Betting and Certainty]
+  \label{BettingTheorem}
+  For each epistemic probability model
+  \[
+  \M = (W,R,V,n,l,E)\enspace,
+  \]
+  pair $(w,i)\in W\times\bar{n}$, threshold $c\in(0,1)\cap\Rat$, and
+  formula $\phi \in \Lang_\KB$, we have:
+  \[
+  \M^c,(w,i)\modelsn\phi \quad\text{iff}\quad \M,w,i\modelsp\phi^c
+  \enspace.
+  \]
+\end{theorem}
+\begin{proof}
+  Induction on the structure of $\phi$. The non-modal cases are
+  obvious.
+
+  We first consider knowledge formulas. Assume $\M^c,(w,i)\modelsn
+  K_a\psi$.  This means
+  $[w,i]_a\subseteq\semn{\psi}^{\M^c}$. Applying the definition of
+  $R^c_a$ and the induction hypothesis, this is equivalent to
+  \[
+  \{(u,j)\mid wR_au \text{ and } iE_aj\}\subseteq \{(u,j)\mid
+  \M,u,j\modelsp \psi^c\} \enspace.
+  \]
+  Since $l_j(u)>0$ for each $(u,j)\in W\times\bar{n}$, this is
+  equivalent to the statement that
+  \[
+  \frac{\sum\{l_j(u)\mid wR_au \text{ and } iE_aj\text{ and }
+    \M,u,j\modelsp \psi^c\}} {\sum\{l_j(u)\mid wR_au\text{ and }
+    iE_aj\}} = 1 \enspace.
+  \]
+  But the latter is what it means to have $\M,w,i\models
+  P_a(\psi^c)=1$.
+
+  Now we move to belief formulas. Assume $\M^c,(w,i)\modelsn
+  B_a\psi$.  This means that
+  \[
+  [w,i]_a\cap\semn{\psi}^{\M^c}\in N^c_a(w,i) \enspace.
+  \]
+  According to the induction hypothesis, this is equivalent to: 
+  \[
+  [w,i]_a\cap \{(u,j)\mid \M,u,j\modelsp \psi^c\}\in N^c_a(w,i)
+  \enspace.
+  \]
+  By the definition of $R^c_a$, this is in turn equivalent to:
+  \begin{equation}
+    \{(u,j)\mid wR_au \text{ and } iE_aj \text{ and } \M,u,j\modelsp\psi^c\}\in
+    N^c_a(w,i) \enspace.
+  \label{bettingstatement0}
+  \end{equation}
+  Since $X\in N^c_a(w,i)$ iff $F(X)> c\cdot F([w,i]_a)$ and
+  \[
+    F(X) = \sum \{l_j(u) \mid (u,j)\in X\} \enspace,
+  \]
+  it follows that \eqref{bettingstatement0} is equivalent to
+  \[
+  \frac{\sum\{l_j(u)\mid wR_au \text{ and } iE_aj\text{ and }
+    \M,u,j\modelsp\psi^c\}} {\sum\{l_j(u)\mid wR_au\text{ and }
+    iE_aj\}} > c \enspace.
+  \]
+  But this is what it means to have $\M,w,i\modelsp P_a(\psi^c)>c$.
+\end{proof}
+
+\section{Calculi for Belief as Willingness to Bet}
+
+\begin{definition}
+  The theory $\KB$ in the language $\Lang_\KB$ is defined in
+  Table~\ref{table:KB}.  Using additional schemes from
+  Table~\ref{table:other-schemes}, we also define the following
+  theories in the language $\Lang_\KB$.
+  \begin{itemize}
+  \item $\KBlt$ is obtained from $\KB$ by adding (LT), (SC), and (L).
+
+  \item $\KBeq$ is obtained from $\KB$ by adding (D), (SC), and (L).
+
+  \item $\KBgt$ is obtained from $\KB$ by adding (D) and (WL).
+  \end{itemize}
+\end{definition}
+
+\begin{table}[h]
+  \begin{center}
+    \textsc{Axiom Schemes}\\[.4em]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}[t]{cl}
+      (CL) &
+      Schemes of Classical Propositional Logic
+      \\
+      (KS5) &
+      $\mathsf{S5}$ axiom schemes for each $K_a$
+      \\
+      (C) &
+      $K_a\phi\to B_a\phi$
+      \\
+      (F) &
+      $\lnot B_a\bot$
+      \\
+      (N) &
+      $B_a\top$
+      \\
+      (Ap) &
+      $B_a\phi\to K_aB_a\phi$
+      \\
+      (An) &
+      $\lnot B_a\phi\to K_a\lnot B_a\phi$
+      \\
+      (M) &
+      $K_a(\phi\to\psi)\to(B_a\phi\to B_a\psi)$
+    \end{tabular}
+    \renewcommand{\arraystretch}{1.0}
+    \\[1em]
+    \textsc{Rules}\vspace{-.5em}
+    \[
+    \begin{array}{c}
+      \varphi\to\psi \quad \varphi
+      \\\hline
+      \psi
+    \end{array}\;\text{\footnotesize(MP)}
+    \qquad
+    \begin{array}{c}
+      \varphi
+      \\\hline
+      K_a\varphi
+    \end{array}\;\text{\footnotesize(MN)}
+    \]
+  \end{center}
+  \caption{The theory $\KB$}
+  \label{table:KB}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}[t]{cl}
+      (LT) &
+      $\check B_a\phi\to B_a\phi$
+      \\
+      (D) &
+      $B_a\phi\to \check B_a\phi$
+      \\
+      (SC) &
+      $\check B_a\phi \land 
+      \check K_a(\lnot\phi\land\psi) \to 
+      B_a(\phi\lor\psi)$
+      \\
+      (L) &
+      $\textstyle [(\phi_1,\dots,\phi_m\mathbb{E}_a\psi_1,\dots,\psi_m)
+      \land B_a\phi_1 \land \bigwedge_{i=2}^m \check B_a\phi_i] \to
+      \bigvee_{i=1}^m B_a\psi_i$
+      \\
+      (WL) &
+      $\textstyle [(\phi_1,\dots,\phi_m\mathbb{E}_a\psi_1,\dots,\psi_m)
+      \land \bigwedge_{i=1}^m B_a\phi_i] \to
+      \bigvee_{i=1}^m B_a\psi_i$
+      \\
+    \end{tabular}
+    
+    \bigskip
+    \begin{minipage}{.9\textwidth}
+      The $\Lang_\KB$-formula
+      $(\phi_1,\dots,\phi_m\mathbb{E}_a\psi_1,\dots,\psi_m)$ is given
+      as in Definition~\ref{definition:segerberg-notation} except that
+      all formulas are taken from the language $\Lang_\KB$.
+    \end{minipage}
+  \end{center}
+    \caption{Other axiom schemes}
+  \label{table:other-schemes}
+\end{table}
+
+\subsection{Results for the Basic Calculus $\KB$}
+
+\begin{proposition}[$\KB$ Derivables]
+  \label{prop:KB-derivables}
+  We have each of the following.
+  \begin{enumerate}
+  \item $\vdash_\KB B_a(\phi\land\psi)\to(B_a\phi\land B_a\psi)$.
+
+  \item $\vdash_\KB B_a\phi\to B_aB_a\phi$.
+
+  \item $\vdash_\KB \lnot B_a\phi\to B_a\lnot B_a\phi$.
+
+  \item $\vdash_\KB K_a(\phi\to\psi)\to(\check B_a\phi\to\check B_a\psi)$.
+
+  \item $\vdash_\KB K_a\phi\land B_a\psi\to B_a(\phi\land\psi)$.
+
+  \item $\vdash_\KB B_a\phi\leftrightarrow K_aB_a\phi$.
+
+  \item $\vdash_\KB \lnot B_a\phi\leftrightarrow K_a\lnot B_a\phi$.
+
+  \item $\vdash_\KB\phi$ implies $\vdash_\KB B_a\phi$.
+
+  \item $\vdash_\KB\phi\to\psi$ implies $\vdash_\KB B_a\phi\to B_a\psi$.
+
+  \item $\vdash_\KB\phi\to\psi$ implies $\vdash_\KB\check
+    B_a\phi\to\check B_a\psi$.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  % XXX; show proofs of a couple?
+\end{proof}
+
+\begin{theorem}[$\KB$ Neighborhood Completeness]
+  \label{theorem:KB-neighborhood-completeness}
+  $\KB$ is sound and complete with respect to the class of epistemic
+  neighborhood models:
+  \[
+  \forall\phi\in\Lang_\KB: \vdash_\KB\phi \text{ iff } {}\modelsn\phi
+  \enspace.
+  \]
+  Further, every $\phi\in\Lang_\KB$ that is satisfiable at a pointed
+  epistemic neighborhood model is satisfiable at a finite pointed
+  epistemic neighborhood model.
+\end{theorem}
+\begin{proof}
+  Soundness is by induction on the length of derivation.  We first
+  verify soundness of the axioms.
+  \begin{itemize}
+  \item Validity of schemes of classical propositional logic is
+    immediate.  Validity of schemes of $\mathsf{S5}$ follows by the
+    fact that the $R_a$'s are equivalence relations
+    \cite{BlaRijVen:ml}.
+
+  \item Scheme (C) is valid: $\modelsn K_a\phi\to B_a\phi$.
+
+    $\M,w\modelsn K_a\phi$ means $[w]_a\subseteq\semn{\phi}$.  Since
+    $[w]_a\in N_a(w)$ by (n), we have $[w]_a\cap\semn{\phi}=[w]_a\in
+    N_a(w)$.  That is, $\M,w\modelsn B_a\phi$.
+
+  \item Scheme (F) is valid: $\modelsn\lnot B_a\bot$.
+
+    $\semn{\bot}=\emptyset\notin N_a(w)$ by (f).  Hence
+    $\M,w\not\modelsn B_a\bot$.
+
+  \item Scheme (N) is valid: $\modelsn B_a\top$.
+
+    $\semn{\top}\cap[w]_a=[w]_a\in N_a(w)$ by (n).  Hence
+    $\M,w\modelsn B_a\top$.
+
+  \item Scheme (Ap) is valid: $\modelsn B_a\phi\to K_a B_a\phi$.
+
+    Suppose $\M,w\modelsn B_a\phi$. Then $[w]_a\cap\semn{\phi}\in
+    N_a(w)$.  Take $v\in[w]_a$.  We have $[v]_a=[w]_a$ because $R_a$
+    is an equivalence relation, and we have $N_a(v)=N_a(w)$ by (a).
+    Hence $[v]_a\cap\semn{\phi}\in N_a(v)$; that is, $\M,v\modelsn
+    B_a\phi$.  Since $v\in [w]_a$ was chosen arbitrarily, we have
+    shown that $[w]_a\subseteq\semn{B_a\phi}$.  Hence $\M,w\modelsn
+    K_a B_a\phi$.
+
+  \item Scheme (An) is valid: $\modelsn \lnot B_a\phi\to K_a\lnot B_a\phi$.
+
+    Replace $B_a\phi$ by $\lnot B_a\phi$ and $\in$ by $\notin$ in the
+    argument for the previous item.
+
+  \item Scheme (M) is valid: $\modelsn K_a(\phi\to\psi)\to(B_a\phi\to B_a\psi)$.
+
+    Suppose $\M,w\modelsn K_a(\phi\to\psi)$ and $\M,w\modelsn
+    B_a\phi$.  This means $[w]_a\subseteq\semn{\phi\to\psi}$ and
+    $[w]_a\cap\semn{\phi}\in N_a(w)$. But then
+    \[
+    [w]_a\cap\semn{\phi}\subseteq
+    [w]_a\cap\semn{\phi}\cap\semn{\phi\to\psi}\subseteq
+    [w]_a\cap\semn{\psi}\enspace.
+    \]
+    Hence $[w]_a\cap\semn{\psi}\in N_a(w)$ by (m).
+  \end{itemize}
+  That validity is closed under applications of the rules MP and MN
+  follows by the standard arguments \cite{BlaRijVen:ml}.
+
+  Completeness is by a canonical model argument. The \emph{canonical
+    model} for $\KB$ is the structure $\M=(W,R,N,V)$ obtained as
+  follows.
+  \begin{itemize}
+  \item $W$ is the set of maximal $\KB$-consistent sets.\footnote{A
+      \emph{$\KB$-consistent set} is a set of $\Lang_\KB$-formulas
+      satisfying the property that $\bot$ is not $\KB$-derivable from
+      any finite subset.  A \emph{maximal $\KB$-consistent set} is a
+      $\KB$-consistent set satisfying the property that adding any
+      $\Lang_\KB$-formula not already present will yield a set that is
+      not $\KB$-consistent.}
+
+  \item $\Gamma R_a\Delta$ means $\Gamma^{K_a}:=\{\phi\mid
+    K_a\phi\in\Gamma\}\subseteq\Delta$.
+
+    Since $K_a$ is an $\mathsf{S5}$ modal operator, it follows by
+    standard arguments that $R_a$ is an equivalence relation
+    \cite{BlaRijVen:ml}.  As before, we let
+    \[
+    [\Gamma]_a:=\{\Delta\in W\mid \Gamma R_a\Delta\}
+    \]
+    denote the equivalence class of $\Gamma$ under $R_a$.
+
+  \item $V(\Gamma):=\Prop\cap\Gamma$.
+
+  \item Define for each $\Gamma\in W$, $a\in A$, and
+    $\phi\in\Lang_\KB$ the set
+    \begin{eqnarray*}
+      \Gamma_a(\phi) &:=&
+      \{\Delta\in[\Gamma]_a\mid\phi\in\Delta\}
+    \end{eqnarray*}
+    and let
+    \[
+    N_a(\Gamma):= \{X\subseteq[\Gamma]_a\mid \exists B_a\phi\in\Gamma:
+    X\supseteq\Gamma_a(\phi)\} \enspace.
+    \]
+  \end{itemize}
+  We verify that $\M$ is an epistemic neighborhood model. $W$ is
+  nonempty because $\KB$ is consistent, something it is easy to show
+  by constructing a simple one-world epistemic neighborhood model and
+  applying soundness.  $R_a$ is an equivalence relation by the
+  standard modal arguments \cite{BlaRijVen:ml}.  What remains is to
+  check that $N_a$ satisfies (c), (f), (n), (a), and (m).
+  \begin{itemize}
+  \item For (c), we must show $X\in N_a(\Gamma)$ implies
+    $X\subseteq[\Gamma]_a$.  But this follows by the definition of
+    $N_a(\Gamma)$.
+
+  \item For (f), we must show that $\emptyset\notin N_a(\Gamma)$. So
+    suppose toward a contradiction we had $\emptyset\in N_a(\Gamma)$.
+    By the definition of $N_a$, there exists $B_a\phi\in\Gamma$ such
+    that for every $\Delta\in[\Gamma]_a$, we have $\phi\notin\Delta$.
+    It follows by the maximal consistency of $\Gamma$ that
+    $K_a\lnot\phi\in\Gamma$ and hence $K_a(\phi\to\bot)\in\Gamma$ by
+    modal reasoning and maximal consistency.  But then it follows by
+    (M) and maximal consistency that $B_a\bot\in\Gamma$, contradicting
+    the fact that we have $\lnot B_a\bot\in\Gamma$ by (F) and maximal
+    consistency.  Conclusion: $\emptyset\notin N_a(\Gamma)$.
+
+  \item For (n), we must show $[\Gamma]_a\in N_a(w)$.  But it follows
+    by (N) and maximal consistency that $B_a\top\in\Gamma$ and
+    therefore $\Gamma_a(\top)\in N_a(w)$.  Since we have
+    $\Gamma_a(\top)=[\Gamma]_a$ by maximal consistency, the result
+    follows.
+
+  \item For (a), we must show that $\Delta\in[\Gamma]_a$ implies
+    $N_a(\Delta)=N_a(\Gamma)$.  So take $\Delta\in[\Gamma]_a$.  By
+    maximal consistency, (Ap), and the definition of $R_a$, we have
+    \[
+    B_a\phi\in\Gamma \Rightarrow
+    K_aB_a\phi\in\Gamma \Rightarrow
+    B_a\phi\in\Delta \enspace.
+    \]
+    By maximal consistency, (An), and the definition of $R_a$, we also
+    have
+    \[
+    B_a\phi\notin\Gamma \Rightarrow
+    \lnot B_a\phi\in\Gamma \Rightarrow
+    K_a\lnot B_a\phi\in\Gamma \Rightarrow
+    \lnot B_a\phi\in\Delta \Rightarrow
+    B_a\phi\notin\Delta \enspace.
+    \]
+    Hence $B_a\phi\in\Gamma$ iff $B_a\phi\in\Delta$.  Further, since
+    $R_a$ is an equivalence relation and $\Delta\in[\Gamma]_a$, we
+    have $[\Delta]_a=[\Gamma]_a$ and
+    $\Delta_a(\phi)=\Gamma_a(\phi)$. Therefore, we have
+    \[
+    \renewcommand{\arraystretch}{1.3}
+    \begin{array}{lcl}
+      X\in N_a(\Delta) 
+      & \Leftrightarrow &
+      \exists B_a\phi\in\Delta:
+      \Delta_a(\phi)\subseteq X\subseteq[\Delta]_a)
+      \\
+      & \Leftrightarrow &
+      \exists B_a\phi\in\Gamma:
+      \Gamma_a(\phi)\subseteq X\subseteq[\Gamma]_a)
+      \\
+      & \Leftrightarrow &
+      X\in N_a(\Gamma) \enspace.
+    \end{array}
+    \]
+
+  \item For (m), we must show $X\in N_a(\Gamma)$ and $X\subseteq
+    Y\subseteq[\Gamma]_a$ together imply that $Y\in N_a(\Gamma)$.  So
+    assume $X\in N_a(\Gamma)$ and $X\subseteq Y\subseteq[\Gamma]_a$.
+    We then have the following:
+    \[
+    \renewcommand{\arraystretch}{1.3}
+    \begin{array}{lcl}
+      X\in N_a(\Gamma)
+      & \Leftrightarrow &
+      \exists B_a\phi\in\Gamma:\Gamma_a(\phi)\subseteq X\subseteq[\Gamma]_a
+      \\
+      & \Rightarrow &
+      \exists B_a\phi\in\Gamma:\Gamma_a(\phi)\subseteq
+      X\subseteq Y\subseteq[\Gamma]_a
+      \\
+      & \Rightarrow &
+      Y\in N_a(\Gamma)
+      \enspace.
+    \end{array}
+    \]
+  \end{itemize}
+  So $\M$ is indeed an epistemic neighborhood model.  We prove the
+  \emph{Truth Lemma\/}: for each $\phi\in\Lang_\KB$ and $\Gamma\in W$,
+  we have $\phi\in\Gamma$ iff $\M,\Gamma\modelsn\phi$.  The proof is
+  by induction on the construction of $\phi$.  Most cases are standard
+  \cite{BlaRijVen:ml}; we only address the case $\phi=B_a\psi$.
+  \begin{itemize}
+  \item $B_a\psi\in\Gamma$ implies $\M,\Gamma\modelsn\phi$.
+
+    Suppose $B_a\psi\in\Gamma$.  It follows by the definition of $N_a$
+    that $\Gamma_a(\psi)\in N_a(\Gamma)$.  By the induction
+    hypothesis, we have $\Gamma_a(\psi)=[\Gamma]_a\cap \semn{\psi}$
+    and hence $[\Gamma]_a\cap\semn{\psi}\in N_a(\Gamma)$.  But then
+    $\M,\Gamma\modelsn B_a\psi$.
+
+  \item $\M,\Gamma\modelsn\phi$ implies $B_a\psi\in\Gamma$.
+
+    Suppose $\M,\Gamma\modelsn B_a\psi$.  It follows that
+    $[\Gamma]_a\cap\semn{\psi}\in N_a(\Gamma)$.  By the induction
+    hypothesis, $[\Gamma]_a\cap\semn{\psi}=\Gamma_a(\psi)$ and hence
+    $\Gamma_a(\psi)\in N_a(\Gamma)$.  It follows that there exists
+    $B_a\chi\in\Gamma$ such that
+    $\Gamma_a(\chi)\subseteq\Gamma_a(\psi)\subseteq[\Gamma]_a$.  Hence
+    $K_a(\chi\to\psi)\in\Gamma$ (because the negation of this would
+    yield a $\Delta\in[\Gamma]_a$ containing $\chi$ and $\lnot\psi$).
+    Since $B_a\chi\in\Gamma$ and $K_a(\chi\to\psi)\in\Gamma$, it
+    follows by (M) and maximal consistency that $B_a\psi\in\Gamma$.
+  \end{itemize}
+  This completes the proof of the Truth Lemma.  Completeness follows
+  almost immediately: if $\KB\nvdash\varphi$, then $\{\lnot\phi\}$ is
+  consistent and may be extended to a maximal $\KB$-consistent
+  $\Gamma\in W$; applying the Truth Lemma, it follows that
+  $\M,\Gamma\not\models\phi$, from which we conclude that
+  $\not\models_n\phi$.
+
+  We now wish to prove that every $\KB$-formula satisfiable at a
+  pointed epistemic neighborhood model is satisfiable in a finite
+  pointed epistemic neighborhood model.  For this, it suffices (by
+  soundness) for us to fix $\theta\in\Lang_\KB$ satisfying
+  $\KB\nvdash\lnot\theta$ and prove that $\theta$ is satisfiable at a
+  finite pointed epistemic neighborhood model.  Proceeding, for each
+  $\star\in\{K_a,\lnot\}$ and $X\subseteq\Lang_\KB$, we define $\star
+  X:=X\cup\{\star\phi\mid\phi\in X\}$.  Also, for each
+  $\phi\in\Lang_\KB$, we define ${\sim}\phi\in\Lang_\KB$ by
+  \[
+  {\sim}\phi :=
+  \begin{cases}
+    \lnot\phi & \text{if } \phi\neq\lnot\psi, \\
+    \phantom{\lnot}\psi & \text{if } \phi=\lnot\psi;
+  \end{cases}
+  \]
+  for each $S\subseteq\Lang_\KB$, we set ${\sim}S:=\{{\sim}\psi\mid
+  \psi\in S\}$, and and we let $\mathsf{sub}(\chi)$ be the set of
+  subformulas of $\chi$ (including $\chi$ itself).  Define
+  \begin{eqnarray*}
+    L' &:=&
+    \textstyle\bigcup_{a\in A}\lnot
+    K_a\lnot(\mathsf{sub}(\theta)\cup
+    \mathsf{sub}(B_a\top)\cup
+    \mathsf{sub}(\bot))
+    \\
+    \text{for }S\subseteq L'\text{,}\quad
+    \overline S &:=&
+    \textstyle
+    (\bigwedge_{\phi\in S}\phi)\land
+    (\bigwedge_{\psi\in L'-S}{\sim}\psi)
+    \\
+    \text{for }X\subseteq\pow(L')\text{,}\quad
+    \overline X &:=&
+    \textstyle
+    \bigvee_{S\in X}\overline S
+  \end{eqnarray*}
+  and
+  \begin{eqnarray*}
+    L &:=&
+    \textstyle
+    L' \cup \bigcup_{a\in A}\bigl(\bigcup_{X\subseteq\pow(L')}
+    \mathsf{sub}(K_a\lnot B_a\lnot\overline X)\cup
+    \mathsf{sub}(\lnot K_a\lnot\overline X)\;\cup
+    \\
+    &&
+    \textstyle
+    \bigcup_{m=1}^{|\pow(L')|}
+    \bigcup_{X_1,\dots,X_m,Y_1,\dots,Y_m\subseteq\pow(L')}
+    \mathsf{sub}(\overline X_1,\dots,\overline X_m\mathbb{E}_a
+    \overline Y_1,\dots,\overline Y_m)\bigr)
+    \enspace.
+  \end{eqnarray*}
+  To be clear: $\bigwedge_{\phi\in\emptyset}F_\phi=\top\in L'$ and
+  $\bigvee_{\phi\in\emptyset}F_\phi=\bot\in L'$.  Notice that $L'$ and
+  $L$ are finite, and $\chi\in L$ implies $\mathsf{sub}(\chi)\subseteq
+  L$. A simpler definition of $L$ (i.e., taking $L$ to be $L'$) will
+  work for the purposes of the present proof.  Later proofs will need
+  the more elaborate version of $L$ given above, and we can save some
+  space by dispatching with parts of those proofs in the corresponding
+  parts of the present proof.  Nevertheless, the reader may find it
+  convenient to pretend on the first read of the present proof that we
+  have defined $L$ to be $L'$.  A simple check later will show that
+  the argument still works for $L$ as defined.
+
+  Beginning with the canonical model $\M=(W,R,N,V)$, we construct the
+  \emph{filtration}
+  \[
+  \M^*=(W^*,R^*,N^*,V^*)
+  \]
+  as follows.
+  \begin{itemize}
+  \item For $\Gamma,\Delta\in W$, write $\Gamma\equiv\Delta$ to mean
+    that $\Gamma\cap L=\Delta\cap L$.  This defines an equivalence
+    relation on $W$.  We let $\Gamma^*:=\{\Delta\in W\mid
+    \Delta\equiv\Gamma\}$ to denote the equivalence class of $\Gamma$
+    under $\equiv$.
+
+  \item $W^*:=\{\Gamma^*\mid \Gamma\in W\}$.
+
+  \item $\Gamma^*R^*_a\Delta^*$ means
+    \begin{equation}
+      \forall K_a\phi\in L:(K_a\phi\in\Gamma \Leftrightarrow
+      K_a\phi\in\Delta)\enspace.
+      \label{eq:KB-filtration}
+    \end{equation}
+    Note that $R^*_a$ is well-defined: we have
+    \eqref{eq:KB-filtration} if and only if we have the statement
+    obtained from \eqref{eq:KB-filtration} by replacing $\Gamma$ with
+    an arbitrary $\Gamma'\in\Gamma^*$ and $\Delta$ with an arbitrary
+    $\Delta'\in\Delta^*$.  It is easy to see that $R^*_a$ is an
+    equivalence relation on $W^*$.  We let
+    \[
+    [\Gamma^*]_a:=\{\Delta^*\in W^*\mid \Gamma^*R^*_a\Delta^*\}
+    \]
+    denote the equivalence class of $\Gamma^*$ under $R^*_a$.  We
+    observe that for each $\Gamma,\Delta\in W$, we have
+    \begin{equation}
+      \Delta\in[\Gamma]_a \Rightarrow \Delta^*\in[\Gamma^*]_a\enspace.
+      \label{eq:RimpR*}
+    \end{equation}
+    Indeed, $\Delta\in[\Gamma]_a$ means $\Gamma^{K_a}\subseteq\Delta$.
+    Since $K_a$ is an $\mathsf{S5}$ modal operator, it follows by
+    maximal consistency that $\Gamma^{K_a}\subseteq\Delta$ is
+    equivalent to
+    \[
+    \forall K_a\chi\in\Lang_\KB: (K_a\chi\in\Gamma\Leftrightarrow
+    K_a\chi\in\Gamma)\enspace.
+    \]
+    But this implies $\Delta^*\in[\Gamma^*]_a$ by the definition of
+    $R^*_a$.  So \eqref{eq:RimpR*} indeed holds.
+    
+  \item $V^*(\Gamma^*):=V(\Gamma)\cap L$.
+
+    Note that $V^*(\Gamma^*)$ is well-defined: $V(\Gamma)\cap
+    L=V(\Gamma')\cap L$ for each $\Gamma'\in\Gamma^*$.
+
+  \item Define for each $\Gamma^*\in W^*$, $a\in A$, and
+    $\phi\in\Lang_\KB$ the set
+    \[
+    \textstyle \Gamma^*_a(\phi) :=
+    \{\Delta^*\in[\Gamma^*]_a\mid\phi\in(L\cap\Delta)\}\enspace,
+    \]
+    and let
+    \[
+    \textstyle N^*_a(\Gamma^*):=\{X\subseteq[\Gamma^*]_a\mid \exists
+    B_a\phi\in(L\cap\Gamma):X\supseteq\Gamma^*_a(\phi)\}\enspace.
+    \]
+    Note that $\Gamma^*_a(\phi)$ and $N^*_a(\Gamma)$ are well-defined:
+    a set membership assertion occurring in the above definition of
+    either of these sets and having the form $\chi\in(L\cap\Omega)$
+    holds if and only if $\chi\in(L\cap\Omega')$ holds for an
+    arbitrary $\Omega'\in\Omega^*$.
+  \end{itemize}
+  The structure $\M^*$ is finite: $W^*$ is finite because members of
+  $W^*$ are in one-to-one correspondence with the finitely many
+  subsets of the finite set $L$, the set $R^*_a$ is a subset of the
+  finite set $W^*\times W^*$, the set $V^*(\Gamma^*)$ is the subset of
+  the finite set $L$, and $N^*_a(\Gamma^*)$ is a collection of some of
+  the finitely many subsets of the finite set $[\Gamma^*]_a$.
+
+  We verify that $\M^*$ is an epistemic neighborhood model.  $W^*$ is
+  nonempty because $\KB\nvdash\lnot\theta$ and therefore
+  $\{\lnot\theta\}$ may be extended to a maximal $\KB$-consistent set
+  $\Gamma_\theta\in W$, which ensures that $\Gamma_\theta^*\in W^*$.
+  It is easy to see that $R^*_a$ is an equivalence relation.  What
+  remains is to check that $N^*_a$ satisfies (c), (f), (n), (a), and
+  (m).
+  \begin{itemize}
+  \item For (c), we must show $X\in N^*_a(\Gamma^*)$ implies
+    $X\subseteq[\Gamma^*]_a$.  But this follows by the definition of
+    $N^*_a(\Gamma^*)$.
+
+  \item For (f), we must show that $\emptyset\notin N^*_a(\Gamma^*)$.
+    Assume toward a contradiction that $\emptyset\in N^*_a(\Gamma^*)$.
+    It follows that $\exists B_a\phi\in(L\cap\Gamma)$ such that
+    $\emptyset\supseteq\Gamma^*_a(\phi)$.  Thus
+    \[
+    \Gamma^*_a(\phi):=\{\Delta^*\in[\Gamma^*]_a\mid \phi\in
+    L\cap\Delta\}=\emptyset \enspace.
+    \]
+    Since $B_a\phi\in L$, we have $\phi\in L$; it therefore follows by
+    \eqref{eq:RimpR*} that
+    \[
+    \Gamma_a(\phi):=\{\Delta\in[\Gamma]_a\mid \phi\in
+    \Delta\}=\emptyset \enspace.
+    \]
+    It follows from this by maximal consistency that
+    $K_a\lnot\phi\in\Gamma$ and hence $K_a(\phi\to\bot)\in\Gamma$. By
+    (M) and maximal consistency, we have $B_a\bot\in\Gamma$,
+    contradicting the fact that we have $\lnot B_a\bot\in\Gamma$ by
+    (F) and maximal consistency.  Conclusion: $\emptyset\notin
+    N^*_a(\Gamma^*)$.
+
+  \item For (n), we must show that $[\Gamma^*]_a\in N^*_a(\Gamma^*)$.
+    Proceeding, for each $\Delta\in W$, it follows by classical
+    reasoning and maximal consistency that $\top\in\Delta$.  Further,
+    $\top\in L$.  Therefore,
+    \[
+    \Gamma^*_a(\top):= \{\Delta^*\in[\Gamma^*]_a\mid \top\in
+    L\cap\Delta\}=[\Gamma^*]_a\enspace.
+    \]
+    Moreover, $B_a\top\in\Gamma$ by (N) and maximal consistency, and
+    $B_a\top\in L$.  So since $B_a\top\in L\cap\Gamma$, it follows by
+    the definition of $N^*_a$ that $\Gamma^*_a(\top)\in
+    N^*_a(\Gamma^*)$.  But then $[\Gamma^*]_a\in N^*_a(\Gamma^*)$, as
+    desired.
+
+  \item For (a), we must show that $\Delta^*\in[\Gamma^*]_a$ implies
+    $N^*_a(\Delta^*)=N^*_a(\Gamma^*)$.  So take
+    $\Delta^*\in[\Gamma^*]_a$. By the definition of $L$, maximal
+    consistency, (Ap), the definition of $R^*_a$, and the
+    $\mathsf{S5}$ axiom $K_a\phi\to\phi$, we have
+    \[
+    \renewcommand{\arraystretch}{1.3}
+    \begin{array}{lcl}
+      B_a\phi\in L\cap\Gamma 
+      & \Rightarrow &
+      K_aB_a\phi\in L\cap \Gamma
+      \\
+      & \Rightarrow &
+      K_aB_a\phi\in L\cap\Delta
+      \\
+      & \Rightarrow &
+      B_a\phi\in L\cap\Delta\enspace.
+    \end{array}
+    \]
+    By the definition of $L$, maximal consistency, (An), the
+    definition of $R_a$, and the same $\mathsf{S5}$ axiom, we also
+    have
+    \[
+    \renewcommand{\arraystretch}{1.3}
+    \begin{array}{lcl}
+      B_a\phi\in L-\Gamma 
+      & \Rightarrow &
+      \lnot B_a\phi\in L\cap\Gamma
+      \\
+      & \Rightarrow &
+      K_a\lnot B_a\phi\in L\cap \Gamma
+      \\
+      & \Rightarrow &
+      K_a\lnot B_a\phi\in L\cap\Delta
+      \\
+      & \Rightarrow &
+      \lnot B_a\phi\in L\cap\Delta
+      \\
+      & \Rightarrow &
+      B_a\phi\in L-\Delta
+      \enspace.
+    \end{array}
+    \]
+    It follows that for each $B_a\phi\in L$, we have
+    $B_a\phi\in\Gamma$ iff $B_a\phi\in\Delta$.  Further, since $R^*_a$
+    is an equivalence relation and $\Delta^*\in[\Gamma^*]_a$, we have
+    $[\Delta^*]_a=[\Gamma^*]_a$ and
+    $\Delta^*_a(\phi)=\Gamma^*_a(\phi)$.  Therefore, we have
+    \[
+    \renewcommand{\arraystretch}{1.3}
+    \begin{array}{lcl}
+      X\in N^*_a(\Delta^*)
+      & \Leftrightarrow &
+      \exists B_a\phi\in L\cap\Delta:
+      \Delta^*_a(\phi)\subseteq X\subseteq[\Delta^*]_a
+      \\
+      & \Leftrightarrow &
+      \exists B_a\phi\in L\cap\Gamma:
+      \Gamma^*_a(\phi)\subseteq X\subseteq[\Gamma^*]_a
+      \\
+      & \Leftrightarrow &
+      X\in N^*_a(\Gamma^*)
+      \enspace.
+    \end{array}          
+    \]
+
+  \item For (m), we must show $X\in N_a^*(\Gamma^*)$ and $X\subseteq
+    Y\subseteq[\Gamma^*]_a$ together imply that $Y\in
+    N^*_a(\Gamma^*)$. But for $Y$ satisfying $X\subseteq
+    Y\subseteq[\Gamma^*]_a$, we have
+    \[
+    \renewcommand{\arraystretch}{1.3}
+    \begin{array}{lcl}
+      X\in N^*_a(\Gamma^*) 
+      & \Leftrightarrow &
+      \exists B_a\phi\in L\cap\Gamma:
+      \Gamma^*_a(\phi)\subseteq X\subseteq[\Gamma^*]_a
+      \\
+      & \Rightarrow &
+      \exists B_a\phi\in L\cap\Gamma:
+      \Gamma^*_a(\phi)\subseteq X\subseteq Y\subseteq[\Gamma^*]_a
+      \\
+      & \Rightarrow &
+      Y\in N^*_a(\Gamma^*)
+      \enspace.
+    \end{array}
+    \]
+    % XXX;
+  \end{itemize}
+  So $\M^*$ is indeed an epistemic neighborhood model.  We prove the
+  following \emph{Filtration Truth Lemma\/}: for each $\phi\in L$ and
+  $\Gamma^*\in W^*$, we have $\phi\in\Gamma$ iff
+  $\M^*,\Gamma^*\modelsn\phi$. The proof is by induction on the
+  construction of $\phi$.  Most cases are straightforward; we only
+  consider the modal cases $\phi=K_a\psi$ and $\phi=B_a\psi$.
+  \begin{itemize}
+  \item For $K_a\psi\in L$: $K_a\psi\in\Gamma$ iff
+    $\M^*,\Gamma^*\modelsn K_a\psi$.
+
+    Suppose $K_a\psi\in L\cap\Gamma$. Take $\Delta^*\in[\Gamma^*]_a$.
+    It follows that $K_a\psi\in L\cap\Delta$ by the definition of
+    $R^*_a$.  Hence $\psi\in L\cap\Delta$ by the definition of $L$,
+    the $\mathsf{S5}$ axiom $K_a\psi\to\psi$, and maximal consistency.
+    Applying the induction hypothesis, we have
+    $\M,\Delta^*\modelsn\psi$.  Since $\Delta^*\in[\Gamma^*]_a$ was
+    chosen arbitrarily, we have shown that $\M,\Gamma^*\modelsn
+    K_a\psi$.
+
+    Conversely, suppose $K_a\psi\in L-\Gamma$.  It follows that $\lnot
+    K_a\psi\in L\cap\Gamma$ by the definition of $L$ and maximal
+    consistency.  We claim that the set
+    \[
+    S:=\{\lnot\psi\}\cup\{K_a\chi\in L\mid K_a\chi\in\Gamma\}
+    \]
+    is consistent.  Toward a contradiction, suppose $S$ is not
+    consistent.  It follows that there are
+    $K_a\chi_1,\ldots,K_a\chi_n\in L\cap\Gamma$ such that
+    \[
+    \vdash_\KB K_a\chi_1\land\cdots\land K_a\chi_n\to \psi\enspace.
+    \]
+    It follows by modal reasoning using the $\mathsf{S5}$ operator
+    $K_a$ that
+    \[
+    \vdash_\KB K_a\chi_1\land\cdots\land K_a\chi_n\to K_a\psi\enspace.
+    \]
+    Hence $K_a\psi\in\Gamma$ by maximal consistency, which contradicts
+    the consistency of $\Gamma$ because $\lnot K_a\psi\in
+    L\cap\Gamma$.  So $S$ is indeed consistent and can therefore be
+    extended to a maximal consistent $\Delta\in W$.  By construction,
+    $\Delta^*\in[\Gamma^*]_a$ and $\lnot\psi\in\Delta$. But then
+    $\psi\notin\Delta$ by the maximal consistency. By the definition
+    of $L$, it follows from $K_a\psi\in L$ that $\psi\in L$, so we may
+    apply the induction hypothesis: from $\psi\notin\Delta$, we
+    conclude that $\M,\Delta^*\not\modelsn\psi$ and therefore
+    $\M,\Delta^*\modelsn\lnot\psi$.  But then $\M,\Gamma^*\not\modelsn
+    K_a\psi$.
+    
+  \item For $B_a\psi\in L$: $B_a\psi\in\Gamma$ iff
+    $\M^*,\Gamma^*\modelsn B_a\psi$.
+
+    Suppose $B_a\psi\in L\cap\Gamma$. Then $\Gamma^*_a(\psi)\in
+    N^*_a(\Gamma^*)$ by the definition of $N^*_a$.  Since $B_a\psi\in
+    L$, it follows by the definition of $L$ that $\psi\in L$, and so
+    we have by induction hypothesis that
+    $\Gamma^*_a(\psi)=[\Gamma^*]_a\cap\semn{\psi}$.  But then
+    $[\Gamma^*]_a\cap\semn{\psi}=\Gamma^*_a(\psi)\in N^*_a(\Gamma^*)$,
+    and hence $\M^*,\Gamma^*\modelsn B_a\psi$.
+
+    Conversely, suppose $B_a\psi\in L$ and $\M^*,\Gamma^*\modelsn
+    B_a\psi$.  Then $[\Gamma^*]_a\cap\semn{\psi}\in N^*_a(\Gamma^*)$.
+    Since $B_a\psi\in L$, it follows by the definition of $L$ that
+    $\psi\in L$, and so we have by the induction hypothesis:
+    $\Gamma_a^*(\psi)=[\Gamma^*]_a\cap\semn{\psi}\in N^*_a(\Gamma^*)$.
+    Applying the definition of $N^*_a$, there exists $B_a\chi\in
+    L\cap\Gamma$ such that
+    $\Gamma^*_a(\chi)\subseteq\Gamma^*_a(\psi)$.  That is,
+    \begin{equation}
+      \forall\Delta^*\in[\Gamma^*]_a: \chi\in L\cap\Delta\Rightarrow
+      \psi\in L\cap\Delta\enspace.
+      \label{eq:chiimppsi}
+    \end{equation}
+    It follows from \eqref{eq:chiimppsi} and \eqref{eq:RimpR*} that
+    \[
+    \forall\Delta\in[\Gamma]_a:\chi\in\Delta\Rightarrow\psi\in\Delta\enspace.
+    \]
+    It therefore follows by maximal consistency that
+    $K_a(\chi\to\psi)\in\Gamma$.  Since $B_a\chi\in\Gamma$, we have by
+    (M) and maximal consistency that $B_a\psi\in\Gamma$.
+  \end{itemize}
+  This completes the proof of the Filtration Truth Lemma.  Since
+  $\theta\in\Gamma_\theta\cap L$, it follows by the Filtration Truth
+  Lemma that $\M^*,\Gamma_\theta^*\modelsn\theta$.  Therefore, the
+  satisfiable formula $\theta$ is satisfiable in the finite pointed
+  epistemic neighborhood model $(\M^*,\Gamma^*_\theta)$.
+\end{proof}
+
+\begin{theorem}[$\KB$ Probability Soundness]
+  $\KB$ is sound with respect to the class of epistemic probability
+  models:
+  \[
+  \forall c\in(0,1)\cap\Rat,\forall\phi\in\Lang_\KB: \vdash_\KB\phi
+  \text{ implies } {}\modelsp\phi^c \enspace.
+  \]
+\end{theorem}
+\begin{proof}
+  By induction on the length of
+  derivation. Propositions~\ref{prop:knowledge} and \ref{prop:belief}
+  together cover all base cases and induction steps.
+\end{proof}
+
+\begin{proposition}[$\KB$ Probability Incompleteness]
+  $\KB$ is not complete with respect to the class of epistemic
+  probability models:
+  \[
+  \forall c\in(0,1)\cap\Rat,\exists\phi\in\Lang_\KB: {}\modelsp\phi^c
+  \text{ and } \KB\nvdash\phi \enspace.
+  \]
+\end{proposition}
+\begin{proof}
+  % XXX
+\end{proof}
+
+\subsection{Results for the Low-Threshold Calculus $\KBlt$}
+
+\begin{theorem}[$\KBlt$ Neighborhood Completeness]
+  \label{theorem:KBlt-neighborhood-completeness}
+  $\KBlt$ is sound and complete with respect to the class $\Clt$ of
+  epistemic neighborhood models satisfying (lt) and (l):
+  \[
+  \forall\phi\in\Lang_\KB: \vdash_\KBlt\phi \text{ iff }
+  \Clt\modelsn\phi \enspace.
+  \]
+  Further, every $\phi\in\Lang_\KB$ that is satisfiable at a pointed
+  epistemic neighborhood model in $\Clt$ is satisfiable at a finite
+  pointed epistemic neighborhood model in $\Clt$.
+\end{theorem}
+\begin{proof}
+  Soundness is by induction on the length of derivation.  Most cases
+  are as in the proof of
+  Theorem~\ref{theorem:KB-neighborhood-completeness}.  We only need
+  consider the remaining axiom schemes.
+  \begin{itemize}
+  \item Scheme (LT) is valid: $\modelsn \check B_a\phi\to B_a\phi$.
+
+    Suppose $\M,w\modelsn\check B_a\phi$.  This means
+    $[w]_a\cap\semn{\lnot\phi}\notin N_a(w)$, which is equivalent to
+    $[w]_a-\semn{\phi}\notin N_a(w)$.  Applying (lt), it follows that
+    $\semn{\phi}\in N_a(w)$.  That is, $\M,w\modelsn B_a\phi$.
+
+  \item Scheme (SC) is valid: $\modelsn \check B_a\phi \land \check
+    K_a(\lnot\phi\land\psi) \to B_a(\phi\lor\psi)$.
+
+    Suppose $\M,w\modelsn\check B_a\phi$ and $\M,w\modelsn \check
+    K_a(\lnot\phi\land\psi)$.  It follows that
+    \[
+    [w]_a-([w]_a\cap\semn{\phi})=[w]_a\cap\semn{\lnot\phi}\notin
+    N_a(w)
+    \]
+    and that there exists $v\in[w]_a$ satisfying
+    $\M,v\models\lnot\phi\land\psi$.  But then
+    $[w]_a\cap\semn{\phi\lor\psi}\supsetneq[w]_a\cap\semn{\phi}$ and
+    therefore $[w]_a\cap\semn{\phi\lor\psi}\in N_a(w)$ by (sc). Hence
+    $\M,w\models B_a(\phi\lor\psi)$.
+
+  \item Scheme (L) is valid:
+    \[
+    \modelsn \textstyle [(\overline\phi\mathbb{E}_a\overline\psi)
+    \land B_a\phi_1 \land \bigwedge_{i=2}^m \check B_a\phi_i] \to
+    \bigvee_{i=1}^m B_a\psi_i\enspace.
+    \]
+
+    Suppose $(\M,w)$ satisfies the antecedent of scheme (L).  It
+    follows that each $v\in[w]_a$ satisfies just as many $\phi_i$'s as
+    $\psi_i$'s, that $[w]_a\cap\semn{\psi_1}\in N_a(w)$, and that
+    $[w]_a-\semn{\phi_k}\notin N_a(w)$ for each $k\in\{2,\dots,m\}$.
+    Hence
+    \[
+    [w]_a\cap\semn{\phi_1},\dots,[w]_a\cap\semn{\phi_m}\mathbb{E}_a
+    [w]_a\cap\semn{\psi_1},\dots, [w]_a\cap\semn{\psi_m}\enspace,
+    \]
+    from which it follows by (l) that $[w]_a\cap\semn{\psi_j}\in
+    N_a(w)$ for some $j\in\{1,\dots,m\}$.  Hence $\M,w\modelsn B_a\psi_j$,
+    and thus $\M,w\modelsn\bigvee_{i=1}^m B_a\psi_i$.
+  \end{itemize}
+  Soundness has been proved.  Completeness goes by way of a filtration
+  of the canonical model.  The construction of the canonical model
+  $\M=(W,R,N,V)$ is the same as in the proof of
+  Theorem~\ref{theorem:KB-neighborhood-completeness}, except that
+  maximal consistency is taken with respect to $\KBlt$.  We fix
+  $\theta\in\Lang_\KB$ such that $\nvdash_\KBlt\lnot\theta$ and define
+  the finite set $L'$, the conjunction $\bar S$ for each $S\subseteq
+  L'$, the disjunction $\overline X$ for each $X\subseteq\pow(L')$,
+  the finite set $L$, and the filtration $\M^*=(W^*,R^*,N^*,V^*)$ as
+  in the proof of Theorem~\ref{theorem:KB-neighborhood-completeness}.
+  As was argued there, the filtration $\M^*$ is finite.
+
+  We wish to prove that every $X\subseteq[\Gamma^*]_a$ is
+  $L$-definable: we show that the expression
+  \[
+  \hat X := \bigvee_{\Delta^*\in X}\overline{L'\cap\Delta}
+  \]
+  is a $\Lang_\KB$-formula in $L$ satisfying $\Gamma^*_a(\hat X)=X$.
+  We prove this in a few steps.
+  \begin{itemize}
+  \item $\hat X$ is well-defined.
+
+    Replacing $\Delta$ in the definition of $\hat X$ by an arbitrary
+    $\Delta'\in\Delta^*$ results in the same disjunction.
+
+  \item $\hat X\in L$.
+
+    The expression $\hat X$ is a $\Lang_\KB$-formula because
+    $L'\subseteq\Lang_\KB$ is finite. Further, if we define
+    $Y:=\{L'\cap\Delta\mid \Delta^*\in X\}$ (and note that this is
+    well-defined), then $Y\subseteq\pow(L')$ and $\hat X=\overline
+    Y\in L$ by definition of $L$.
+
+  \item $\forall\Delta^*,\Omega^*\in[\Gamma^*]_a:
+    (L'\cap\Delta=L'\cap\Omega) \Leftrightarrow
+    (L\cap\Delta=L\cap\Omega)$.
+
+    The right-to-left direction is obvious (since $L'\subsetneq L$),
+    so let us focus on the left-to-right direction.  Proceeding,
+    assume $L'\cap\Delta=L'\cap\Omega$. Since ${\sim}L'=L'$ by the
+    definition of $L'$, we have for each $S\subseteq L'$ that
+    $S\cap\Delta=S\cap\Omega$ and
+    ${\sim}(L'-S)\cap\Delta={\sim}(L'-S)\cap\Omega$. By maximal
+    consistency and the closure of $L'$ under subformulas, taking $Q$
+    to be the conjunction $\overline S$, we have
+    \begin{equation}
+      \forall\chi\in\mathsf{sub}(Q):\chi\in\Delta \Leftrightarrow
+      \chi\in\Omega\enspace.
+      \label{eq:L'impL}
+    \end{equation}
+    It follows by maximal consistency that for each
+    $Y\subseteq\pow(L')$, taking $Q$ to be the disjunction $\overline
+    Y$, we have \eqref{eq:L'impL}.  Hence taking $Y\subseteq\pow(L')$
+    and $Q=\lnot\overline Y$, we have \eqref{eq:L'impL}.
+
+    We note that $\Delta^*,\Omega^*\in[\Gamma^*]_a$ means that
+    $\Delta$ and $\Omega$ ``agree on'' (i.e., contain exactly the
+    same) knowledge formulas $K_a\chi\in L$.  We will refer to this
+    knowledge-formula agreement by writing simply that
+    $\Delta^*,\Omega^*\in[\Gamma^*]_a$.
+
+    Now for a $\Lang_\KB$-formula $\chi$, we let ${\pm}\chi$ indicate
+    that we mean what is said both for $\chi$ and for $\lnot\chi$.  So
+    taking $Y\subseteq\pow(L')$ and $Q={\pm}K_a{\pm}\overline Y$, we
+    have \eqref{eq:L'impL} by maximal consistency and the fact that
+    $\Delta^*,\Omega^*\in[\Gamma^*]_a$.
+    
+    Further, again taking $Y\subseteq\pow(L')$, we have by maximal
+    consistency, the definition of $L$, the $\mathsf{S5}$ axioms for
+    $K_a$, and the fact that $\Delta^*,\Omega^*\in[\Gamma^*]_a$ that
+    \begin{eqnarray*}
+      B_a{\pm}\overline Y\in L\cap\Delta
+      & \Rightarrow &
+      K_aB_a{\pm}\overline Y\in L\cap\Delta
+      \\
+      & \Rightarrow &
+      K_aB_a{\pm}\overline Y\in L\cap\Omega
+      \\
+      & \Rightarrow &
+      B_a{\pm}\overline Y\in L\cap\Omega
+    \end{eqnarray*}
+    and that
+    \begin{eqnarray*}
+      B_a{\pm}\overline Y\in L-\Delta
+      & \Rightarrow &
+      \lnot B_a{\pm}\overline Y\in L\cap\Delta
+      \\
+      & \Rightarrow &
+      K_a\lnot B_a{\pm}\overline Y\in L\cap\Delta
+      \\
+      & \Rightarrow &
+      K_a\lnot B_a{\pm}\overline Y\in L\cap\Omega
+      \\
+      & \Rightarrow &
+      \lnot B_a{\pm}\overline Y\in L\cap\Omega
+      \\
+      & \Rightarrow &
+      B_a{\pm}\overline Y\in L-\Omega
+    \end{eqnarray*}
+    Hence $B_a({\pm}\overline Y)\in L\cap\Delta$ iff
+    $B_a({\pm}\overline Y)\in L\cap\Omega$.  By maximal consistency
+    and the definition of $L$, we have $\lnot B_a({\pm}\overline Y)\in
+    L\cap\Delta$ iff $\lnot B_a({\pm}\overline Y)\in L\cap\Omega$.
+    Finally, we have $K_a{\pm} B_a({\pm}\overline Y)\in L\cap\Delta$
+    iff $K_a{\pm} B_a({\pm}\overline Y)\in L\cap\Omega$ by the fact
+    that $\Delta^*,\Omega^*\in[\Gamma^*]_a$.  It follows that, taking
+    $Y\subseteq\pow(L')$ and $Q=K_a{\pm} B_a({\pm}\overline Y)$, we
+    have \eqref{eq:L'impL}.  
+
+    Recalling the definition of the Segerberg formula
+    $\overline\phi\mathbb{E}_a\overline\psi$
+    (Definition~\ref{definition:segerberg-notation}), we fix a
+    positive integer $m\leq|\pow(L')|$ and subsets $X_i$ and $Y_i$ of
+    $[\Gamma^*]_a$ for each $i\in\{1,\dots,m\}$.  For each
+    $k\in\{0,\dots,m\}$, let $C_k$ denote the conjunction
+    \[
+    d_1\overline X_1\land\cdots\land d_m\overline X_m
+    \land
+    e_1\overline Y_1\land\cdots\land e_m\overline Y_m
+    \]
+    having exactly $k$ of the $d_i$'s the empty string, exactly $k$ of
+    the $e_i$'s the empty string, and the rest of the $d_i$'s and
+    $e_i$'s the negation sign $\lnot$.  We observe that if we take $Q$
+    to be one such $C_k$, we have by what we have shown so far and
+    maximal consistency that \eqref{eq:L'impL}.  Hence taking $Q$ to
+    be the disjunction $\bigvee_{k=0}^m C_k$, we also have
+    \eqref{eq:L'impL} by maximal consistency.  Since
+    $\Delta^*,\Omega^*\in[\Gamma^*]_a$, it follows that if we take $Q$
+    to be the Segerberg formula
+    \begin{equation}
+      \overline X_1,\dots,\overline X_m\mathbb{E}_a\overline
+      Y_1,\dots,\overline Y_m\enspace,
+      \label{eq:L'impL-seger}
+    \end{equation}
+    then we have \eqref{eq:L'impL}.  Since we assumed
+    $L'\cap\Delta=L'\cap\Omega$ and $L$ is defined as the extension of
+    $L'$ obtained by adding the subformulas of $K_a{\pm}
+    B_a({\pm}\overline Y)$, ${\pm}K_a{\pm}\overline Y$, and
+    \eqref{eq:L'impL-seger} for each $a\in A$ and for subsets $Y$,
+    $X_i$, and $Y_i$ of $[\Gamma^*]_a$, it follows that
+    $L\cap\Delta=L\cap\Omega$.
+
+  \item $\forall X\subseteq[\Gamma^*]_a:\Gamma^*_a(\hat X)=X$.
+    \begin{eqnarray}
+      && \Delta^*\in\Gamma^*_a(\hat X)
+      \label{eq:hatX1}
+      \\
+      &\Leftrightarrow &
+      \Delta^*\in[\Gamma^*]_a \land
+      \hat X\in L\cap\Delta
+      \label{eq:hatX2}
+      \\
+      &\Leftrightarrow &
+      \Delta^*\in[\Gamma^*]_a \land
+      \exists\Omega^*\in X:
+      \overline{L'\cap\Omega}\in L\cap\Delta
+      \label{eq:hatX3}
+      \\
+      &\Leftrightarrow &
+      \Delta^*\in[\Gamma^*]_a \land
+      \exists\Omega^*\in X:
+      L'\cap\Omega=L'\cap\Delta
+      \label{eq:hatX4}
+      \\
+      &\Leftrightarrow &
+      \Delta^*\in[\Gamma^*]_a \land
+      \exists\Omega^*\in X:
+      L\cap\Omega=L\cap\Delta
+      \label{eq:hatX5}      
+      \\
+      &\Leftrightarrow &
+      \Delta^*\in[\Gamma^*]_a \land
+      \exists\Omega^*\in X:
+      \Omega^*=\Delta^*
+      \label{eq:hatX6}
+      \\
+      &\Leftrightarrow &
+      \Delta^*\in X
+      \label{eq:hatX7}
+    \end{eqnarray}
+    We have $\eqref{eq:hatX1}\Leftrightarrow\eqref{eq:hatX2}$ by the
+    definition of $\Gamma^*_a$.  The equivalence
+    $\eqref{eq:hatX2}\Leftrightarrow\eqref{eq:hatX3}$ follows by
+    maximal consistency, the closure of $L$ under subformulas, and the
+    definition of the disjunction $\hat X$.  We have
+    $\eqref{eq:hatX3}\Leftrightarrow\eqref{eq:hatX4}$ by maximal
+    consistency, the fact that $L'\subseteq L$ and $L$ is closed under
+    subformulas, and the definition of the conjunction
+    $\overline{L'\cap\Omega}$.  The equivalence
+    $\eqref{eq:hatX4}\Leftrightarrow\eqref{eq:hatX5}$ was proven in
+    the previous bullet point (and makes use of the assumption
+    $X\subseteq[\Gamma^*]_a$).  We have
+    $\eqref{eq:hatX5}\Leftrightarrow\eqref{eq:hatX6}$ by the meaning
+    of the equivalence relation $\equiv$ and the equivalence classes
+    $\Omega^*$ and $\Delta^*$, and we have
+    $\eqref{eq:hatX6}\Leftrightarrow\eqref{eq:hatX7}$ by the same
+    equivalence relation and equivalence classes and the fact that
+    $X\subseteq[\Gamma^*]_a$.
+  \end{itemize}
+  So we have proved that each $X\subseteq[\Gamma^*]_a$ is definable by
+  $\hat X\in L$ in the sense that $\Gamma^*_a(\hat X)=X$.  We note
+  that $\Gamma^*_a(\lnot\hat X)=[\Gamma^*]_a-X$ for each
+  $X\subseteq[\Gamma^*]_a$.
+
+  We verify that $\M^*$ is an epistemic neighborhood model satisfying
+  (lt), (sc), and (l).  The properties of epistemic neighborhood
+  models other than (lt), (sc), and (l) are checked just as in the
+  proof of Theorem~\ref{theorem:KB-neighborhood-completeness}.  So all
+  that we must check is that $\M^*$ satisfies these three additional
+  properties.
+  \begin{itemize}
+  \item For (lt), we must show $[\Gamma^*]_a-X\notin N^*_a(\Gamma^*)$
+    implies $X\in N^*_a(\Gamma^*)$. So suppose
+    $[\Gamma^*]_a-X\notin N^*_a(\Gamma^*)$.  Then
+    \[
+    \Gamma^*_a(\lnot\hat X)=[\Gamma^*]_a-X\notin
+    N^*_a(\Gamma^*)\enspace.
+    \]
+    Hence $B_a\lnot\hat X\in L-\Gamma$, from which we have $\check
+    B_a\hat X=\lnot B_a\lnot\hat X\in L\cap\Gamma$ by maximal
+    consistency and the definition of $L$.  Making use of (LT),
+    maximal consistency, and the definition of $L$, it follows that
+    $B_a\hat X\in L\cap\Gamma$.  Hence $X=\Gamma^*_a(\hat X)\in
+    N^*_a(\Gamma^*)$.
+
+  \item For (sc), we must show $[\Gamma^*]_a-X\notin N^*_a(\Gamma^*)$ and
+    $X\subsetneq Y\subseteq[\Gamma^*]_a$ together imply $Y\in
+    N^*_a(\Gamma^*)$.  Suppose $[\Gamma^*]_a-X\notin N^*_a(\Gamma^*)$ and
+    $X\subsetneq Y\subseteq[\Gamma^*]_a$. Then
+    \[
+    \Gamma^*_a(\lnot\hat X)=[\Gamma^*]_a-X\notin
+    N^*_a(\Gamma^*)\enspace.
+    \]
+    Hence $B_a\lnot\hat X\in L-\Gamma$, from which we have $\check
+    B_a\hat X=\lnot B_a\lnot\hat X\in L\cap\Gamma$ by maximal
+    consistency and the definition of $L$. Now $X\subsetneq
+    Y\subseteq[\Gamma^*]_a$ implies $Y=X\cup Z$ for some nonempty
+    $Z\subseteq[\Gamma^*]_a$.  It follows by maximal consistency and
+    the definition of $L$ that $\check K_a\hat Z\in L\cap\Gamma$.
+    Making use of (SC), maximal consistency, and the definition of
+    $L$, it follows that $B_a(\hat X\lor\hat Z)=B_a(\hat Y)\in
+    L\cap\Gamma$.  Hence $Y=\Gamma^*_a(\hat Y)\in N^*_a(\Gamma^*)$.
+
+    \XXXcomment{The proof of property (l) needs to be checked
+      carefully.\hfill--br}
+
+  \item For (l), we must show $\forall
+    X_1,\dots,X_m,Y_1,\dots,Y_m\subseteq[\Gamma^*]_a$, if we have
+    \begin{eqnarray}
+      &&
+      X_1,\dots,X_m\mathbb{E}_aY_1,\dots,Y_m 
+      \label{eq:KBlt:lE}
+      \\
+      &&
+      X_1\in N^*_a(\Gamma^*) \enspace
+      \label{eq:KBlt:lX1}            
+      \\
+      &&
+      \forall i\in\{2,\dots,m\}:[\Gamma^*]_a-X_i\notin
+      N^*_a(\Gamma^*)
+      \label{eq:KBlt:lXis}
+    \end{eqnarray}
+    then $Y_j\in N^*_a(\Gamma^*)$ for some $j\in\{1,\dots,m\}$.  So,
+    choosing subsets $X_i$ and $Y_i$ of $[\Gamma^*]_a$ for
+    $i\in\{1,\dots,m\}$, suppose we have \eqref{eq:KBlt:lE},
+    \eqref{eq:KBlt:lX1}, and \eqref{eq:KBlt:lXis}. We note that there
+    can be at most $|\pow(L')|$ pairwise distinct $X_i$'s, and a
+    similar comment holds for the $Y_i$'s.  (This is so because we
+    have showed that $\Delta\cap L'=\Omega\cap L'$ implies $\Delta\cap
+    L=\Omega\cap L$ for each $\Delta,\Omega\in W$.)  Define
+    $n:=\min\{|\pow(L')|,m\}$.  We renumber the $X_i$'s so as to
+    ensure that no $X_j$ is repeated before an $X_k$ that has yet to
+    appear.  We renumber the $Y_i$'s similarly. Let $\Delta^*_{X,k}$
+    be the set of positive-integer indicies $i\leq\min\{k,m\}$ such
+    that $X_i$ contains $\Delta^*$.  Define $\Delta^*_{Y,k}$ similarly
+    with respect to the $Y_i$'s.  If
+    $\Delta^*_{X,n}\neq\Delta^*_{X,m}$, then the $X_i$'s with indicies
+    $i\in \Delta^*_{X,m}-\Delta^*_{X,n}$ are all repetitions. A
+    similar comment goes for indicies $i\in
+    \Delta^*_{Y,m}-\Delta^*_{Y,n}$.  Our assumption \eqref{eq:KBlt:lE}
+    is equivalent to $|\Delta^*_{X,m}|=|\Delta^*_{Y,m}|$.  But then it
+    follows that $|\Delta^*_{X,m-k}|=|\Delta^*_{Y,m-k}|$ for
+    $k=0,\dots,m-n$ since increasing $k$ from $0$ to $m-n$ removes
+    from consideration the index of a repeated $X_i$ and the index of
+    a repeated $Y_i$, and so the size of the resulting sets remains
+    the same.  It follows that we have \eqref{eq:KBlt:lE} with $m$
+    replaced by $n$.  Applying the definition of the Segerberg
+    notation (Definition~\ref{definition:segerberg-notation}) to the
+    formula
+    \begin{equation}
+      \hat X_1,\dots,\hat X_n \mathbb{E}_a \hat Y_1,\dots,\hat Y_n \enspace,
+      \label{eq:KBlt:Seger}
+    \end{equation}
+    it follows by maximal consistency and the definition of $L$ that
+    each $\Delta^*\in W^*$ satisfies $C_0\lor\cdots\lor C_n\in
+    L\cap\Delta$.  Hence \eqref{eq:KBlt:Seger} is contained in
+    $L\cap\Gamma$, for otherwise we would have $\Omega\in[\Gamma]_a$
+    containing $\lnot(C_0\lor\cdots\lor C_n)$, which would imply
+    $C_0\lor\cdots\lor C_n\notin L\cap\Omega$ by maximal consistency,
+    a contradiction.  Further, \eqref{eq:KBlt:lX1} implies $B_a\hat
+    X_1\in L\cap\Gamma$.  And by an argument as in the verification of
+    property (sc), it follows from \eqref{eq:KBlt:lXis} that $\check
+    B_a\hat X_i\in L\cap\Gamma$ for each $i\in\{2,\dots,n\}$.  But
+    then it follows by (LT) and maximal consistency that $B_a\hat
+    X_j\in\Gamma$ for some $j\in\{1,\dots,n\}$.  Applying the
+    definition of $L$, we have $B_a\hat X_j\in L\cap\Gamma$ and
+    therefore $X_j=\Gamma^*_a(\hat X_j)\in N^*_a(\Gamma^*)$.
+  \end{itemize}
+  So $\M$ is indeed an epistemic neighborhood model satisfying (lt),
+  (sc), and (l).  The Filtration Truth Lemma is proved as in the proof
+  of Theorem~\ref{theorem:KB-neighborhood-completeness}, so it follows
+  by similar reasoning as in that proof that $\theta$ is satisfiable
+  in a finite pointed epistemic neighborhood model satisfying (lt),
+  (sc), and (l).
+\end{proof}
+
+\XXXcomment{Not sure about $\KBlt$ probability completeness. --br}
+
+
+\begin{theorem}[$\KBlt$ Probability Completeness]
+  $\KBlt$ is sound and complete with respect to the class of epistemic
+  probability models with threshold $c\in(0,\frac 12)$:
+  \[
+  \textstyle \forall c\in(0,\frac 12)
+  \cap\Rat,\forall\phi\in\Lang_\KB: \vdash_\KBlt\phi \text{ iff }
+  {}\modelsp\phi^c \enspace.
+  \]
+\end{theorem}
+\begin{proof}
+  % XXX
+\end{proof}
+
+\subsection{Results for the $0.5$-Threshold Calculus $\KBeq$}
+
+\begin{theorem}[$\KBeq$ Neighborhood Completeness]
+  $\KBeq$ is sound and complete with respect to the class $\Ceq$ of
+  epistemic neighborhood models satisfying (sc) and (l):
+  \[
+  \forall\phi\in\Lang_\KB: \vdash_\KBeq\phi \text{ iff }
+  \Ceq\modelsn\phi \enspace.
+  \]
+  Further, every $\phi\in\Lang_\KB$ that is satisfiable at a pointed
+  epistemic neighborhood model in $\Ceq$ is satisfiable at a finite
+  pointed epistemic neighborhood model in $\Ceq$.
+\end{theorem}
+\begin{proof}
+  % XXX
+\end{proof}
+
+\XXXcomment{Not sure about $\KBeq$ probability completeness. --br}
+
+\begin{theorem}[$\KBeq$ Probability Completeness]
+  $\KBeq$ is sound and complete with respect to the class of epistemic
+  probability models with threshold $c=\frac 12$:
+  \[
+  \forall\phi\in\Lang_\KBlt: \vdash_\KBeq\phi \text{ iff }
+  {}\modelsp\phi^{1/2} \enspace.
+  \]
+\end{theorem}
+\begin{proof}
+  % XXX
+\end{proof}
+
+\subsection{Results for the High-Threshold Calculus $\KBgt$}
+
+\begin{theorem}[$\KBgt$ Neighborhood Completeness]
+  $\KBgt$ is sound and complete with respect to the class $\Cgt$ of
+  epistemic neighborhood models satisfying (sc) and (wl):
+  \[
+  \forall\phi\in\Lang_\KB: \vdash_\KBgt\phi \text{ iff }
+  \Cgt\modelsn\phi \enspace.
+  \]
+  Further, every $\phi\in\Lang_\KB$ that is satisfiable at a pointed
+  epistemic neighborhood model in $\Clt$ is satisfiable at a finite
+  pointed epistemic neighborhood model in $\Clt$.
+\end{theorem}
+\begin{proof}
+  % XXX
+\end{proof}
+
+\XXXcomment{Not sure about $\KBgt$ probability completeness.\hfill--br}
+
+\begin{theorem}[$\KBgt$ Probability Completeness]
+  $\KBgt$ is sound and complete with respect to the class of epistemic
+  probability models with threshold $c\in(\frac 12,1)$:
+  \[
+  \textstyle \forall c\in(\frac 12,1)
+  \cap\Rat,\forall\phi\in\Lang_\KB: \vdash_\KBgt\phi \text{ iff }
+  {}\modelsp\phi^c \enspace.
+  \]
+\end{theorem}
+\begin{proof}
+  % XXX
+\end{proof}
+
+\section{Three Calculi for Belief as Willingness to Bet} 
+\label{Section:TreeCalculi}
+
+\XXXcomment{Old version of this section (written by Jan). Note that
+  this section still tacitly assumes that $c=\frac 12$. \hfill{}--br}
+
+The first calculus we will study is given by the following definition. 
+
+\begin{definition} Assume $\phi \in \Lang_\KB$.  Then $\vdash_{\text{KB}} \phi$
+  expresses that $\phi$ is derivable with the following axioms and
+  rules:
+\begin{eqnarray*}
+\text{(Prop)} & & \text{All propositional tautologies} \\
+\text{(K)} & & \vdash_{\text{KB}} K_a(\phi \rightarrow \psi) \rightarrow K_a \phi \rightarrow K_a\psi \\
+\text{(KT)} & & \vdash_{\text{KB}} K_a \phi \rightarrow \phi \\
+\text{(K4)} & & \vdash_{\text{KB}} K_a \phi \rightarrow  K_a  K_a \phi \\
+\text{(K5)} & & \vdash_{\text{KB}} \check{K}_a \phi \rightarrow  K_a  \check{K}_a \phi \\
+\text{(C)} & & \vdash_{\text{KB}} K_a \phi \rightarrow B_a \phi \\
+\text{(D)} & &  \vdash_{\text{KB}} B_a \phi \rightarrow \check{B}_a \phi \\
+\text{(Mix-4)} & & \vdash_{\text{KB}} B_a \phi \rightarrow K_a B_a \phi \\
+\text{(Mix-5)} & & \vdash_{\text{KB}} \check{B}_a \phi \rightarrow K_a \check{B}_a \phi \\
+\text{(N)} & & \vdash_{\text{KB}} B_a \top \\
+\text{(M)} & &  \vdash_{\text{KB}}  K_a (\phi \rightarrow \psi) \rightarrow B_a \phi 
+   \rightarrow B_a \psi  \\
+\text{(MP)}  & &  \text{From } \vdash_{\text{KB}} \phi \text{ and } \vdash_{\text{KB}} \phi \rightarrow \psi 
+   \text{ derive } \vdash_{\text{KB}} \psi \\ 
+\text{(KNec)}  & & \text{From } \vdash_{\text{KB}} \phi 
+        \text{ derive } \vdash_{\text{KB}} K_a \phi 
+\end{eqnarray*} 
+\end{definition}
+
+Here are some derivable principles and rules: 
+
+\begin{proposition} The following are derivable: 
+\begin{eqnarray*}
+ & & \vdash_{\text{KB}} B_a \phi \rightarrow B_a B_a \phi \\
+ & & \vdash_{\text{KB}} \check{B}_a \phi \rightarrow B_a \check{B}_a \phi \\
+            & & \vdash_{\text{KB}} \neg B_a \bot \\
+            & & \vdash_{\text{KB}} K_a (\phi \rightarrow \psi) \rightarrow \check{B}_a \phi
+                 \rightarrow \check{B}_a \psi. \\
+            & & \vdash_{\text{KB}} K_a \phi \land B_a \psi \rightarrow B_a (\phi \land \psi). \\
+            & & \vdash_{\text{KB}} B_a \phi \leftrightarrow K_a B_a \phi. \\
+            & & \vdash_{\text{KB}} \check{B}_a \phi \leftrightarrow K_a \check{B}_a \phi. \\
+  & & \text{From } \vdash_{\text{KB}} \phi 
+        \text{ derive } \vdash_{\text{KB}} B_a \phi. \\
+  & & \text{From } \vdash_{\text{KB}} \phi \rightarrow \psi 
+        \text{ derive } \vdash_{\text{KB}} B_a \phi \rightarrow B_a \psi. \\
+  & & \text{From } \vdash_{\text{KB}} \phi \leftrightarrow \psi 
+        \text{ derive } \vdash_{\text{KB}} B_a \phi \leftrightarrow B_a \psi. \\
+  & & \text{From } \vdash_{\text{KB}} \phi \rightarrow \psi 
+        \text{ derive } \vdash_{\text{KB}} \check{B}_a \phi \rightarrow \check{B}_a \psi. \\
+  & & \text{From } \vdash_{\text{KB}} \phi \leftrightarrow \psi 
+        \text{ derive } \vdash_{\text{KB}} \check{B}_a \phi \leftrightarrow \check{B}_a \psi. 
+\end{eqnarray*} 
+\end{proposition} 
+\begin{proof}
+Left to the reader. 
+\end{proof}
+
+\begin{theorem} \label{SoundEMM}
+The KB calculus is sound for the class of epistemic neighborhood models: 
+if $\vdash_{\text{KB}} \phi$ then $\phi$ is true in every world $w$ in every epistemic neighborhood model $\M$. 
+\end{theorem}
+\begin{proof}
+  Use induction on the structure of a derivation in the KB calculus. In
+  the base case, check the axioms for soundness. In the induction
+  step, check that the rules preserve soundness.
+\end{proof}
+
+\begin{theorem}
+The KB calculus is sound for the class of epistemic probability models, using 
+the definitions of $K_a$ as certainty and $B_a$ as betting belief. 
+\end{theorem} 
+\begin{proof}
+Immediate from Theorem \ref{SoundEMM} plus the Betting and Certainty Theorem. 
+\end{proof}
+
+\begin{theorem} \label{completeEMM}
+The KB calculus is complete for the class of epistemic neighborhood models.
+\end{theorem} 
+\begin{proof}
+Assume $\not\vdash_{\text{KB}} \phi$. Use a canonical model
+construction to construct an epistemic neighborhood model $\M$ and a world
+$w$ in $\M$ with $\M, w \not\models \phi$.
+\XXXcomment{We should spell out the details, for these cannot be gleaned from 
+the Chellas book.}
+\end{proof}
+
+Still, this logic is very weak, as the following example shows. 
+
+\begin{example} \label{EMMweakExample}
+Let $\M$ be the (single agent) epistemic neighborhood model given by $\M =
+(W,R,N,V)$ where $W = \{ x, y, z \}$, $R = W \times W$, $\Prop = \{ x,
+y , z \}$, $N = \lambda w \mapsto \{ \{ x, y, z \} \}$, and $V$ is
+given by $V(w) = \{ w \}$.  This satisfies all epistemic neighborhood model
+requirements.
+\end{example}
+
+\begin{theorem} \label{incompleteEPM}
+The KB calculus is incomplete for the class of epistemic probability models.
+\end{theorem}
+\begin{proof}
+Consider the model $\M$ from Example \ref{EMMweakExample}, with 
+world $x$. 
+Let $\sigma$ be a description of $\M,x$ in the language $\Lang_{KL}$
+over $\Prop$. From $\M \not\models \neg \sigma$ and the soundness of
+the KB calculus we get $\not\vdash_{\text{KB}} \neg \sigma$.  Now
+suppose $\N$ is a (single agent) epistemic probability model $\N$ for
+$\sigma$.
+
+Then in $\N$, $Px + Py + Pz = 1$ must hold, together with 
+$Px + Py \leq \frac 1 2$ (for $\{ x,y\}$ is not a neighborhood in 
+$\M$) and $Py + Pz \leq \frac 1 2$ (for $\{ y, z\}$ is not a 
+neighborhood in $\M$). Therefore $Px + 2Py + Pz \leq 1$. 
+Since $Py > 0$ it follows that $Px + 2Py + Pz < 1$, and contradiction. 
+This shows that in the class of 
+epistemic probability models $\models \neg \sigma$. 
+
+But as we have seen $\not\vdash_{\text{KB}} \neg \sigma$. 
+So $\neg \sigma$ is a formula that is valid on the class
+of epistemic probability models but does not have a proof
+in the KB calculus. 
+\end{proof}
+
+The following theorem (adapted from \cite{WalleyFine1979:vomacp})
+shows that the requirements for being an epistemic neighborhood model 
+are very weak: 
+
+\begin{theorem} \label{pneiModel}
+  Let $W$ be a non-empty set of worlds, and let ${\cal X}$ be a family
+  of subsets of $W$ with the pairwise non-empty intersection property,
+  i.e., the property that if $X,X' \in {\cal X}$ then $X \cap X' \neq
+  \emptyset$. Then $\M$ given by $(W,R,N)$ where $R$ is $W\times W$,
+  and $N$ is the function that assigns to any $w \in W$ the set
+\[
+ \uparrow {\cal X} = 
+ \{ Y \mid \exists X \in {\cal X} \text{ with } X \subseteq Y \}
+\]
+is an epistemic neighborhood frame (for a single agent). 
+\end{theorem}
+\begin{proof}
+The only condition we have to check is (d). Let $Y \in \ \uparrow {\cal X}$. 
+Then there is an $X \in {\cal X}$ with $X \subseteq Y$. 
+Suppose $W-Y \in \ \uparrow {\cal X}$. Then there is an $X' \in {\cal X}$ 
+with $X' \subseteq W - Y$. It follows that $X \cap X' = \emptyset$, and 
+contradiction with the pairwise non-empty intersection property of ${\cal X}$. 
+\end{proof}
+
+The following principle fails in the model of Example \ref{EMMweakExample}. 
+\begin{eqnarray*}
+\text{(Commit)} & & \vdash_{\text{KB}} \check{B}_a \phi \rightarrow
+  \check{K}_a(\neg \phi \land \psi) \rightarrow B_a (\phi \lor \psi) 
+\end{eqnarray*}
+What this principle expresses is that if an agent is not willing to bet 
+against $\phi$ and the agent considers $\neg \phi \land \psi$ possible, 
+then the agent should be willing to bet on $\phi \lor \psi$. 
+
+Here is the corresponding requirement on models: 
+
+\begin{definition} \label{commitment}
+An epistemic neighborhood model $\M = (W,R,N,V)$ is {\em committed} if 
+it holds for all agents $a$, all $w \in W$ that $W - X \notin N_a(w)$ 
+and $X \subsetneq Y$ together imply $Y \in N_a(W)$. 
+\end{definition}
+
+\begin{theorem} \label{completeCommit}
+The calculus KB + Commit is sound and complete for the class of 
+committed epistemic neighborhood models. 
+\end{theorem} 
+\begin{proof}
+\ldots
+\end{proof}
+
+The following theorem gives us a recipe for constructing committed
+epistemic neighborhood models. 
+
+\begin{theorem}\label{pneiCommitModel}
+  Let $W$ be a non-empty set of worlds, and let ${\cal X}$ be a family
+  of subsets of $W$ with the pairwise non-empty intersection property,
+  i.e., the property that if $X,X' \in {\cal X}$ then $X \cap
+  X' \neq \emptyset$, and the following maximality property: If
+  $Y \notin {\cal X}$ then $\exists X \in {\cal X}$ with $Y \cap X
+  = \emptyset$.  Then $\M$ given by $(W,R,N)$ where $R$ is $W\times
+  W$, and $N$ is the function that assigns to any $w \in W$ the set
+  ${\cal X}$ is a committed epistemic neighborhood frame (for a
+  single agent).
+\end{theorem}
+\begin{proof}
+The three conditions we have to check are (m), (d) and the commitment property. 
+
+We first show that ${\cal X}$ is upward closed. Suppose $X \in {\cal X}$, 
+Then $X$ has a non-empty intersection with all members of ${\cal X}$. 
+Let $X \subseteq Y$. Then $Y$ has a non-empty intersection with all members of ${\cal X}$,
+so by the maximality property of ${\cal X}$, $Y \in {\cal X}$. This takes care of (m). 
+
+Let $U \in {\cal X}$. Then $(W - U) \cap U = \emptyset$, so $W-U \notin
+{\cal X}$, by the fact that ${\cal X}$ has the pairwise non-empty
+intersection property. This takes care of (d).
+
+Finally, let $W - U \notin  {\cal X}$. Then, by the maximality property of 
+${\cal X}$, there is some $X \in {\cal X}$ with $X \cap (W-U) = \emptyset$. 
+It follows that $X \subseteq U$. But since $X$ has a non-empty intersection with 
+each member of ${\cal X}$, the same holds for $U$. By the maximality property 
+of ${\cal X}$, $U \in {\cal X}$. So the frame is committed. 
+\end{proof}
+
+We will now use Theorem \ref{pneiCommitModel} to show incompleteness
+of the KB + Commit calculus for the class of epistemic probability
+models, by exhibiting a committed epistemic neighborhood model $\M$
+that cannot be extended to an epistemic probability model.
+
+The following example model is inspired by
+\cite{WalleyFine1979:vomacp} (see also \cite{Herzig2003:mpbaa}).
+
+\begin{example} \label{WFmodel}
+We define an epistemic neighborhood model $\M = (W,R,N,V)$, 
+as follows. 
+Let $W = \Prop = \{ a,b,c,d,e,f,g \}$. Let $R = W \times W$. 
+Let $N$ be the function that assigns to every $w \in W$ the
+set ${\cal X}^\bullet$, where 
+\[
+ {\cal X} = 
+ \{ 
+\{ e,f,g \}, 
+\{ a,b,g \},
+\{ a,d,f \}, 
+\{ b,d,e \}, 
+\{ a,c,e \},
+\{ c,d,g \}, 
+\{ b,c,f \} \}
+\]
+and 
+\[
+ {\cal X}^\bullet = \{ Y \subseteq W \mid \forall Z \in {\cal X}: 
+ Y \cap Z \neq \emptyset \}.
+\]
+Let $V$ be given by $V(w) = \{ w \}$.  
+
+Notice that since ${\cal X}$ has the pairwise nonempty intersection
+property, ${\cal X}^\bullet$ has this property as well. ${\cal
+X}^\bullet$ is also a maximal set with this property, for let
+$U \notin {\cal X}^\bullet$. Then by the definition of ${\cal
+X}^\bullet$, there is some $Z \in {\cal X}$ with $U \cap Z
+= \emptyset$. Since ${\cal X}^\bullet$ has the pairwise non-empty
+intersection property, plus the maximality property, by
+Theorem \ref{pneiCommitModel}, $\M$ is indeed a committed epistemic
+neighborhood model.
+\end{example}
+
+\begin{theorem} \label{incompleteCEPM}
+The KB calculus with Commit is incomplete for the class of epistemic probability models.
+\end{theorem}
+\begin{proof}
+Consider the model $\M$ from Example \ref{WFmodel}, with world $a$. 
+Let $\sigma$ be a description of $\M,a$ in the language $\Lang_{KL}$
+over $\Prop$. From $\M \not\models \neg \sigma$ and the soundness of
+the KB + Commit calculus we get $\not\vdash_{\text{KB+Commit}} \neg \sigma$.  Now
+suppose $\N$ is a (single agent) epistemic probability model $\N$ for
+$\sigma$.
+
+Now let ${\cal Y}$ be the result of applying to all members of ${\cal
+  X}$ the permutation of $W$ that shifts each letter one position to
+the right in the alphabet, and shifts $g$ back to $a$. Then 
+\[
+ {\cal Y} = 
+ \{ \{f,g,a \}, 
+    \{b,c,a \}, 
+    \{ b,e,g \}, 
+    \{ c,e,f \}, 
+    \{ b,d,f \}, 
+    \{ d,e,a \}, 
+    \{ c,d,g \} \}. 
+\]
+This set has again the pairwise non-empty intersection property.
+But notice that ${\cal X} \cap {\cal Y} = \emptyset$. 
+In other words, no member of ${\cal Y}$ occurs in a neighborhood
+in $\M$. 
+
+Each world in $W$ occurs exactly three times in ${\cal X}$, and exactly 
+three times in ${\cal Y}$. 
+
+In $\N$ each member of ${\cal X}$ must get assigned probability
+$> \frac 12$, and each member of ${\cal Y}$ must get assigned
+probability $\leq \frac 12$.  Adding these values for the members of
+${\cal X}$ gives
+\[
+  3(Pa + \cdots + Pg) > 4,
+\]
+and adding these values for the members of  ${\cal Y}$ gives
+\[
+ 3(Pa + \cdots + Pg) \leq 4, 
+\]
+and contradiction. This shows that in the class of 
+epistemic probability models $\models \neg \sigma$. 
+But as we have seen $\not\vdash_{\text{KB+Commit}} \neg \sigma$. 
+So $\neg \sigma$ is a formula that is valid on the class
+of epistemic probability models but does not have a proof
+in the KB calculus + Commit. 
+\end{proof} 
+
+Can we find an axiom that rules out the model from 
+Example \ref{WFmodel}? For that, we borrow
+from \cite{Segerberg1971:qpiams} and \cite{Lenzen2003:kbasp}.
+Segerberg proposes a formula
+\[
+  (\phi_1, \ldots, \phi_n {\cal E}\psi_1, \ldots, \psi_n)
+\]
+to express that every accessible world belongs to exactly as many of
+the $\phi$s as $\psi$s. We have a multi-agent
+language, so we use $(\phi_1, \ldots, \phi_n {\cal
+E}_a \psi_1, \ldots, \psi_n)$ to express that every $a$-accessible
+world belongs to exactly as many of the $\phi$s as $\psi$s.
+
+To see how this can be expressed as a $\Lang_\KB$ formula, 
+let $\chi_i$ be the disjunction of all conjunctions of the form
+\[
+  d_1 \phi_1 \land  \cdots \land d_n \phi_n 
+  \land e_n \psi_1 \land \cdots \land e_n \psi_n
+\]
+such that exactly $i$ of the $d$s and exactly $i$ of the $e$s are 
+the empty symbol string and the rest of them are the negation sign
+(with $1 \leq i \leq n$). Then $\chi_i$ expresses that exactly $i$ 
+of the $\phi$ and exactly $i$ of the $\psi$ are true, and 
+\[
+  K_a (\chi_1 \lor \cdots \lor \chi_n)
+\]
+expresses 
+\[
+ (\phi_1, \ldots, \phi_n \ {\cal E}_a \ \psi_1, \ldots, \psi_n). 
+\]
+An axiom that must hold in epistemic probability models is
+(see \cite{Lenzen2003:kbasp}): 
+\begin{eqnarray*}
+\text{(Len)} & & 
+(\phi_1, \ldots, \phi_n {\cal E}_a \psi_1, \ldots, \psi_n)
+\rightarrow \\ 
+  & & (B_a \phi_1 \land \check{B}_a \phi_2
+\land  \cdots \land\check{B}_a \phi_n) 
+\rightarrow 
+(B_a\psi_1 \lor \cdots \lor B_a \psi_n). \text{ for all } n \geq 1.
+\end{eqnarray*}
+
+\begin{theorem}
+(Len) is not derivable in the KB + Commit calculus. 
+\end{theorem}
+\begin{proof}
+Notice that (Len) fails in the committed epistemic neighborhood
+model $\M$ from Example \ref{WFmodel}. For let $abc$ be shorthand
+for $a \lor b \lor c$, and so on. Let $w$ be any world in $\M$. Then,
+since every accessible world of $\M$ is true in exactly three members
+of ${\cal X}$ and in exactly three members of ${\cal Y}$, we have:
+\[
+ \M, w \models (efg, abg, adf, bde, ace, cdg, bcf {\cal E} 
+fga, bca, beg, cef, bdf, dea, cdg). 
+\]
+We also have: 
+\[
+   \M, w \models Befg \land Babg \land Badf \land Bbde \land Bace \land Bcdg 
+   \land Bbcf, 
+\]
+since this expresses that all of ${\cal X}$ are neighborhoods. 
+Therefore also: 
+\[
+   \M, w \models Befg \land \check{B}abg \land \check{B}adf \land \check{B}bde 
+        \land \check{B}ace \land \check{B}cdg \land \check{B}bcf.
+\]
+But: 
+\[
+   \M, w  \not\models Bfga \lor Bbca \lor Bbeg \lor Bcef \lor Bbdf \lor Bdea \lor Bcdg, 
+\]
+since none of the ${\cal Y}$ are neighborhoods. 
+Since KB + Commit is sound for committed epistemic neighborhood models, 
+(Len) is not derivable in KB + Commit. 
+\end{proof}
+
+\begin{question} 
+Does (Commit) follow from (Len), or can we find a epistemic neighborhood model
+where (Len) holds but (Commit) fails? 
+\end{question}
+\XXXcomment{We should try to answer this!}
+
+Let KB$^{+}$ be the result of adding axioms (Commit) and  (Len) to the KB calculus. 
+
+\begin{theorem} \label{sound+EPM}
+The calculus KB$^{+}$ is sound for the class of epistemic probability models.
+\end{theorem}
+\begin{proof}
+The only thing we have to show is that (Commit) and (Len) hold in all epistemic probability 
+models. The first of these follows from the fact that in all epistemic probability 
+models $\M$, in all worlds $w$, for all lotteries $l$:
+\[
+  \text{ if } \M,w,l \models P_a \phi \geq \frac 1 2 \land 
+      P_a (\neg \phi \land \psi) > 0
+  \text{ then } \M, w, l \models  (\phi \lor \psi) > \frac 1 2. 
+\]
+Soundness of (Len) is easy to see, as follows. First notice that in any epistemic 
+probability model $\M$ in any world $w$ it follows from 
+\[
+  \M, w \models (\phi_1, \ldots, \phi_n {\cal E}_a \psi_1, \ldots, \psi_n)
+\]
+that
+\[ \tag{*}
+   \M, w \models P_a \phi_1 + \cdots + P_a \phi_n = P_a \psi_1 + \cdots + P_a \psi_n. 
+\]
+Now assume also
+\[
+  \M, w \models B_a \phi_1 \land \check{B}_a \phi_2
+      \land  \cdots \land\check{B}_a \phi_n. 
+\]
+It follows that
+\[
+  \M, w \models  P_a \phi_1 + \cdots + P_a \phi_n > \frac n 2. 
+\]
+From this and (*): 
+\[
+   \M, w \models  P_a \psi_1 + \cdots + P_a \psi_n > \frac n 2, 
+\]
+and therefore there has to be at least one $\psi_i$ with 
+\[
+  \M, w \models P_a \psi_i > \frac 1 2. 
+\]
+\end{proof}
+
+\begin{theorem} \label{completeEPM}
+The calculus KB$^{+}$ is complete for the class of epistemic probability models.
+\end{theorem}
+
+\begin{proof}
+Assume (for simplicity) that there is just a single agent.
+
+Assume $\not\vdash_{\text{KB}^{+}} \phi$. Use a canonical model 
+construction to create a canonical committed
+  epistemic neighborhood model $\M = (W,R,N,V)$ and a world $w$ in $\M$ for
+  which $\M, w \not\models \phi$, and moreover, (Len) holds in $\M$. 
+
+Suppose we want to construct an epistemic probability model from this. 
+The neighborhood function for $\M$ gives us a list of linear equalities 
+and inequalities for the lottery function $l$ in the probability model, as follows. 
+For $X \subseteq W$ let $lX = \sum \{ l(w) \mid w \in X \}$.
+If $X \subseteq W$ is such that $X \notin N(w), W-X \notin N(w)$, then 
+\[
+  lX = l(W-X),
+\]
+i.e., $\frac{lX}{lW} = \frac 1 2$. 
+If $X \subseteq W$ is such that $X \in N(w)$
+then 
+\[
+  lX > l(W-X),
+\]
+i.e., $\frac{lX}{lW} > \frac 1 2$. 
+Assume that this set of linear (in)equalities does not have a solution. 
+Then there are sets $X_1, \ldots, X_n, Y_1, \ldots, Y_n$ with 
+\[
+ X_1 \in N(w), \overline{X}_2, \ldots,  \overline{X}_1, \overline{Y}_1, \ldots, 
+\overline{Y}_n \notin N(w), 
+\]
+\[
+X_1 \ldots, X_n {\cal E} Y_1, \ldots, Y_n
+\]
+and 
+\[
+lX_1 + \cdots lX_n > lY_1 + \cdots + lY_n. 
+\]
+But this means that (Len) does not hold in $\M$, and contradiction. 
+
+\XXXcomment{Proof to be completed. First spell out the single agent case in more
+detail, next tackle the multi-agent case \ldots} 
+\end{proof}
+
+\section{Future and Related Work} \label{SectionFRW} 
+
+\paragraph{Future Work} 
+
+An obvious next step in the analysis would be the study of the relation between 
+abstract and probabilistic models for conditional belief. 
+For this, introduce an operator $\phi \Rel{a} \psi$ for $P_a \phi \leq P_a\psi$. 
+Since $B_a \phi$ expresses $P_a\phi > P_a \neg \phi$, we can 
+define  $B_a$ in terms of $\Rel{a}$ by means of $\neg (\neg \phi \Rel{a} \phi)$. 
+
+A slight difficulty with the analysis of conditional belief is that 
+$P_a \phi \leq P_a\psi$ cannot be expressed in $\Lang$, where all equality and inequality 
+statements are linear. Terms on the lefthand side are of the form 
+$q \cdot P_a \phi$, terms on the righthand side are of the form $q$. 
+To express  $P_a \phi \leq P_a\psi$, one needs to extend the language $\Lang$ to 
+polynomial (in)equalities. This is left for future work. 
+
+There is also an obvious connection with Bayesian updating to be explored. 
+In a model for epistemic probability logic, model restriction
+corresponds to Bayesian updating, in the following precise sense.
+
+If $\M = (W,V,R,L,n,E)$ is an epistemic probability model and 
+$\phi$ a purely propositional formula, then let $U = \{ w \in W \mid 
+  w \models \phi \}$. Let $\M^U$ be the restriction of
+  the model to $U$. If $w \in U$ then: 
+\[
+  \M^U, w , i \models P \psi = a/b 
+ \text{ iff } 
+  \M,w,i\models P(\phi \land \psi) = a 
+                   \land 
+                  P(\psi) = b 
+\]
+Writing $P(\psi | \phi)$ for $\frac{P(\phi \land \psi)}{P\psi}$.  we
+see that this is Bayesian updating.  In future work we hope to
+investigate the corresponding operation in the associated epistemic
+neighborhood models.
+
+\paragraph{Related Work} 
+
+\cite{KyburgTeng2012:tlorkr} investigates the logic of almost certain
+belief, where the $\epsilon$ accepted statements are the statements 
+$\phi$ for which the probability that $\neg \phi$ holds is at most 
+$\epsilon$. It turns out that this set can be characterized as the 
+neighborhood modal logic EMN. 
+
+\cite{Herzig2003:mpbaa} 
+
+\paragraph{Acknowledgements} 
+
+Thanks to Alexandru Baltag, Jim Delgrande, Andreas Herzig and Sonja Smets for 
+helpful comments and pointers to the literature. 
+
+\bibliographystyle{alpha}
+\bibliography{mybibAG,mybibHZ}  
+
+\end{document} 
