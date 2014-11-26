@@ -1,4 +1,3 @@
-\listfiles
 \documentclass[12pt]{article}
 
 %%
@@ -93,6 +92,7 @@
 
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -110,8 +110,6 @@
 \newcommand{\Rat}{\mathbb{Q}}  % rational numbers
 \newcommand{\Ree}{\mathbb{R}}  % real numbers
 \newcommand{\Int}{\mathbb{Z}}  % integers
-
-\newcommand{\pow}{{\cal P}}    % powerset
 
 \newcommand{\M}{{\cal M}}      % caligraphic model M
 \newcommand{\N}{{\cal N}}      % caligraphic model N
@@ -197,20 +195,17 @@
   $\mathsf{S5}$ knowledge modalities along with sub-normal belief
   modalities that extend the minimal modal logic
   $\mathsf{EMND45}+\lnot B_a\bot$ by way of certain schemes relating
-  knowledge and belief.  A key property first articulated in the
-  present form by Lenzen \cite{Lenzen2003:kbasp,Lenzen1980:gwuw}
-  originates from a result in measure theory due to Kraft, Pratt, and
-  Seidenberg \cite{KraPraSei59:AMS} as presented and extended by Scott
-  \cite{Sco64:JMP}.  Our approach here is a slight variation and
-  extensive modernization of Lenzen's for $c=\frac 12$, but ours also
-  permits for the possibility of thresholds exceeding $\frac 12$.
-  Along with new results, we present Lenzen's proof of probability
-  completeness for $\KBeq$. We also show that $\KBeq$ is sound and
-  complete with respect to a new epistemic neighborhood semantics that
-  bears an exact relationship with the probabilistic semantics for
-  $c=\frac 12$.  This yields a certain link between probabilistic and
-  modal neighborhood semantics that may be of use in future
-  cross-discipline work.
+  knowledge and belief. Lenzen was the first to show that a version of
+  this logic is sound and complete for the probability interpretation.
+  We reformulate his results and present them here in a modern and
+  accessible form.  In addition, we introduce a new epistemic
+  neighborhood semantics that will be more familiar to modern modal
+  logicians.  Using a well-known result due to Scott, we provide the
+  properties that must be imposed on finite epistemic neighborhood
+  models so as to guarantee the existence of a probability measure
+  respecting the neighborhood function in the appropriate way.  This
+  yields a certain link between probabilistic and modal neighborhood
+  semantics that may be of use in future cross-disciplinary work.
 \end{abstract}
 
 \section{Introduction}
@@ -227,20 +222,20 @@ first to consider this study for $c=\frac 12$. Actually, his
 perspective on the relation between knowledge and belief was slightly
 different from ours.  He identified ``the agent is convinced of $A$''
 with $P(A)=1$ and ``$B$ is believed'' by $P(B)>\frac 12$. Conviction
-(German: \emph{\"{U}berzeuging}) does not imply truth.  One of
-Lenzen's key contributions was the identification of a modal scheme
-that ensures the existence of a probability function realizing these
-notions of conviction and belief.  Lenzen's scheme is closely related
-to a scheme used by Segerberg \cite{Segerberg1971:qpiams} for a
-similar purpose in a modal logic of qualitative probabilistic
-comparisons (with non-nested binary modal operators for ``$A$ is at
-least as probable as $B$'').  Lenzen's and Segerberg's logics are
-different because the link with probability is different.  We
-therefore refer to the ``Lenzen scheme,'' even though Lenzen himself
-credits Segerberg.  Either way, both researchers' schemes exploit the
-Kraft-Pratt-Seidenberg theorem from measure theory
-\cite{KraPraSei59:AMS} or related results due to Scott
-\cite{Sco64:JMP}.
+(German: \emph{\"{U}berzeuging}) does not imply truth.  In order to
+guarantee completeness for the probability interpretation, Lenzen uses
+an infinite modal scheme that expresses a key condition in a theorem
+due to Scott \cite{Sco64:JMP}.  This theorem provides the necessary
+and sufficient conditions a binary order $\preceq$ over a finite
+Boolean algebra must satisfy so as to guarantee the existence of a
+probability measure $P$ on the algebra satisfying $x\preceq y$ iff
+$P(x)\leq P(y)$.  Scott's theorem was exploited by Segerberg
+\cite{Segerberg1971:qpiams} and by G{\"a}rdenfors \cite{Gardenfors75}
+to develop a modal logic of qualitative probabilistic comparisons
+(with a binary modal operator for ``$A$ is at least as probable as
+$B$'').  Lenzen's logic is different because the connection with
+probability is different; however, in both cases, completeness for the
+probabilistic interpretation boils down to Scott's theorem.
 
 In more recent related work, Herzig \cite{Herzig2003:mpbaa} considers
 a logic of belief and action in which belief in $A$ is identified with
@@ -249,8 +244,7 @@ more recent work by Kyberg and Teng \cite{KyburgTeng2012:tlorkr}
 investigates a notion of ``acceptance'' in which $A$ is accepted
 whenever the probability of $\lnot A$ is at most some small
 $\epsilon$.  This gives rise to the minimal modal logic
-$\mathsf{EMN}$, which is different than the logic under investigation
-in the present paper.
+$\mathsf{EMN}$, which is different than Lenzen's logic.
 
 We herein consider belief \`{a} la Lenzen not only for the case
 $c=\frac 12$ but also for the case $c>\frac 12$.  As it turns out, the
@@ -293,19 +287,16 @@ betting belief, and Boolean truth are all preserved.  We also show
 that for $c=\frac 12$, certain desirable properties are preserved.
 
 In Section~\ref{Section:Calculi}, we introduce the modal theory
-$\KBeq$ of knowledge and belief.  We prove this is theory sound and
-complete with respect to a certain class of our epistemic neighborhood
-models.  To complete this proof, we extend Segerberg's
-\cite{Segerberg1971:qpiams} ingenious concept of ``logical
-finiteness'' of neighborhood models in a way that guarantees
-definability of certain sets within a finite countermodel.  Using our
-notation and concepts, we also present Lentzen's proof
-\cite{Lenzen1980:gwuw} that $\KBeq$ determines belief with threshold
-$c=\frac 12$.  Given the link between our new epistemic neighborhood
-semantics and probability, our results may be viewed as a contribution
-to the study connecting two schools of rational decision making: the
-probabilist (e.g., \cite{koerner2008naive}) and the AI-based (e.g.,
-\cite{KyburgTeng2012:tlorkr}).
+$\KBeq$, which is our name for our modern reformulation of Lenzen's
+modal theory of knowledge and belief.  We prove this is theory sound
+and complete with respect to a certain class of our epistemic
+neighborhood models.  Using our notation and concepts, we also present
+Lentzen's proof \cite{Lenzen1980:gwuw} that $\KBeq$ determines belief
+with threshold $c=\frac 12$.  Given the link between our new epistemic
+neighborhood semantics and probability, our results may be viewed as a
+contribution to the study connecting two schools of rational decision
+making: the probabilist (e.g., \cite{koerner2008naive}) and the
+AI-based (e.g., \cite{KyburgTeng2012:tlorkr}).
 
 
 \section{Epistemic Probability Models}
@@ -314,12 +305,8 @@ probabilist (e.g., \cite{koerner2008naive}) and the AI-based (e.g.,
 \begin{definition}
   \label{definition:epistemic-probability-model}
   We fix a finite nonempty set $A$ of ``agents'' and a set $\Prop$ of
-  propositional letters.  An \emph{epistemic probability model} 
-  is a structure
-  \[
-  \M=(W,R,V,P)
-  \]
-  satisfying the following.
+  propositional letters.  An \emph{epistemic probability model} is a
+  structure $\M=(W,R,V,P)$ satisfying the following.
   \begin{itemize} 
   \item $(W,R,V)$ is a finite multi-agent $\mathsf{S5}$ Kripke model:
     \begin{itemize}
@@ -327,7 +314,7 @@ probabilist (e.g., \cite{koerner2008naive}) and the AI-based (e.g.,
       is a set $X\subseteq W$ of worlds.  When convenient, we identify a world
       $w$ with the singleton event $\{w\}$.
       
-    \item $R:A\to\pow(W\times W)$ assigns an equivalence relation $R_a$
+    \item $R:A\to\wp(W\times W)$ assigns an equivalence relation $R_a$
       on $W$ to each agent $a\in A$.  We let
       \[
       [w]_a:=\{v\in W\mid wR_av\}
@@ -335,27 +322,14 @@ probabilist (e.g., \cite{koerner2008naive}) and the AI-based (e.g.,
       denote the $a$-equivalence class of world $w$.  This is the
       set of worlds that agent $a$ cannot distinguish from $w$.
 
-    \item $V:W\to\pow(\Prop)$ assigns a set $V(w)$ of propositional
+    \item $V:W\to\wp(\Prop)$ assigns a set $V(w)$ of propositional
       letters to each world $w\in W$.
     \end{itemize}
 
-  \item $P:A \to W \to[0,1]$ assigns to each agent $a\in A$
-    and world $w\in W$ a real number $P_a(w)\in[0,1]$ subject
-    to the following conditions:
-    \begin{itemize}
-    \item \emph{Unit total\/}: $\sum_{w\in W}P_a(w)=1$ for each $a\in A$.
-
-    This ensures that $P_a$ is a probability function (on worlds).
-
-    \item \emph{Full support\/}: $P_a(w)>0$ for each $(a,w)\in A\times W$.
-
-    This ensures that each world is probabilistically possible.
-    \end{itemize}
-    We extend $P_a$
-    to the set of events: for each event $X\subseteq W$, set
-    \[
-    P_a(X):=\sum_{w\in X}P_a(w)\enspace.
-    \]
+  \item $P:A \to\wp(W)\to[0,1]$ assigns to each agent $a\in A$ a
+    probability measure $P_a:\wp(W)\to[0,1]$ over the finite algebra
+    $\wp(W)$ satisfying the property of \emph{full support\/}:
+    $P_a(w)\neq0$ for each $w\in W$.
   \end{itemize}
   A \emph{pointed epistemic probability model} is a pair $(\M,w)$
   consisting of an epistemic probability model $\M=(W,R,V,P)$ and
@@ -553,7 +527,7 @@ relating certainty in epistemic probability models to knowledge in a
 version of these models in which the probabilistic information is
 removed.  This motivates the following definition.
 
-\begin{definition}[Knowledge as certainty]
+\begin{definition}[Knowledge as Certainty]
   We adopt the following abbreviations.
   \begin{itemize}
   \item $K_a\phi$ abbreviates $P_a(\phi)=1$. 
@@ -567,9 +541,8 @@ removed.  This motivates the following definition.
   \end{itemize}
 \end{definition}
 
-\begin{proposition}[Properties of knowledge as certainty;
-  \cite{Eijck2013:lap}]
-  \label{prop:knowledge}
+\begin{theorem}[\cite{Eijck2013:lap}]
+  \label{theorem:knowledge}
   $K_a$ is an $\mathsf{S5}$ modal operator:
   \begin{enumerate}
   \item $\modelsp \phi$ for each $\Lang$-instance $\phi$ of a scheme
@@ -603,31 +576,16 @@ removed.  This motivates the following definition.
 
     Validities are closed under the rule of Modus Ponens.
   \end{enumerate}
-\end{proposition}
+\end{theorem}
 
 We define belief in a proposition $\phi$ as willingness to take bets
 on $\phi$ with the odds being better than some rational number
-$c\in[\frac 12,1)\cap\Rat$.  This leads to a number of degrees of
-belief, one for each threshold $c$.\footnote{Belief based on threshold
-  $c=0$ or $c=1$ is trivial to express in terms of negation, $K_a$,
-  and falsehood $\bot$.  So we do not consider these thresholds here.
-  Beliefs based on low-thresholds $c\in(0,\frac 12)\cap\Rat$ have
-  unintuitive and unusual features.  First, low-threshold beliefs
-  unintuitively permit inconsistency of the kind that an agent can
-  believe both $\phi$ and $\lnot\phi$ while avoiding inconsistency of
-  the kind that the agent can believe a single contradictory formula
-  such as $\bot$.  Second, the dual of a low-threshold belief implies
-  the belief at that threshold (i.e., $\check B_a^c\phi\to
-  B_a^c\phi$), which is unusual if we assign the usual ``consistency''
-  reading to dual operators (i.e., ``$\phi$ is consistent with the
-  agent's beliefs implies $\phi$ is believed'' is unusual).  Since
-  low-threshold $c\in(0,\frac12)\cap\Rat$ beliefs have these
-  unintuitive and unusual features, we leave their study for future
-  work.}
+$c\in(0,1)\cap\Rat$.  This leads to a number of degrees of belief, one
+for each threshold $c$.
 
-\begin{definition}[Belief as willingness to bet]
+\begin{definition}[Belief as Willingness to Bet]
   \label{definition:belief}
-  Fix a threshold $c\in[\frac 12,1)\cap\Rat$.
+  Fix a threshold $c\in(0,1)\cap\Rat$.
   \begin{itemize}
   \item $B_a^c\phi$ abbreviates $P_a(\phi)>c$.
 
@@ -645,9 +603,8 @@ belief, one for each threshold $c$.\footnote{Belief based on threshold
 \end{definition}
 
 This notion of belief comes from subjective probability
-\cite{Jeffrey2004:sptrt}. 
-In particular, fix a threshold
-$c=p/q\in[\frac 12,1)\cap\Rat$.  Suppose that agent $a$ believes $\phi$ with
+\cite{Jeffrey2004:sptrt}.  In particular, fix a threshold
+$c=p/q\in(0,1)\cap\Rat$.  Suppose that agent $a$ believes $\phi$ with
 threshold $c=p/q$; that is, $P_a(\phi)>p/q$.  If the agent wagers $p$
 dollars for a chance to win $q-p$ dollars on a bet that $\phi$ is
 true, then she expects to win
@@ -662,6 +619,26 @@ probability literature, ``If agent $a$ stakes $p$ to win $q-p$ in a
 bet on $\phi$, then her winning expectation is positive in case she
 believes $\phi$ with threshold $c$.''  Or in a short motto: ``Belief
 is willingness to bet.''
+
+\begin{remark}
+  Belief based on threshold $c=0$ or $c=1$ is trivial to express in
+  terms of negation, $K_a$, and falsehood $\bot$.  So we do not
+  consider these thresholds here.  Beliefs based on low-thresholds
+  $c\in(0,\frac 12)\cap\Rat$ have unintuitive and unusual features.
+  First, low-threshold beliefs unintuitively permit inconsistency of
+  the kind that an agent can believe both $\phi$ and $\lnot\phi$ while
+  avoiding inconsistency of the kind that the agent can believe a
+  single contradictory formula such as $\bot$. (This suggests some
+  connection with paraconsistent logic.)  Second, the dual of a
+  low-threshold belief implies the belief at that threshold (i.e.,
+  $\check B_a^c\phi\to B_a^c\phi$), which is unusual if we assign the
+  usual ``consistency'' reading to dual operators (i.e., ``$\phi$ is
+  consistent with the agent's beliefs implies $\phi$ is believed'' is
+  unusual).  Since low-threshold $c\in(0,\frac12)\cap\Rat$ beliefs
+  have these unintuitive and unusual features, we leave their study
+  for future work, focusing instead on thresholds $c\in[\frac
+  12,1)\cap\Rat$.
+\end{remark}
 
 The following lemma provides a useful characterization of the dual
 $\check B^c_a\phi$.
@@ -807,9 +784,8 @@ probability of $\psi$.
 We set aside philosophical arguments for or against closure of belief
 under conjunction and instead turn our attention to the study of the
 properties of the present notion of belief.  One of these is a
-complicated but useful property due to Lenzen \cite{Lenzen2003:kbasp}
-that makes use of notation due to Segerberg
-\cite{Segerberg1971:qpiams}.
+complicated but useful property due to Scott \cite{Sco64:JMP} that
+makes use of notation due to Segerberg \cite{Segerberg1971:qpiams}.
 
 \begin{definition}[Segerberg notation; \cite{Segerberg1971:qpiams}]
   \label{definition:segerberg-notation}
@@ -843,18 +819,18 @@ that makes use of notation due to Segerberg
   \eqref{eq:segerberg}.
 \end{definition}
 
-The formula $(\phi_i\mathbb{I}_a\psi_i)_{i=1}^m$ says that agent
-$a$ knows that the number of true $\phi_i$'s is less than or equal to the number of
-true $\psi_i$'s.  Put another way,
-$(\phi_i\mathbb{I}_a\psi_i)_{i=1}^m$ is true if and only if every
-one of $a$'s epistemically accessible worlds satisfies at least as many
-$\psi_i$'s as $\phi_i$'s.  The formula $(\phi_i\mathbb{E}_a\psi_i)_{i=1}^m$ says
-that every
-one of $a$'s epistemically accessible worlds satisfies exactly as many
-$\psi_i$'s as $\phi_i$'s.
+The formula $(\phi_i\mathbb{I}_a\psi_i)_{i=1}^m$ says that agent $a$
+knows that the number of true $\phi_i$'s is less than or equal to the
+number of true $\psi_i$'s.  Put another way,
+$(\phi_i\mathbb{I}_a\psi_i)_{i=1}^m$ is true if and only if every one
+of $a$'s epistemically accessible worlds satisfies at least as many
+$\psi_i$'s as $\phi_i$'s.  The formula
+$(\phi_i\mathbb{E}_a\psi_i)_{i=1}^m$ says that every one of $a$'s
+epistemically accessible worlds satisfies exactly as many $\psi_i$'s
+as $\phi_i$'s.
 
-\begin{definition}[Lenzen scheme; \cite{Lenzen2003:kbasp}]
-  \label{definition:lenzen-schemes}
+\begin{definition}[Scott scheme; \cite{Sco64:JMP}]
+  \label{definition:scott-schemes}
   We define the following scheme:
   \[
   \begin{array}{cl}
@@ -864,29 +840,29 @@ $\psi_i$'s as $\phi_i$'s.
     \land B_a^{c} \phi_1 \land \bigwedge_{i=2}^m \check B_a^{c} \phi_i] \to
     \bigvee_{i=1}^m B_a^{c}\psi_i
     &
-    \text{(Len)}
+    \text{(Scott)}
   \end{array}
   \]
   If $m=1$, then $\bigwedge_{i=2}^m \check B_a^c\phi_i$ is $\top$.
-  Note that (Len)
+  Note that (Scott)
   is meant to encompass the indicated scheme for each positive integer
   $m\in\Int^+$.
 \end{definition}
 
-(Len) says that if agent $a$ knows the number of true $\phi_i$'s is
+(Scott) says that if agent $a$ knows the number of true $\phi_i$'s is
 less than or equal to the number of true $\psi_i$'s, agent $a$ believes $\phi_1$
 with threshold $c$, and the remaining $\phi_i$'s are each consistent
 with agent $a$'s threshold-$c$ beliefs, then agent $a$ believes one of
 the $\psi_i$'s with threshold $c$.  Adapting a proof of Segerberg
 \cite{Segerberg1971:qpiams}, we show that belief with threshold
-$c=\frac12$ satisfies (Len).
+$c=\frac12$ satisfies (Scott).
 
 We report this result along with a number of other properties
 in the following proposition.
 
-\begin{proposition}[Properties of belief as willingness to bet]
-  \label{prop:belief}
-  For $c\in[\frac 12,1)\cap\Rat$, we have:
+\begin{theorem}[Properties of Belief]
+  \label{theorem:belief}
+  For $c\in(0,1)\cap\Rat$, we have:
   \begin{enumerate}
   \item \label{item:B-not-normal} $\not\modelsp
     B_a^c(\phi\to\psi)\to(B_a^c\phi\to B_a^c\psi)$.
@@ -946,9 +922,9 @@ in the following proposition.
     \bigvee_{i=1}^m B_a^{\frac 12}\psi_i
     $.
 
-    Mid-threshold belief satisfies (Len).
+    Mid-threshold belief satisfies (Scott).
   \end{enumerate}
-\end{proposition}
+\end{theorem}
 \begin{proof}
   We consider each item in turn.
   \begin{enumerate}
@@ -1163,10 +1139,10 @@ following translation truth-preserving.
 
 \begin{definition}[Translation]
   \label{definition:translation}
-  For each $c\in[\frac 12,1)\cap\Rat$, we define a translation $c:
-  \Lang_\KB \to \Lang$ as follows.
+  For $c\in[\frac 12,1)\cap\Rat$, we define $c: \Lang_\KB \to \Lang$
+  as follows.
   \[
-  \renewcommand{\arraystretch}{1.3}
+  \renewcommand{\arraystretch}{1.2}
   \begin{array}{ccl@{\qquad}l}
     \top^c & := & \top
     \\
@@ -1186,9 +1162,10 @@ following translation truth-preserving.
 \end{definition} 
 
 Since we have seen that the probabilistic belief operator $B_a^c$ is
-not a normal modal operator (Proposition~\ref{prop:belief}\eqref{item:B-not-normal}), we opt
-for a neighborhood semantics for $\Lang_\KB$ \cite[Ch.~7]{Chellas:ml}
-with a new epistemic twist.
+not a normal modal operator
+(Theorem~\ref{theorem:belief}\eqref{item:B-not-normal}), we opt for a
+neighborhood semantics for $\Lang_\KB$ \cite[Ch.~7]{Chellas:ml} with
+an epistemic twist.
 
 \begin{definition} 
   An \emph{epistemic neighborhood model} is a structure
@@ -1206,7 +1183,7 @@ with a new epistemic twist.
     denote the $a$-equivalence class of world $w$.  This is the
     set of worlds $a$ cannot distinguish from $w$.
 
-  \item $N : A\times W \to \pow(\pow(W))$ is a \emph{neighborhood
+  \item $N : A\times W \to \wp(\wp(W))$ is a \emph{neighborhood
       function} that assigns to each agent $a\in A$ and world $w\in W$
     a collection $N_a(w)$ of sets of worlds---each such set called a
     \emph{neighborhood} of $w$---subject to the following conditions.
@@ -1255,7 +1232,7 @@ We now turn to the definition of truth for the language $\Lang_\KB$.
   Let $\M = (W,R,V,N)$ be an epistemic neighborhood model.  We define
   a binary truth relation $\modelsn$ between a pointed epistemic
   neighborhood model $(\M,w)$ and $\Lang_\KB$-formulas and a function
-  $\semn{\cdot}^\M:\Lang_\KB\to \pow(W)$ as follows.
+  $\semn{\cdot}^\M:\Lang_\KB\to \wp(W)$ as follows.
   \begin{eqnarray*} 
     \semn{\phi}^\M & := & \{v\in W\mid \M,v\modelsn\phi\}
     \\
@@ -1290,10 +1267,171 @@ $[w]_a\cap\semn{\neg\phi}^\M\notin N_a(w)$.  The latter says that the
 epistemically possible $\lnot\phi$-worlds do not make up a
 neighborhood of $w$.
 
-Here are a few additional properties of epistemic neighborhood models
-that will arise later on.
+\subsection{Neighborhood and Probability Model Agreement}
 
-\begin{definition}[Extra Properties]
+Epistemic neighborhood models describe agent knowledge and belief.
+Epistemic probability models can be used for the same purpose along
+the lines we have discussed above once we establish a belief threshold
+$c\in(0,1)\cap\Rat$.  This gives rise to a natural question: is there
+some sense in which these two models for knowledge and belief can be
+seen to agree?
+
+\begin{definition}[Model Agreement]
+  Let $\M=(W,R,V,N)$ be an epistemic neighborhood model. For an agent
+  $a\in A$ and a threshold $c\in(0,1)\cap\Rat$, to say that a
+  probability measure $P_a:\wp(W)\to[0,1]$ \emph{agrees with $\M$ for
+    threshold $c$ (and agent $a$)} means we have the following:
+  \begin{itemize}
+  \item $P_a$ satisfies full support (i.e., $P_a(w)\neq0$ for each
+    $w\in W$); and
+
+  \item for each $w\in W$ and $X\subseteq[w]_a$, we have
+    \[
+    X\in N_a(w) \quad\text{iff}\quad
+    P_{a,w}(X):=P_a(X|[w]_a)>c\enspace.
+    \]
+  \end{itemize}
+  To say that an epistemic probability model $\M'=(W',R',V',P')$
+  \emph{agrees with $\M$ for threshold $c$} means that
+  $(W',R',V')=(W,R,V)$ and $P'_a$ agrees with $\M$ for threshold $c$
+  for each agent $a\in A$.  If the threshold $c$ is not mentioned, it
+  is assumed that $c=\frac 12$.
+\end{definition}
+
+Agreement for threshold $c$ between an epistemic neighborhood model
+and an epistemic probability model makes the translation
+$c:\Lang_\KB\to\Lang$ (Definition~\ref{definition:translation})
+truth-preserving.
+
+\begin{theorem}[Agreement]
+  \label{theorem:agreement}\label{BettingTheorem}
+  Fix $c\in(0,1)\cap\Rat$, an epistemic neighborhood model $\M$, and
+  an epistemic probability model $\M'$. If $\M$ and $\M'$ agree for
+  threshold $c$, then we have for each $\phi \in \Lang_\KB$ that
+  \[
+  \M,w\modelsn\phi \quad\text{iff}\quad
+  \M',w\modelsp\phi^c\enspace.
+  \]
+\end{theorem}
+\begin{proof}
+  Induction on the structure of $\phi\in\Lang_\KB$. The non-modal
+  cases are obvious.
+
+  We first consider knowledge formulas. Assume $\M,w \modelsn
+  K_a\psi$.  This means $[w]_a\subseteq\semn{\psi}^{\M}$. Applying the
+  induction hypothesis, this is equivalent to
+  $[w]_a\subseteq\semp{\psi^c}^{\M'}$.  By full support, the latter
+  holds if and only if
+  \[
+  P_{a,w}(\semp{\psi^c}^{\M'}) =
+  \frac{P_a(\semp{\psi^c}^{\M'}\cap[w]_a)}{P_a([w]_a)}=1 \enspace,
+  \]
+  which is what it means to have $\M',w\modelsp P_a(\psi^c)=1$.  Since
+  $P_a(\psi^c)=1$ is what is abbreviated by $(K_a\psi)^c$, the result
+  follows.
+
+  Now we move to belief formulas. Assume $\M,w \modelsn B_a\psi$.
+  This means that $[w]_a\cap\semn{\psi}^{\M}\in N_a(w)$.  Since $\M'$
+  agrees with $\M$, the latter holds iff
+  $P_{a,w}([w]_a\cap\semp{\psi^c}^{\M'})>c$.  But this is equivalent
+  to $P_{a,w}(\semp{\psi^c}^{\M'})>c$, which is what it means to have
+  $\M',w \modelsp P_a(\psi^c)>c$.  Since $P_a(\psi^c)>c$ is what is
+  abbreviated by $(B_a\psi)^c$, the result follows.
+\end{proof}
+
+
+\subsection{Probability Measures on Epistemic Neighborhood Models}
+
+In this subsection, we take up the question of agreement between
+epistemic probability models and epistemic neighborhood models from
+the point of view of the latter: given an epistemic neighborhood model
+and a threshold $c$, can we find an agreeing epistemic probability
+model for this threshold? As we will see, we have a full answer only
+for the case $c=\frac 12$.  The case for $c\neq\frac 12$ is open,
+though we will have some comments on this in the conclusion of the
+paper.
+
+To begin, we adapt an example due to Walley and Fine
+\cite{WalleyFine1979:vomacp} to show that not every epistemic
+neighborhood model gives rise to an agreeing probability measure.
+
+\begin{theorem}[\cite{WalleyFine1979:vomacp}]
+  \label{theorem:walleyfine}
+  There exists an epistemic neighborhood model $\M$ that has no
+  agreeing probability measure for any threshold $c\in(0,1)\cap\Rat$.
+\end{theorem}
+\begin{proof}
+  We adapt Example~2 from \cite[pp.~344-345]{WalleyFine1979:vomacp} to
+  the present setting.  Fix $c\in(0,1)\cap\Rat$.  Let
+  $\Prop:=\{a,b,c,d,e,f,g\}$ and $A=\{0\}$.  Define the sets
+  \begin{eqnarray*}
+    \mathcal{X} &:=&
+    \{efg, abg, adf, bde, ace, cdg, bcf\}\enspace,
+    \\
+    \mathcal{Y} &:=&
+    \{fga,bca,beg,cef,bdf,dea,cdg\}\enspace,
+  \end{eqnarray*}
+  where we use the notation $xyz$ for $\{x,y,z\}$. Let $\M:=(W,R,V,N)$
+  be defined by $W:=\Prop$, $R_0=W\times W$, $V(w)=\{w\}$, and
+  $N_0(w)$ is the $\Prop$-superset closure of $\mathcal{X}$ (i.e., the
+  smallest extension $\mathcal{X}'\supseteq\mathcal{X}$ such that
+  $X\in\mathcal{X}'$ and $X\subseteq X'\subseteq\Prop$ implies $X'\in
+  \mathcal{X}'$).  Note that no member of $\mathcal{Y}$ is a member of
+  $N_0(a)$.
+  
+  Toward a contradiction, suppose there exists a probability measure
+  $P_a:\wp(W)\to[0,1]$ that agrees with $\M$ for threshold $c$ and
+  agent $a$.  Since $P_a$ agrees with $\M$ and each letter $p\in W$
+  occurs in exactly three of the seven members of $\mathcal{X}$, we
+  have:
+  \[
+  \textstyle 7c < \sum_{X\in\mathcal{X}}P_{a,w}(X)=\sum_{p\in W}3\cdot
+  P_{a,w}(\{p\})\enspace.
+  \]
+  But each letter $p\in W$ also occurs in exactly three of the seven
+  members of $\mathcal{Y}$, none of which is in $N_0(a)$, so:
+  \[
+  \textstyle 7c \geq \sum_{Y\in\mathcal{Y}}P_{a,w}(Y)=\sum_{p\in
+    W}3\cdot P_{a,w}(\{p\})\enspace,
+  \]
+  a contradiction.  So no such $P_a$ exists.
+\end{proof}
+
+The model $\M$ from the proof of
+Theorem~\ref{theorem:KB-probability-incompleteness} allows us to
+divide the space into overlapping pieces in two ways: one way
+$\mathcal{X}$ in which an agreeing measure must assign probability
+above threshold to each piece in $\mathcal{X}$ and another way
+$\mathcal{Y}$ in which the same agreeing measure must assign
+probability at or below threshold to the pieces in $\mathcal{Y}$.
+Since the pieces of $\mathcal{X}$ and those of $\mathcal{Y}$ use each
+world in $\M$ the same number of times, the sum of the probabilities
+of the pieces must be the same for $\mathcal{X}$ as it is for
+$\mathcal{Y}$.  So we see that the neighborhoods in $\M$ are arranged
+in a manner that is fundamentally inconsistent with an agreeing
+probability measure.
+
+Question: what are the additional restrictions on the neighborhood
+function that one must impose in order to guarantee the existence of
+an agreeing probability measure for a given threshold
+$c\in(0,1)\cap\Rat$?  For $c=\frac 12$, the restrictions are known.
+For thresholds $c\neq\frac 12$, the question is open.
+
+The restrictions needed for $c=\frac 12$ were studied first in the
+form of a purely probabilistic semantics (i.e., something like
+epistemic probability models and not something like our epistemic
+neighborhood models).  To our knowledge, Lenzen \cite{Lenzen1980:gwuw}
+is the first complete study of the restrictions needed in such a
+purely probabilistic framework over a unary modal language similar to
+$\Lang_\KB$. The conditions Lenzen proposed are targeted to satisfy
+the conditions of Scott's theorem, which is the key result that gives
+rise to a probability measure in the completeness proof for Lenzen's
+logic.  Here we state the required restrictions in the language of our
+epistemic neighborhood models.  Later we will make the link with
+Lenzen's axiomatic system when we consider axiomatic theories in the
+language $\Lang_\KB$ targeted to our epistemic neighborhood models.
+
+\begin{definition}[Extra Properties for ``Mid-Threshold'' Models]
   \label{definition:extra-properties}
   Let $\M=(W,R,V,N)$ be an epistemic neighborhood model.  
   For $m\in\Int^+$ and sets
@@ -1304,8 +1442,8 @@ that will arise later on.
     \label{eq:semantic-lenzen}
   \end{equation}
   to mean that for each $v\in W$, the number of $X_i$'s containing $v$
-  is less than or equal to the number of $Y_i$'s containing $v$. This is the
-  semantic counterpart of the formula from
+  is less than or equal to the number of $Y_i$'s containing $v$. This
+  is the semantic counterpart of the formula from
   Definition~\ref{definition:segerberg-notation}.  We may write
   $(X_i\mathbb{I}_aY_i)_{i=1}^m$ as an abbreviation for
   \eqref{eq:semantic-lenzen}.  Also, we write
@@ -1317,79 +1455,393 @@ that will arise later on.
   \begin{description}
   \item[(d)] $\forall X \in N_a(w): [w]_a - X \notin  N_a(w)$.
 
-  % \item[(lt)] $\forall \phi\in\Lang_\KB:\text{ if } [w]_a-\semn{\phi}\notin
-  %   N_a(w) \text{, then } \semn{\phi}\cap[w]_a\in N_a(w)$.
+    % \item[(lt)] $\forall \phi\in\Lang_\KB:\text{ if }
+    %   [w]_a-\semn{\phi}\notin
+    %   N_a(w) \text{, then } \semn{\phi}\cap[w]_a\in N_a(w)$.
  
-  \item[(sc)] $\forall X,Y\subseteq[w]_a$:
-    if $[w]_a-X\notin N_a(w)$ and $X\subsetneq Y$, then
-    $Y\in N_a(w)$.
+  \item[(sc)] $\forall X,Y\subseteq[w]_a$: if $[w]_a-X\notin N_a(w)$
+    and $X\subsetneq Y$, then $Y\in N_a(w)$.
 
-  \item[(l)] $\forall m\in\Int^+,\forall
-  X_1,\dots,X_m,Y_1,\dots,Y_m\subseteq[w]_a:$
-  \[
-  \renewcommand{\arraystretch}{1.3}
-  \begin{array}{ll}
-    \text{if }
-    &
-    \begin{array}[t]{l}
-      X_1,\dots,X_m\mathbb{I}_aY_1,\dots,Y_m\quad\text{and}
+  \item[(scott)] $\forall m\in\Int^+,\forall
+    X_1,\dots,X_m,Y_1,\dots,Y_m\subseteq[w]_a:$
+    \[
+    \renewcommand{\arraystretch}{1.3}
+    \begin{array}{ll}
+      \text{if }
+      &
+      \begin{array}[t]{l}
+        X_1,\dots,X_m\mathbb{I}_aY_1,\dots,Y_m\quad\text{and}
+        \\
+        X_1\in N_a(w)\quad\text{and}
+        \\
+        \forall i\in\{2,\dots,m\}:
+        [w]_a-X_i\notin N_a(w) \enspace\text{,}
+      \end{array}
       \\
-      X_1\in N_a(w)\quad\text{and}
-      \\
-      \forall i\in\{2,\dots,m\}:
-      [w]_a-X_i\notin N_a(w) \enspace\text{,}
+      \text{then }
+      &
+      \exists j\in\{1,\dots,m\}: Y_j\in N_a(w)\enspace\text{.}
     \end{array}
-    \\
-    \text{then }
-    &
-    \exists j\in\{1,\dots,m\}: Y_j\in N_a(w)\enspace\text{.}
-  \end{array}
-  \]
+    \]
   \end{description}
   To say an epistemic neighborhood model is \emph{mid-threshold} means
-  it satisfies (d), (sc), and (l).  We may drop the word ``epistemic''
-  in referring to mid-threshold epistemic neighborhood models.
-  Pointed versions of mid-threshold neighborhood models are defined in
-  the obvious way.
+  it satisfies (d), (sc), and (scott).  We may drop the word
+  ``epistemic'' in referring to mid-threshold epistemic neighborhood
+  models.  Pointed versions of mid-threshold neighborhood models are
+  defined in the obvious way.
 \end{definition}
 
 Property (d) ensures that beliefs are consistent in the sense that the
-agent does not believe both $X$ and its complement
-$\overline{X}:=[w]_a-X$.  Property (sc) is a form of ``strong
-commitment'': if the agent does not believe the complement
-$\overline{X}$, then she must believe any strictly weaker $Y$ implied
-by $X$.  Property (l) is a version of the Lenzen scheme (Len) from
-Definition~\ref{definition:lenzen-schemes}.  We will come back to this
-property later.
+agent does not believe both $X$ and its complement $[w]_a-X$.
+Property (sc) is a form of ``strong commitment'': if the agent does
+not believe the complement $[w]_a-X$, then she must believe any
+strictly weaker $Y$ implied by $X$.  Property (scott) is a version of
+the syntactic scheme (Scott) from
+Definition~\ref{definition:scott-schemes}.
 
-\section{Relating Belief and Willingness to Bet}
+By inspection of the model $\M$ from the proof of
+Theorem~\ref{theorem:KB-probability-incompleteness}, one may verify
+that that no $X\in\mathcal{X}$ is contained in the complement $W-X'$
+of some $X'\in\mathcal{X}$. Numbering the members of $\mathcal{X}$ as
+$X_1,\dots,X_7$ and the members of $\mathcal{Y}$ as $Y_1,\dots,Y_7$,
+we see that $\M$ satisfies
+\[
+(X_i\mathbb{I}_0Y_i)_{i=1}^7,\enspace X_1\in N_0(a)\text{,
+  and}\enspace \forall i\in\{2,\dots,7\}:W-X_i\notin N_0(a)\enspace,
+\]
+which is the antecedent of property (scott) from
+Definition~\ref{definition:extra-properties}.  However, $\M$ does not
+satisfy
+\[
+\exists j\in\{1,\dots,7\}:Y_j\in N_0(a)\enspace,
+\]
+which is the corresponding consequent of the indicated instance of
+(scott).  So we see that if we were to restrict ourselves to the class
+of epistemic neighborhood models satisfying this property, we would no
+longer able to use $\M$ as a counterexample to the claim that not
+every epistemic neighborhood model gives rise to an agreeing
+probability measure.  Of course ruling out $\M$ as a counterexample to
+this claim does not prove the claim.  However, utilizing (scott) in
+conjunction with (d) and (sc), we are able to prove the claim.  This
+proof makes crucial use of Scott's theorem.
+
+In preparation for the statement of Scott's theorem, we recall some
+well-known notions from linear algebra.  For a nonempty set $S$, let
+$L(S)$ denote the $S$-dimensional real vector space whose vectors
+consist of functions $x:S\to\mathbb{R}$ and whose operations of vector
+addition and scalar multiplication are defined coordinate-wise: given
+vectors $x,y:S\to\mathbb{R}$ and a scalar real $r\in\mathbb{R}$, the
+vector $(x+y):S\to\mathbb{R}$ is defined by $(x+y)(s):=x(s)+y(s)$ for
+each coordinate $s\in S$ and the vector $(r\cdot x):S\to\mathbb{R}$ is
+defined by $(r\cdot x)(s):=r\cdot x(s)$ for each coordinate $s\in S$.
+Note that we have just used the usual notational clash wherein the $+$
+or $\cdot$ symbol on one side of an equation refers to the vector
+operation and the same symbol on the other side of the same equation
+refers to the operation in $\mathbb{R}$. Other common notational
+abbreviations such as omission of $\cdot$'s and writing $-x$ for
+$(-1)\cdot x$ will be used. To say that a vector $x:S\to\mathbb{R}$ is
+\emph{rational} means that all of its coordinates (i.e., values) are
+rational numbers.  To say a set $X\subseteq L(S)$ of vectors is
+rational means that every vector in $X$ is rational, and to say that
+$X$ is \emph{symmetric} means that $X=-X:=\{-x\mid x\in X\}$.  A
+\emph{linear functional on $L(S)$} is a function $f:L(S)\to\mathbb{R}$
+satisfying the following property of \emph{linearity\/}: for each
+$r_1,r_2\in\mathbb{R}$ and $x,y\in L(S)$, we have
+$f(r_1x+r_2y)=r_1\cdot f(x)+r_2\cdot f(y)$.
+
+\begin{theorem}[{\cite[Theorem 1.2]{Sco64:JMP}}]
+  \label{theorem:scott}
+  Let $S$ be a finite nonempty set and $X$ be a finite, rational,
+  symmetric subset of $L(S)$. For each $N\subseteq X$, there exists a
+  linear functional $f$ on $L(S)$ that \emph{realizes $N$}, meaning
+  \[
+  N = \{x\in X\mid f(x)\geq 0\}\enspace,
+  \]
+  if and only if the following conditions are satisfied:
+  \begin{itemize}
+  \item for each $x\in X$, we have $x\in N$ or $-x\in N$; and
+
+  \item for each integer $n\geq 0$ and $x_0,\dots,x_n\in N$, we have
+  \[
+  \sum_{i=0}^n x_i = 0
+  \quad\Rightarrow\quad
+  -x_0\in N\enspace.
+  \]
+  \end{itemize}
+\end{theorem}
+
+We use Scott's theorem to show that mid-threshold models always give
+rise to an agreeing probability measure.  That is, the neighborhood
+function of mid-threshold models picks out exactly those neighborhoods
+that may be assigned a probability exceeding $\frac 12$.  Many of the
+key ideas of the proof of the following result are due to Lenzen
+\cite{Lenzen1980:gwuw}. However, the argument we present here is in a
+streamlined, modern form and in the language of our epistemic
+neighborhood models. Despite this difference (and the necessary work
+we had to undertake to translate these results into this modern form),
+we are happy to credit Professor Lenzen for the following result.
+
+\begin{theorem}[\cite{Lenzen1980:gwuw}]
+  \label{theorem:lenzen}
+  Let $\M=(W,R,V,N)$ be a mid-threshold epistemic neighborhood model.
+  For each agent $a\in A$, there exists a probability measure
+  $P_a:\wp(W)\to[0,1]$ agreeing with $\M$ for threshold $\frac 12$ and
+  agent $a$; that is,
+  \begin{itemize}
+  \item $P_a$ satisfies full support (i.e., $P_a(w)\neq0$ for each
+    $w\in W$); and
+
+  \item for each $w\in W$ and $X\subseteq[w]_a$, we have
+    \[
+    \textstyle X\in N_a(w) \quad\text{iff}\quad
+    P_{a,w}(X):=P_a(X|[w]_a)>\frac 12\enspace.
+    \]
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  We credit Lenzen \cite{Lenzen1980:gwuw} for this proof, though we
+  herein provide an original reformulation of his work within the
+  setting of the epistemic neighborhood models introduced in this
+  paper.  Proceeding, for $a\in A$ and $w\in W$, define
+  $S_{a,w}:=[w]_a$.  For each $X\subseteq S_{a,w}$, define the
+  relative complement $X':=S_{a,w}-X$ and let
+  $\iota(X):S_{a,w}\to\{0,1\}$ be the characteristic function of $X$:
+  \[
+  \iota(X)(s):=\begin{cases}
+    1 & \text{if } s\in X, \\
+    0 & \text{otherwise.}
+  \end{cases}
+  \]
+  We consider the following finite subsets of $L(S_{a,w})$:
+  \begin{eqnarray*}
+    \mathcal{A}_{a,w} &:=& 
+    \{\iota(X)\mid X\subseteq S_{a,w}\}\enspace, 
+    \\
+    \mathcal{B}_{a,w} &:=& 
+    \{\iota(X)-\iota(X')\mid X\subseteq S_{a,w} 
+    \text{ \& } X'\notin N_a(w)\}\enspace,
+    \\
+    \mathcal{N}_{a,w} &:=&
+    \mathcal{A}_{a,w}\cup\mathcal{B}_{a,w}\enspace,
+    \\
+    \mathcal{X}_{a,w} &:=&
+    \mathcal{N}_{a,w}\cup(-\mathcal{N}_{a,w})\enspace.
+  \end{eqnarray*}
+  It is easy to see that $\mathcal{N}_{a,w}\subseteq\mathcal{X}_{a,w}$
+  and that $\mathcal{X}_{a,w}$ is a finite, rational, and symmetric
+  subset of $L(S_{a,w})$.  We wish to show that $\mathcal{N}_{a,w}$
+  and $\mathcal{X}_{a,w}$ satisfy the conditions of
+  Theorem~\ref{theorem:scott}. First, we note that
+  $x\in\mathcal{X}_{a,w}$ implies $x\in\mathcal{N}_{a,w}$ or
+  $-x\in\mathcal{N}_{a,w}$ by the definition of $\mathcal{X}_{a,w}$.
+
+  For the second condition of Theorem~\ref{theorem:scott}, suppose we
+  are given an integer $n\geq 0$ such that
+  $x_0,\dots,x_n\in\mathcal{N}_{a,w}$ and $\sum_{i=0}^n x_i=0$.  We
+  wish to show that $-x_0\in\mathcal{N}_{a,w}$.  Proceeding, there
+  exists an integer $\ell$ satisfying:
+  \begin{eqnarray*}
+    0\leq i\leq\ell & \text{implies} &
+    x_i=\iota(X_i)-\iota(X_i')\in\mathcal{B}_{a,w} 
+    \enspace,\text{and}
+    \\
+    \ell<i\leq n & \text{implies} &
+    x_i=\iota(X_i)\in\mathcal{A}_{a,w} \enspace.
+  \end{eqnarray*}
+  Toward a contradiction, assume there exists $i>\ell$ with $x_i\neq
+  0$.  Then for $x^*:=\sum_{i=\ell+1}^n x_i$, we have $x^*(s)\geq 0$
+  for all $s\in S_{a,w}$, and there exists $s^*\in S_{a,w}$ with
+  $x^*(s^*)>0$. Hence
+  \[
+  \textstyle \sum_{i=0}^\ell x_i=
+  \sum_{i=0}^\ell\bigl(\iota(X_i)-\iota(X'_i)\bigr)=-x^*\enspace,
+  \]
+  where $x^*(s^*)<0$ and $-x^*(s)\leq 0$ for all $s\in S_{a,w}$.  So
+  for each $s\in S_{a,w}$, the number of the sets in the list
+  $X_0',\dots,X_\ell'$ containing $s$ is greater than or equal to the
+  number of the sets in the list $X_0,\dots,X_\ell$ containing $s$.
+  Further, $s^*$ is a member of strictly more sets in the former list
+  than those in the latter.  By renumbering, we may assume that
+  $s^*\in X_0'-X_0$.  Then we have
+  \[
+  X_0\cup\{s^*\},X_1,\dots,X_\ell \mathbb{I}_a
+  X_0',X_1',\dots,X_\ell'\enspace.
+  \]
+  Since $X_0',\dots,X_\ell'\notin N_a(w)$, it follows by (scott) that
+  $X_0\cup\{s^*\}\notin N_a(w)$.  But $X_0\subsetneq
+  X_0\cup\{s^*\}\notin N_a(w)$ and $X_0'\notin N_a(w)$, which violates
+  (sc).  Conclusion: $i>\ell$ implies $x_i=0$.  But then we have
+  $\sum_{i=0}^n x_i=\sum_{i=0}^\ell x_i$.  Since
+  $x_i=\iota(X_i)-\iota(X_i')$ for $i\leq\ell$, it follows that
+  $\sum_{i=0}^\ell\iota(X_i)=\sum_{i=0}^\ell\iota(X_i')$. But the
+  latter is what it means to have $(X_i\mathbb{E}_aX_i')_{i=0}^\ell$.
+  Since $X_i'\notin N_a(w)$ for $i\leq\ell$ by the definition of
+  $\mathcal{B}_{a,w}$, it follows by (scott) that $X_0\notin N_a(w)$.
+  But then $\iota(X'_0)-\iota(X_0)=-x_0\in\mathcal{B}_{a,w} \subseteq
+  \mathcal{N}_{a,w}$, as desired.
+
+  So we may apply Theorem~\ref{theorem:scott}: there exists a linear
+  functional $f_{a,w}$ on $L(S_{a,w})$ that realizes
+  $\mathcal{N}_{a,w}$.  That is,
+  \[
+  \mathcal{N}_{a,w}=\{x\in\mathcal{X}_{a,w}\mid f_{a,w}(x)\geq
+  0\}\enspace.
+  \]
+  Define $g_{a,w}:\wp(S_{a,w})\to\mathbb{R}$ by the composition
+  $g_{a,w}(X):=f_{a,w}(\iota(X))$.  This function satisfies a few
+  important properties.
+  \begin{enumerate}
+  \item \label{prop:XinN} $X\in N_a(w)$ iff $g_{a,w}(X)>g_{a,w}(X')$.
+
+    Suppose $X\in N_a(w)$. Then $X'\notin N_a(w)$ by (d).  Hence
+    $\iota(X)-\iota(X')\in\mathcal{B}_{a,w}$ and
+    $\iota(X')-\iota(X)\notin\mathcal{B}_{a,w}$.  Since $S_{a,w}\in
+    N_a(w)$ by (n), it follows that $X\neq\emptyset=S_{a,w}'$.  But
+    then the coordinates of $\iota(X')-\iota(X)$ contain at least one
+    $1$ and at least one $-1$.  Since every $x\in\mathcal{A}_{a,w}$
+    has coordinates that are $1$'s or $0$'s only, it follows that
+    $\iota(X')-\iota(X)\notin\mathcal{N}_{a,w}$.  As
+    $\iota(X)-\iota(X')\in\mathcal{B}_{a,w}\subseteq
+    \mathcal{N}_{a,w}$ and $f_{a,w}$ is linear and realizes
+    $\mathcal{N}_{a,w}$, it follows that $g_{a,w}(X)\geq g_{a,w}(X')$
+    and $g_{a,w}(X')\ngeq g_{a,w}(X)$.  That is,
+    $g_{a,w}(X)>g_{a,w}(X')$.
+
+    Conversely, suppose $g_{a,w}(X)>g_{a,w}(X')$. Since $f_{a,w}$ is
+    linear and realizes $\mathcal{N}_{a,w}$, it follows that
+    $\iota(X')-\iota(X)\notin\mathcal{N}_{a,w}\supseteq
+    \mathcal{B}_{a,w}$. Applying the definition of
+    $\mathcal{B}_{a,w}$, we have $X\in N_a(w)$.
+
+  \item \label{prop:emptyS} $g_{a,w}(S_{a,w})>g_{a,w}(\emptyset)=0$.
+
+    We have $g_{a,w}(\emptyset)=f_{a,w}(0)=0$ by the linearity of
+    $f_{a,w}$.  Since $S_{a,w}\in N_a(w)$ by (n), it follows that
+    $g_{a,w}(S_{a,w})>g_{a,w}(\emptyset)$ by property \ref{prop:XinN}.
+
+  \item \label{prop:zerotoS} If $0\leq g_{a,w}(X)\leq
+    g_{a,w}(S_{a,w})$.
+    
+    Since $\iota(X)\in\mathcal{A}_{a,w}\subseteq \mathcal{N}_{a,w}$
+    and $f_{a,w}$ realizes $\mathcal{N}_{a,w}$, we have
+    $g_{a,w}(X)\geq 0$.  So each $X\subseteq S_{a,w}$ satisfies
+    $g_{a,w}(X)\geq 0$.  From this it follows by the linearity of
+    $f_{a,w}$ that for each $X\subseteq S_{a,w}$, we have
+    \[
+    \textstyle g_{a,w}(X)=\sum_{v\in X}g_{a,w}(\{v\}) \leq\sum_{v\in
+      S_{a,w}}g_{a,w}(\{v\}) =g_{a,w}(S_{a,w})\enspace.
+    \]
+
+  \item \label{prop:additivity} If $X,Y\subseteq S_{a,w}$ and $X\cap
+    Y=\emptyset$, then $g_{a,w}(X\cup Y)=g_{a,w}(X)+g_{a,w}(Y)$.
+    
+    By the linearity of $f_{a,w}$.
+
+  \item \label{prop:fullsupport} $\emptyset\neq X\subseteq S_{a,w}$
+    implies $g_{a,w}(X)>0$.
+
+    Suppose $\emptyset\neq X\subseteq S_{a,w}$. By property
+    \ref{prop:emptyS}, it suffices to prove the result for $X\neq
+    S_{a,w}$. Toward a contradiction, assume $g_{a,w}(X)=0$ for
+    $\emptyset\subsetneq X\subsetneq S_{a,w}$.  By property
+    \ref{prop:additivity}, we have
+    $g_{a,w}(S_{a,w})=g_{a,w}(X)+g_{a,w}(X')=g_{a,w}(X')$.  Since
+    $f_{a,w}$ is linear and realizes $\mathcal{N}_{a,w}$ and
+    \[
+    \iota(X')-\iota(S_{a,w}) = -(\iota(S_{a,w})-\iota(X')) =
+    -\iota(X)\in\mathcal{X}_{a,w}\enspace,
+    \]
+    we obtain $-\iota(X)\in\mathcal{N}_{a,w}$.  But
+    $\emptyset\subsetneq X\subsetneq S_{a,w}$ implies that $-\iota(X)$
+    has coordinates containing at least one $-1$ and at least one $0$.
+    Since members of $\mathcal{A}_{a,w}$ have coordinates made up of
+    $0$'s and $1$'s, members of $\mathcal{B}_{a,w}$ have coordinates
+    made up of $-1$'s and $1$'s, and
+    $\mathcal{N}_{a,w}=\mathcal{A}_{a,w} \cup \mathcal{B}_{a,w}$, it
+    cannot be the case that $-\iota(X)\in\mathcal{N}_{a,w}$.
+    Contradiction.  Conclusion: $g_{a,w}(X)>0$.
+  \end{enumerate}
+
+  Now take $v\in[w]_a$.  Since $N_a(v)=N_a(w)$ by (a), it follows that
+  $g_{a,w}$ also realizes $\mathcal{N}_{a,v}$.  So, letting $[W]_a$ be
+  the set $\{[w]_a\mid w\in W\}$ of $a$-equivalence classes, let
+  $h:[W]_a\to W$ be a choice function that selects for each class
+  $[w]_a\in[W]_a$ a representative $h([w]_a)\in[w]_a$. Using a
+  notational clash that ought to be harmless, we define a new function
+  $h_{a,w}:\wp([w]_a)\to\mathbb{R}$ by setting
+  $h_{a,w}(X):=g_{a,h([w]_a)}(X)$.  Obviously, $v\in[w_a]$ implies
+  $h_{a,v}=h_{a,w}$.  Finally, we define $P_a:\wp(W)\to[0,1]$ by
+  \[
+  P_a(X):= \sum_{[w]_a\in[W]_a} \frac {h_{a,w}(X\cap[w]_a)}
+  {h_{a,w}([w]_a)}\enspace.
+  \]
+  Note that by property \ref{prop:emptyS}, the denominator
+  $h_{a,w}([w]_a)$ is always nonzero.
+
+  We prove that $P_a$ is a probability measure on $\wp(W)$ satisfying
+  full support. First, $P_a$ satisfies the Kolmogorov axioms over the
+  finite algebra $\wp(W)$: we have $P_a(X)\geq 0$ by property
+  \ref{prop:zerotoS}, $P_a(W)=1$ by property \ref{prop:emptyS} and the
+  definition of $P_a$, and $P_a(X\cup Y)=P_a(X)+P_a(Y)$ for disjoint
+  $X$ and $Y$ by property \ref{prop:additivity} and the definition of
+  $P_a$.  Second, full support follows by property
+  \ref{prop:fullsupport}.
+
+  Finally, for $X\subseteq[w]_a$, we have by property \ref{prop:XinN}
+  that $X\in N_a(w)$ iff $h_{a,w}(X)>h_{a,w}(X')$.  But the latter
+  holds iff we have (making use of property \ref{prop:additivity})
+  that
+  \[
+  2\cdot h_{a,w}(X)>h_{a,w}(X)+h_{a,w}(X')=h_{a,w}([w]_a)\enspace.
+  \]
+  By property \ref{prop:emptyS}, the definition of $P_a$, and the fact
+  that $X\subseteq[w]_a$, the above inequality holds iff
+  \[
+  P_a(X)=\frac{h_{a,w}(X)}{h_{a,w}([w]_a)}>\textstyle \frac
+  12\enspace.
+  \]
+\end{proof}
+
+\begin{corollary}
+  \label{corollary:lenzen}
+  Let $\M=(W,R,V,N)$ be a mid-threshold epistemic neighborhood model.
+  There exists an epistemic probability model $\N=(W,R,V,P)$ that
+  agrees with $\M$ for threshold $\frac 12$.
+\end{corollary}
+\begin{proof} 
+  For each $a\in A$, let $P_a$ be the measure given by
+  Theorem~\ref{theorem:lenzen}.
+\end{proof}
+
+\subsection{Epistemic Neighborhood Models from Probability Measures}
 \label{Section:BeliefBet}
 
-We now relate the definition of belief in neighborhood models to the
-notion of belief as willingness to bet.
+In the last subsection, we investigated the question of whether an
+epistemic neighborhood model gives rise to an agreeing epistemic
+probability model.  In this section, we look at this question the
+other way around: given an epistemic probability model and a threshold
+$c$, is there an agreeing epistemic neighborhood model?  As we will
+see, the answer is always ``yes.''
 
 \begin{definition}
-  Given an epistemic probability model $\M = (W,R,V,P)$ and
-  a threshold $c\in[\frac 12,1)\cap\Rat$, we define the structure
-  \[
-  \M^c := (W,R,V,N^c)
-  \]
-  by setting
+  Given an epistemic probability model $\M = (W,R,V,P)$ and a
+  threshold $c\in[\frac 12,1)\cap\Rat$, we define the structure $\M^c
+  := (W,R,V,N^c)$ by setting
   \[
   N^c_a(w) := \{X\subseteq[w]_a\mid P_{a,w}(X)>c\}\enspace.
   \]
 \end{definition}
 
-Intuitively, agent $a$ believes a proposition $X$ at world $w$ (i.e., $X\in N^c_a(w)$) if and
-only if $X$ is epistemically possible (i.e., $X\subseteq[w]_a$) and
-the probability $a$ assigns to $X$ at world $w$ is greater than $c$ (i.e.,
-$P_{a,w}(X)>c$).
+Intuitively, agent $a$ believes a proposition $X$ at world $w$ (i.e.,
+$X\in N^c_a(w)$) if and only if $X$ is epistemically possible (i.e.,
+$X\subseteq[w]_a$) and the probability $a$ assigns to $X$ at world $w$
+exceeds the threshold (i.e., $P_{a,w}(X)>c$).
 
 \begin{lemma}[Correctness]
   \label{lemma:correctness}
-  If $\M$ is an epistemic probability model and $c\in[\frac
-  12,1)\cap\Rat$, then $\M^c$ is an epistemic neighborhood model.
-  Furthermore, $\M^{\frac 12}$ is a mid-threshold neighborhood model.
+  Fix $c\in(0,1)\cap\Rat$.  If $\M$ is an epistemic probability model,
+  then $\M^c$ is an epistemic neighborhood model.  Furthermore,
+  $\M^{\frac 12}$ is a mid-threshold neighborhood model.
 \end{lemma}
 \begin{proof}
   We verify that $N^c_a$ satisfies the required properties.
@@ -1431,7 +1883,7 @@ $P_{a,w}(X)>c$).
     $P_{a,w}(Y) > P_{a,w}(X)\geq \frac 12$, and hence $X\in N^{\frac
       12}_a(w)$.
 
-  \item For (l), we assume $c\in(0,\frac 12]\cap\Rat$ along with the
+  \item For (scott), we assume $c\in(0,\frac 12]\cap\Rat$ along with the
     following:
     \begin{eqnarray}
       &&
@@ -1451,7 +1903,7 @@ $P_{a,w}(X)>c$).
       \label{eq:sums-eq}
     \end{equation}
     The argument for this is similar to an argument for \eqref{eq:sum}
-    in proof of Proposition~\ref{prop:belief}\eqref{item:B-Len}.  From
+    in proof of Theorem~\ref{theorem:belief}\eqref{item:B-Len}.  From
     \eqref{eq:prop-l:X1}, we have $P_{a,w}(X_1)>c$.  From
     \eqref{eq:prop-l:Xcs}, we have for each $i\in\{2,\dots,m\}$ that
     $P_{a,w}([w]_a-X_i)\leq c$ and therefore that $P_{a,w}(X_i)\geq
@@ -1464,49 +1916,49 @@ $P_{a,w}(X)>c$).
   \end{itemize}
 \end{proof}
 
-\begin{theorem}[Betting and Certainty]
-  \label{BettingTheorem}
-  For each epistemic probability model $\M = (W,R,V,P)$, world $w \in
-  W$, threshold $c\in(0,1)\cap\Rat$, and formula $\phi \in \Lang_\KB$,
-  we have:
-  \[
-  \M^c,w \modelsn\phi \quad\text{iff}\quad \M,w \modelsp\phi^c
-  \enspace.
-  \]
+\begin{theorem}
+  Let $c\in(0,1)\cap\Rat$ and $\M=(W,R,V,P)$ be an epistemic
+  probability model. The epistemic neighborhood model
+  $\M^c=(W,R,V,N^c)$ agrees with $\M$ for threshold $c$.
 \end{theorem}
 \begin{proof}
-  Induction on the structure of $\phi$. The non-modal cases are
-  obvious.
-
-  We first consider knowledge formulas. Assume $\M^c,w \modelsn
-  K_a\psi$.  This means
-  $[w]_a\subseteq\semn{\psi}^{\M^c}$. Applying the induction hypothesis, this is equivalent to
-  $[w]_a\subseteq\semp{\psi^c}^{\M}$.  But the latter holds if and only if
-  \[
-  P_{a,w}(\semp{\psi^c}^\M) =
-  \frac{P_a(\semp{\psi^c}^\M\cap[w]_a)}{P_a([w]_a)}=1 \enspace,
-  \]
-  which is what it means to have $\M,w\modelsp P_a(\psi^c)=1$.
-  Since $P_a(\psi^c)=1$ is what is abbreviated by $(K_a\psi)^c$, the result follows.
-
-  Now we move to belief formulas. Assume $\M^c,w \modelsn
-  B_a\psi$.  This means that
-  $[w]_a\cap\semn{\psi}^{\M^c}\in N^c_a(w)$.
-  Applying induction hypothesis, this is equivalent to
-  $[w]_a\cap\semp{\psi^c}^\M\in N^c_a(w)$.
-  By the definition of $N^c_a$, the latter holds
-  iff
-  $P_{a,w}([w]_a\cap\semp{\psi^c}^\M)>c$.
-  But this is equivalent to
-  $P_{a,w}(\semp{\psi^c}^\M)>c$, which is 
-  what it means
-  to have $\M,w \modelsp P_a(\psi^c)>c$.
-  Since $P_a(\psi^c)>c$ is what is abbreviated by
-  $(B_a\psi)^c$, the result follows.
+  By definition of $N^c$.
 \end{proof}
 
 \section{Calculi for Belief as Willingness to Bet}
 \label{Section:Calculi}
+
+We now consider the axiomatic link with both epistemic neighborhood
+models and epistemic probability models.  We study two calculi: the
+calculus $\KB$ of epistemic neighborhood models, and the calculus
+$\KBeq$ of mid-threshold neighborhood models.  $\KB$ is sound but not
+complete for the probability interpretation for any threshold.
+$\KBeq$ is both sound and complete for the probability interpretation
+with threshold $c=\frac 12$.
+
+$\KBeq$ is our modern reformulation of Lenzen's \cite{Lenzen1980:gwuw}
+calculus for the logic of knowledge as probabilistic certainty and
+belief as probability exceeding threshold $\frac 12$.  Lenzen's
+intended semantic structures are something like epistemic probability
+models.  Our intended semantic structures are our mid-threshold
+neighborhood models, though there is a natural link with epistemic
+probability models via Theorem~\ref{theorem:lenzen}.  In fact,
+many of the main ideas of our proof of
+Theorem~\ref{theorem:lenzen} are translations of Lenzen's ideas
+into the language of our epistemic neighborhood models. Since we have
+reworked his ideas using our own approach and modern modal notions, it
+is difficult to determine whether we have introduced novel
+mathematical results on top of Lenzen's existing work.  Therefore, we
+are happy to credit Professor Lenzen for the soundness and
+completeness of $\KBeq$ and for Theorem~\ref{theorem:lenzen}.
+However, we do think that it is worth our effort to provide this
+modern reformulation of his results.  In particular, we believe that
+in using semantic structures more familiar to the modern modal
+logician, our modern reformulation of Lenzen's results will make the
+mathematical details of Lenzen's work more accessible to a modern
+English-language audience.  We also hope that our use of the modal
+neighborhood structures will suggest directions for further study of
+qualitative probability via tools from modal logic.
 
 \begin{definition}
   \label{definition:calculi}
@@ -1514,12 +1966,15 @@ $P_{a,w}(X)>c$).
   \begin{itemize}
   \item $\KB$ is defined in Table~\ref{table:KB}.
 
-  \item $\KBeq$ is obtained from $\KB$ by adding (D), (SC), and (L)
+  \item $\KBeq$ is obtained from $\KB$ by adding (D), (SC), and (Scott)
     from Table~\ref{table:additional-schemes}.
 
-  \item $\KBeqm$ is obtained from $\KBeq$ by omitting (KBM).
+  \item $\KBeqm$ is obtained from $\KBeq$ by omitting (BF) and (KBM).
   \end{itemize}
 \end{definition}
+
+We will see later in Theorem~\ref{theorem:KBminus} that $\KBeq$ and
+$\KBeqm$ derive the same theorems.
 
 \begin{table}[ht]
   \begin{center}
@@ -1531,9 +1986,6 @@ $P_{a,w}(X)>c$).
       \\
       (KS5) &
       $\mathsf{S5}$ axiom schemes for each $K_a$
-      \\
-      (KBC) &
-      $K_a\phi\to B_a\phi$
       \\
       (BF) &
       $\lnot B_a\bot$
@@ -1586,7 +2038,7 @@ $P_{a,w}(X)>c$).
       \check K_a(\lnot\phi\land\psi) \to 
       B_a(\phi\lor\psi)$
       \\
-      (L) &
+      (Scott) &
       $\textstyle [(\phi_i\mathbb{I}_a\psi_i)_{i=1}^m
       \land B_a\phi_1 \land \bigwedge_{i=2}^m \check B_a\phi_i] \to
       \bigvee_{i=1}^m B_a\psi_i$
@@ -1603,33 +2055,38 @@ statements whose only modality is single-agent belief $B_a\phi$, then
 $\KB$ is an extension of the minimal modal logic $\mathsf{EMN45}+\lnot
 B_a\bot=\mathsf{EMN45}+(\text{BF})$ obtained by adding
 $\mathsf{S5}$-knowledge and the knowledge-belief connection principles
-(KBC), (Ap), (An), and (KBM).\footnote{$\mathsf{EMN45}+(\text{BF})$ is
-  the logic of single-agent belief (without knowledge) having Schemes
-  (CL) (Table~\ref{table:KB}), M
-  (Prop.~\ref{prop:KBgt-derivables}\eqref{derivables:Band-andB}), (N)
+(Ap), (An), and (KBM).\footnote{$\mathsf{EMN45}+(\text{BF})$ is the
+  logic of single-agent belief (without knowledge) having Schemes (CL)
+  (Table~\ref{table:KB}), M
+  (Theorem~\ref{theorem:KBgt-derivables}\eqref{derivables:Band-andB}), (N)
   (Table~\ref{table:KB}), 4
-  (Prop.~\ref{prop:KBgt-derivables}\eqref{derivables:pos-belief}), 5
-  (Prop.~\ref{prop:KBgt-derivables}\eqref{derivables:neg-belief}), and
+  (Theorem~\ref{theorem:KBgt-derivables}\eqref{derivables:pos-belief}), 5
+  (Theorem~\ref{theorem:KBgt-derivables}\eqref{derivables:neg-belief}), and
   (BF) (Table~\ref{table:KB}) along with Rules (MP)
   (Table~\ref{table:KB}) and RE
-  (Prop.~\ref{prop:KBgt-derivables}\eqref{derivables:RE}). This is a
+  (Theorem~\ref{theorem:KBgt-derivables}\eqref{derivables:RE}). This is a
   ``monotonic'' system of modal logic satisfying positive and negative
   belief introspection (4 and 5) and the property (BF) that falsehood
   $\bot$ is not believed. See \cite[Ch.~8]{Chellas:ml} for details on
   naming minimal modal logics.} The modal theory $\KBeq$ is therefore
 a similar knowledge-inclusive extension of
-$\mathsf{EMND45}+(\text{BF})+(\text{L})$ that adds the additional
+$\mathsf{EMND45}+(\text{BF})+(\text{Scott})$ that adds the additional
 connection principle
-(SC).\footnote{$\mathsf{EMND45}+(\text{BF})+(\text{L})$ is
-  $\mathsf{EMN45}+(\text{BF})$ plus Schemes (D) and (L) from
+(SC).\footnote{$\mathsf{EMND45}+(\text{BF})+(\text{Scott})$ is
+  $\mathsf{EMN45}+(\text{BF})$ plus Schemes (D) and (Scott) from
   Table~\ref{table:additional-schemes}.}  In
 Section~\ref{section:kbeq}, we will show that $\KBeq$ is the modal
 logic for probabilistic belief with threshold $c=\frac 12$.
 
-\begin{proposition}[$\KB$ Derivables]
-  \label{prop:KBgt-derivables}
+\begin{theorem}[$\KB$ Derivables]
+  \label{theorem:KBgt-derivables}
   We have each of the following.
   \begin{enumerate}
+  \item $\KB\vdash K_a\phi\to B_a\phi$.
+    \label{derivables:KBC}
+
+    ``Knowledge implies belief.''
+
   \item $\KB\vdash B_a(\phi\land\psi)\to(B_a\phi\land B_a\psi)$.
     \label{derivables:Band-andB}
 
@@ -1701,9 +2158,14 @@ logic for probabilistic belief with threshold $c=\frac 12$.
     may be viewed as a certain generalization of (BF)
     (Table~\ref{table:KB}).
   \end{enumerate}
-\end{proposition}
+\end{theorem}
 \begin{proof}
-  We reason in $\KB$.
+  We reason in $\KB$. For \ref{derivables:KBC}, we have $K_a\phi\to
+  K_a(\top\to\phi)$ by elementary modal reasoning.  But then from
+  this, $B_a\top$ by (N), and $K_a(\top\to\phi)\to(B_a\top\to
+  B_a\phi)$ by (KBM), it follows by classical reasoning that we have
+  $K_a\phi\to B_a\phi$.
+
   For \ref{derivables:Band-andB}, we derive
   \begin{equation}
     K_a((\phi\land\psi)\to\phi)\to(B_a(\phi\land\psi)\to B_a\phi)
@@ -1754,11 +2216,11 @@ logic for probabilistic belief with threshold $c=\frac 12$.
   from which \ref{derivables:check-M} follows by classical reasoning
   (just contrapose the consequent).
 
-  \ref{derivables:pos-belief} follows by (Ap) and (KBC).
-  \ref{derivables:neg-belief} follows by (An) and (KBC).
+  \ref{derivables:pos-belief} follows by (Ap) and \ref{derivables:KBC}.
+  \ref{derivables:neg-belief} follows by (An) and \ref{derivables:KBC}.
   \ref{derivables:B-KB} follows by by (Ap) for the right-to-left and (KS5) for the left-to-right.
   \ref{derivables:nB-KnB} follows by (An) for the right-to-left and (KS5) for the left-to-right.
-  \ref{derivables:B-nec} follows by (MN) and (KBC).
+  \ref{derivables:B-nec} follows by (MN) and \ref{derivables:KBC}.
   \ref{derivables:Bimp} follows by (MN) and (KBM).
   \ref{derivables:check-Bimp} follows by contraposition, (MN), (KBM), and contraposition.
   \ref{derivables:RE} follows from \ref{derivables:Bimp} by classical reasoning.
@@ -1775,13 +2237,13 @@ logic for probabilistic belief with threshold $c=\frac 12$.
   B_a\phi$ is provable.
 \end{proof}
 
-\begin{theorem}[$\KB$ Neighborhood Soundness]
-  \label{theorem:KB-neighborhood-soundness}
-  $\KB$ is sound with respect to the class $\mathcal{C}$ of
-  epistemic neighborhood models:
+\begin{theorem}[$\KB$ Neighborhood Soundness and Completeness]
+  \label{theorem:KB-neighborhood-soundness}\label{theorem:KB-neighborhood-completeness}
+  $\KB$ is sound and complete with respect to the class $\mathcal{C}$
+  of epistemic neighborhood models:
   \[
   \forall\phi\in\Lang_\KB:\quad\KB\vdash\phi
-  \quad\Rightarrow\quad
+  \quad\Leftrightarrow\quad
   \mathcal{C}\modelsn\phi
   \enspace.
   \]
@@ -1790,15 +2252,8 @@ logic for probabilistic belief with threshold $c=\frac 12$.
   By induction on the length of derivation.  We first
   verify soundness of the axioms.
   \begin{itemize}
-  \item Validity of (CL)
-    immediate. Validity of (KS5) follows because the $R_a$'s are equivalence relations
-    \cite{BlaRijVen:ml}.
-
-  \item Scheme (KBC) is valid: $\modelsn K_a\phi\to B_a\phi$.
-
-    $\M,w\modelsn K_a\phi$ means $[w]_a\subseteq\semn{\phi}$.  Since
-    $[w]_a\in N_a(w)$ by (n), we have $[w]_a\cap\semn{\phi}=[w]_a\in
-    N_a(w)$.  That is, $\M,w\modelsn B_a\phi$.
+  \item Validity of (CL) immediate. Validity of (KS5) follows because
+    the $R_a$'s are equivalence relations \cite{BlaRijVen:ml}.
 
   \item Scheme (BF) is valid: $\modelsn\lnot B_a\bot$.
 
@@ -1820,12 +2275,14 @@ logic for probabilistic belief with threshold $c=\frac 12$.
     shown that $[w]_a\subseteq\semn{B_a\phi}$.  Hence $\M,w\modelsn
     K_a B_a\phi$.
 
-  \item Scheme (An) is valid: $\modelsn \lnot B_a\phi\to K_a\lnot B_a\phi$.
+  \item Scheme (An) is valid: $\modelsn \lnot B_a\phi\to K_a\lnot
+    B_a\phi$.
 
     Replace $B_a\phi$ by $\lnot B_a\phi$ and $\in$ by $\notin$ in the
     argument for the previous item.
 
-  \item Scheme (KBM) is valid: $\modelsn K_a(\phi\to\psi)\to(B_a\phi\to B_a\psi)$.
+  \item Scheme (KBM) is valid: $\modelsn
+    K_a(\phi\to\psi)\to(B_a\phi\to B_a\psi)$.
 
     Suppose $\M,w\modelsn K_a(\phi\to\psi)$ and $\M,w\modelsn
     B_a\phi$.  This means $[w]_a\subseteq\semn{\phi\to\psi}$ and
@@ -1839,426 +2296,224 @@ logic for probabilistic belief with threshold $c=\frac 12$.
     $\M,w\modelsn B_a\psi$.
   \end{itemize}
   That validity is closed under applications of the rules MP and MN
-  follows by the standard arguments \cite{BlaRijVen:ml}.
-\end{proof}
+  follows by the standard arguments \cite{BlaRijVen:ml}.  This
+  completes the proof of soundness.
 
-In preparation for the proof of completeness of $\KB$ with respect to
-the class of finite epistemic neighborhood models, we require
-a few preliminary definitions and a key lemma.  The first definition concerns maximal
-consistent sets and definability of collections of these sets.
+  Before we prove completeness, we first prove an important result
+  that we will use tacitly throughout the completeness proof
+  proper. For each $a\in A$, let $M_a$ be the set of all
+  $\Lang_\KB$-formulas having one of the forms $K_a\varphi$, $\lnot
+  K_a\varphi$, $B_a\varphi$, or $\lnot B_a\varphi$.  We prove the
+  following \emph{Modal-Assumption Deduction Theorem\/}: for each
+  finite $F\subseteq M_a$, we have
+  \begin{center}
+    $F\vdash_\KB\varphi$ \quad{}iff\quad $\vdash_\KB(\bigwedge
+    F)\to\varphi$\enspace.
+  \end{center}
+  The right-to-left direction straightforward. The proof of the
+  left-to-right direction is by induction on the length of derivation.
+  All cases are standard except for the induction step in which (MN)
+  is applied, so we focus on this case.  Suppose $F\vdash_\KB
+  K_a\varphi$ is derived by (MP) from $\varphi$ such that
+  $F\vdash_\KB\varphi$. By the induction hypothesis, we have
+  $\vdash_\KB (\bigwedge_{\chi\in F}\chi)\to\varphi$.  By (MN) and
+  $\mathsf{K}$ reasoning, we have $\vdash_\KB (\bigwedge_{\chi\in
+    F}K_a\chi)\to K_a\varphi$.  However, it also follows by
+  $\mathsf{S5}$ reasoning (using schemes $\mathsf{4}$ and
+  $\mathsf{5}$), scheme (Ap), scheme (An), and the fact that
+  $F\subseteq M_a$ that we have $\vdash_\KB\chi\to K_a\chi$ for each
+  $\chi\in F$.  Hence $\vdash_\KB(\bigwedge_{\chi\in
+    F}\chi)\to(\bigwedge_{\chi\in F}K_a\chi)$. Conclusion:
+  $\vdash_\KB(\bigwedge_{\chi\in F}\chi)\to K_a\varphi$.
 
-\begin{definition}
-  \label{definition:definability}
-  Let $L$ be a set of $\Lang_\KB$-formulas.
-  An \emph{$L$-world} is a maximal $\KB$-consistent subset of $L$.\footnote{To say 
-  that a set of $\Lang_\KB$-formulas is \emph{$\KB$-consistent}
-  means that $\KB$ cannot be used to derive $\bot$ from a finite subset; the set is 
-  \emph{maximal $\KB$-consistent}
-  iff adding a formula not already present will violate $\KB$-consistency.}
-  We write $W^L$ for the set of $L$-worlds.
-  To say that $L$-worlds $\Gamma$ and $\Delta$ are \emph{$a$-compatible}, written
-  $\Gamma R_a\Delta$, means
-  \[
-  \forall K_a\phi\in L:(K_a\phi\in\Gamma \Leftrightarrow K_a\phi\in\Delta)\enspace.
-  \]
-  $a$-compatability is an equivalence relation and we write
-  \[
-  [\Gamma]_a := \{\Delta\in W^L\mid \Gamma R_a\Delta\}
-  \]
-  for the equivalence class of an $L$-world $\Gamma$ under this relation.
-  An \emph{$L$-$a$-region} is a set $X\subseteq[\Gamma]_a$
-  of $a$-compatible $L$-worlds.
-  To say $L$-$a$-regions $X$ and $Y$ are \emph{$a$-compatible} means
-  that they are each subsets of a single equivalence class $[\Gamma]_a$.
-  For $L'\subseteq L$, to say that an $L$-$a$-region $X\subseteq[\Gamma]_a$ is \emph{$L'$-definable}
-  means
-  \[
-  \textstyle
-  \exists\phi\in L':
-  X=\{\Delta\in[\Gamma]_a\mid \phi\in\Delta\}\enspace;
-  \]
-  i.e., fixing the equivalence class $[\Gamma]_a$ containing $X$, some
-  $\phi\in L'$ satisfies the property that $X$ is the set of all
-  $a$-compatible worlds containing $\phi$.  The formula $\phi$ is said
-  to \emph{define} $X$.  To say an $L$-world $\Gamma$ is
-  \emph{$L'$-definable} means that the $L$-$a$-region $\{\Gamma\}$ is
-  $L'$-definable.
-\end{definition}
-
-\begin{definition}[\cite{Segerberg1971:qpiams}]
-  Let $L$ be a  set of $\Lang_\KB$-formulas.
-  A \emph{basis} for $L$ is a subset $L_0\subseteq L$ satisfying the property
-  \[
-  \forall \phi\in L,\exists \phi_0\in L_0:
-  \KB\vdash\phi\leftrightarrow\phi_0\enspace.
-  \]
-  To say $L$ is \emph{logically finite} means $L$ has a finite basis.
-\end{definition}
-
-Logical finiteness is a useful property: a logically finite set $L$
-may be infinite and yet there will be only finitely many $L$-worlds (i.e.,
-$W^L$ is finite).  Segerberg
-introduced logical finiteness in order to exploit
-this property in a filtration-completeness argument for a modal theory
-of qualitative probabilistic comparison \cite{Segerberg1971:qpiams}.  We will
-also exploit this property here.  However, we will have an additional task,
-which takes the form of the following lemma.
-
-\begin{lemma}
-  \label{lemma:definability}
-  Let $L$ be a finite, subformula-closed set of $\Lang_\KB$-formulas.
-  Let $L'$ be the Boolean closure of $L$.\footnote{That is, $L'$ is
-    the smallest extension of $L$ closed under negation, conjunction,
-    disjunction, implication, and the addition of the propositonal
-    constants $\bot$ (falsehood) and $\top$ (truth).}  For each unary
-  symbol $M\in\{\lnot,B_a,K_a\}$ and set of $\Lang_\KB$-formulas $S$,
-  define $\bar MS:=S\cup\{M\phi\mid\phi\in S\}$ and let ${\bar\vee} S$
-  denote the closure of $S$ under finite nonempty disjunctions.
-  Define
-  \[
-  \textstyle
-  L^+ := \bigcup_{a\in A}\bar\lnot\bar K_a \bar\lnot{\bar\vee}\bar B_a L'
-  \enspace.
-  \]
-  $L'$ and $L^+$ are logically finite.  If $L'_0$ is a finite basis for $L'$,
-  then every $L^+$-$a$-region is $L'_0$-definable.
-\end{lemma}
-\begin{proof}
-  Logical finiteness of $L'$ follows from the finiteness of $L$ by a
-  normal form argument: treat modal formulas as letters and then
-  consider disjunctive normal forms of $L'$-formulas using this
-  extended but still finite set of letters appearing in $L$.  So let
-  $L'_0$ be a finite basis for $L'$.  Let ${\bar\vee}_{<\infty}S$
-  denote the closure of a set $S$ of formulas under finite nonempty
-  disjunctions without repeated disjuncts.  Observe that
-  ${\bar\vee}_{<\infty}S$ is finite if $S$ is.  We prove that
-  \[
-  \textstyle
-  L^+_0 := \bigcup_{a\in A}\bar\lnot\bar K_a\bar\lnot{\bar\vee}_{<\infty}\bar B_a L'_0
-  \]
-  is a finite basis for $L^+$.  Since $L'_0$ is a finite basis for
-  $L'$ and $L^+_0$ is obviously finite, it suffices for us to show
-  that for each $\phi\in L^+-L'$, there exists $\phi_0\in L^+_0$ such
-  that $\phi\leftrightarrow\phi_0$ is $\KB$-derivable.  There are only
-  a few cases to consider.
-  \begin{itemize}
-  \item Case: $\phi=B_a\psi$ with $\psi\in L'$.
-    
-    Choose $\psi\in L'_0$ such that $\psi\leftrightarrow\psi_0$ is
-    provable.  This is possible because $L'_0$ is a basis for $L'$.
-    By Proposition~\ref{prop:KBgt-derivables}\eqref{derivables:RE}, it
-    follows that $B_a\psi\leftrightarrow B_a\psi_0$ is provable if
-    $\psi\leftrightarrow\psi_0$ is.  Since $B_a\psi_0\in L^+_0$, the
-    result follows.
-
-  \item Case: $\phi=\bigvee_{i=1}^m B_a\psi^i$ with each $\psi_i\in L'$.
-
-    By the previous case we have provably equivalent $B_a\psi^i_0\in
-    L^+_0$ for each $i$.  Renumber the $\psi^i$'s and choose the
-    largest $n\leq m$ such that $\bigvee_{i=1}^n B_a\psi^i$ contains
-    no repeated disjuncts.  By classical reasoning, we have
-    \[
-    \textstyle
-    \vdash\bigvee_{i=1}^m B_a\psi^i\leftrightarrow\bigvee_{i=1}^n B_a\psi^i_0\enspace.
-    \]
-    Since $\bigvee_{i=1}^n B_a\psi^i_0$ contains no repetitions, this
-    formula is a member of $L^+_0$ and the result follows.
-
-  \item Case: $\phi=\lnot\bigvee_{i=1}^m B_a\psi^i$ or 
-    $\phi=\lnot\lnot\bigvee_{i=1}^m B_a\psi^i$.
-
-    By the previous case and the definition of $L^+_0$.
-
-  \item Case: $\phi=K_a\chi$ and $\chi$ is $\lnot\bigvee_{i=1}^m B_a\psi^i$, 
-    $\bigvee_{i=1}^m B_a\psi^i$, or $\psi\in L'$.
-
-    By the previous cases or the fact that $L'_0$ is a basis for $L'$,
-    there exists $\chi_0\in L^+_0$ such that
-    $\chi\leftrightarrow\chi_0$ is derivable.  Since $K_a$ is
-    $\textsf{S5}$, it follows that $K_a\chi\leftrightarrow K_a\chi_0$
-    is derivable as well.  Since $K_a\chi_0\in L^+_0$, the result
-    follows.
-
-  \item Case: $\phi=\lnot K_a\chi$ and $\chi$ is as in the previous case.
-
-    By the previous case and the definition of $L^+_0$.
-  \end{itemize}
-  Note that we need not consider the cases $\phi=\lnot\psi$ or
-  $\phi=\lnot\lnot\psi$ with $\psi\in L'$ because $L'$ is closed under
-  Boolean operations and hence such $\phi$ are already in $L'$.
-  Conclusion: $L^+_0$ is a finite basis for $L^+$, so $L^+$ is
-  logically finite.
-
-  Now let $L'_0$ be an arbitrary finite basis for $L'$.  What remains
-  is to show that every $L^+$-$a$-region is $L'_0$-definable. But this
-  follows if every $L^+$-world is $L'_0$-definable.  Indeed, each
-  $L^+$-$a$-region contains finitely many $L^+$-worlds because the
-  logical finiteness of $L^+$ implies $W^{L^+}$ is finite.  Therefore,
-  if the $L^+$-worlds $\Gamma_1,\dots,\Gamma_n$ are respectively
-  defined by the $L'_0$-formulas $\phi_1,\dots,\phi_n$, then the
-  disjunction of these formulas, which is a member of $L'$ and is
-  therefore provabily equivalent to another $L'_0$-formula, defines
-  the $L^+$-$a$-region consisting of the worlds.
-
-  So all we must show is that every $L^+$-world is $L'_0$-definable.
-  Proceeding, let $\Gamma$ be an $L^+$-world.  Let $\gamma$ be the
-  conjunction consisting the members of $\Gamma\cap L'_0$ along with
-  the negation of each member of $L'_0-\Gamma$.  Since $L'_0$ is
-  finite, $\gamma$ is a formula in $L'$ and is therefore provably
-  equivalent to some $\gamma_0\in L'_0$.  Clearly $\gamma_0\in\Gamma$
-  by the maximal $\KB$-consistency of $\Gamma$.  So suppose that
-  $\Delta\in[\Gamma]_a$ is an arbitrary $a$-compatible $L^+$-world and
-  $\gamma_0\in\Delta$.  If we can show that $\Delta=\Gamma$, then the
-  proof is complete.  Proceeding, it follows by the maximal
-  $\KB$-consistency of $\Delta$ that $\gamma\in\Delta$ and therefore
-  $\Gamma\cap L'_0=\Delta\cap L'_0$.  Since $L'_0$ is a basis for
-  $L'$, it follows by maximal $\KB$-consistency that $\Gamma\cap
-  L'=\Delta\cap L'$.  So to prove that $\Delta=\Gamma$, all that
-  remains is to prove that for each $\phi\in L^+-L'$, we have
-  $\phi\in\Delta$ iff $\phi\in\Gamma$.  For this there are only a few
-  cases to consider.
-  \begin{itemize}
-  \item Case: $\phi=B_a\psi$ with $\psi\in L'$.
-
-    By the definition of $L^+$, maximal consistency, (Ap), the
-    definition of $a$-compatibility, and the $\mathsf{S5}$ scheme
-    $K_a\chi\to\chi$, we have
-    \[
-    \renewcommand{\arraystretch}{1.3}
-    \begin{array}{lcl}
-      B_a\psi\in \Gamma 
-      & \Rightarrow &
-      K_aB_a\psi\in \Gamma
-      \\
-      & \Rightarrow &
-      K_aB_a\psi\in \Delta
-      \\
-      & \Rightarrow &
-      B_a\psi\in \Delta\enspace.
-    \end{array}
-    \]
-    By the definition of $L^+$, maximal consistency, (An), the
-    definition of $a$-compatibility, and the same $\mathsf{S5}$
-    scheme, we also have
-    \[
-    \renewcommand{\arraystretch}{1.3}
-    \begin{array}{lcl}
-      B_a\psi\in L^+-\Gamma 
-      & \Rightarrow &
-      \lnot B_a\psi\in \Gamma
-      \\
-      & \Rightarrow &
-      K_a\lnot B_a\psi\in  \Gamma
-      \\
-      & \Rightarrow &
-      K_a\lnot B_a\psi\in \Delta
-      \\
-      & \Rightarrow &
-      \lnot B_a\psi\in \Delta
-      \\
-      & \Rightarrow &
-      B_a\psi\in L^+-\Delta
-      \enspace.
-    \end{array}
-    \]
-    It follows that we have $B_a\psi\in\Gamma$ iff $B_a\psi\in\Delta$.
-
-  \item Case: $\phi=\bigvee_{i=1}^m B_a\psi^i$, $\phi=\lnot\bigvee_{i=1}^m B_a\psi^i$, or 
-    $\phi=\lnot\lnot\bigvee_{i=1}^m B_a\psi^i$.
-
-    By the previous case and maximal consistency.
-
-  \item Case: $\phi=K_a\chi$ or $\phi=\lnot K_a\chi$ and $\chi$ has
-    the form of a previous case.
-
-    By the definition of $a$-compatibility and maximal
-    consistency. \qedhere
-  \end{itemize}
-\end{proof}
-
-\begin{theorem}[$\KB$ Neighborhood Completeness]
-  \label{theorem:KB-neighborhood-completeness}
-  $\KB$ is complete with respect to the class $\mathcal{C}$ of
-  epistemic
-  neighborhood models:
-  \[
-  \forall\phi\in\Lang_\KB:\quad
-  \mathcal{C}\modelsn\phi
-  \quad\Rightarrow\quad
-  \KB\vdash\phi
-  \enspace.
-  \]
-  Further, every $\phi\in\Lang_\KB$ that is satisfiable at a pointed
-  epistemic neighborhood model is satisfiable at a finite pointed
-  epistemic neighborhood model.
-\end{theorem}
-\begin{proof}
-  Fix $\theta\in\Lang_\KB$ satisfying
-  $\KB\nvdash\lnot\theta$.  Let $\mathsf{sub}(\phi)$ denote the set of subformulas
-  of $\phi$ (including $\phi$ itself).  Define the finite, subformula-closed set
-  $L:=\mathsf{sub}(\theta)$
-  and let $L'$ and $L^+$ be given as in Lemma~\ref{lemma:definability}.
-  Fix a finite basis $L'_0$ for $L'$.  For each $L^+$-$a$-region $X$,
-  we will conflate $X$ with a fixed
-  $L'_0$-formula defining $X$ whose 
-  existence is guaranteed by Lemma~\ref{lemma:definability}.
-
-  We define the structure $\M=(W,R,V,N)$ as follows.
+  To prove completeness, it suffices to show that
+  $\KB\nvdash\lnot\theta$ implies $\theta$ is satisfiable at a pointed
+  epistemic neighborhood model. For two sets $F$ and $F'$ of
+  $\Lang_\KB$-formulas, to say that $F$ is \emph{maxcons in $F'$}
+  means that $F\subseteq F'$, the set $F$ is $\KB$-consistent (i.e.,
+  for no finite $G\subseteq F$ do we have $\vdash_\KB (\bigwedge
+  G)\to\bot$), and adding any formula $\psi\in F'$ not already in $F$
+  will produce a $\KB$-inconsistent (i.e., not $\KB$-consistent) set.
+  Let $S$ be the set of subformulas of $\theta$, including $\theta$
+  itself.  Let $C$ be the Boolean closure of $S$; that is, $C$ is the
+  smallest extension of $S$ that contains the propositional constants
+  $\top$ (truth) and $\bot$ (falsehood), or their abbreviations in
+  $\Lang_\KB$ if they are not primitive, and is closed under the
+  Boolean connectives (e.g., negation, conjunction, disjunction)
+  definable in the language.  For each $a\in A$, define:
   \begin{eqnarray*}
-    W &:=& W^{L^+}
-    \\
-    \Gamma R_a\Delta
-    &\text{iff}&
-    \forall K_a\phi\in L^+:(K_a\phi\in\Gamma\Leftrightarrow K_a\phi\in\Delta)
+    W &:=& 
+    \{w\subseteq C \mid w \text{ is maxcons in $C$}\}, 
     \\{}
-    [\Gamma]_a &:=& \{\Delta\in W\mid \Gamma R_a\Delta\}
+    w_a &:=& w\cap M_a \text{ for } w\in W,
+    \\{}
+    [\varphi] &:=& \{w\in W\mid \varphi\in w\}
+    \text{ for } \varphi\in C,
     \\
-    V(\Gamma) &:=& \Prop\cap\Gamma
+    R_a &:=& \{(w,v)\in W^2\mid w_a=v_a\},
+    \\{}
+    V(w) &:=& \Prop\cap w,
     \\
-    N_a(\Gamma) &:=&  \{X\subseteq[\Gamma]_a\mid B_aX\in\Gamma\}
+    N_a(w) &:=&
+    \{ X\subseteq[w]_a \mid 
+    \exists\varphi\in C:(X=[\varphi]\cap[w]_a
+    \text{ \& }
+    w_a\nvdash_\KB \lnot B_a\varphi)
+    \}.
   \end{eqnarray*}
-  $\M$ is finite: the logical finiteness of $L^+$ implies
-  $W^{L^+}$ is finite, so each component of $\M$ is finite.
 
-  We verify that $\M$ is an epistemic neighborhood model.  $W$ is
-  nonempty because $\KBeq\nvdash\lnot\theta$ and therefore
-  $\{\theta\}$ may be extended to a maximal consistent set
-  $\Gamma_\theta\in W$.
-  $R_a$ is obviously an equivalence relation.  What
-  remains is to check that $N_a$ satisfies (kbc), (kbf), (n), (a),
-  and (kbm).
-  \begin{itemize}
-  \item For (kbc), we must show $X\in N_a(\Gamma)$ implies
-    $X\subseteq[\Gamma]_a$.  But this follows by the definition of
-    $N_a(\Gamma)$.
+  Define $S':=S\cup\{\lnot\chi\mid\chi\in S\}\cup\{\bot,\top\}$, and
+  note that $S'$ is finite.  In what follows, we may make tacit use of
+  the following \emph{Identity Lemma\/}: for each $u,v\in W$, if
+  $u\cap S'=v\cap S'$, then $u=v$.  The proof is by a normal form
+  argument: every $\chi\in C$ is a Boolean combination of members of
+  $S$, and every such Boolean combination is $\KB$-provably equivalent
+  to a disjunction of conjunctions of maxcons subsets of $S'$.  We may
+  also make tacit use of the following \emph{Definability Lemma\/}:
+  for each $w\in W$ and each $X\subseteq[w]_a$, defining
+  \[
+  \textstyle
+  X^d :=\bigvee_{v\in X}\bigwedge_{\chi\in v\cap S'} \chi\enspace,
+  \]
+  it follows that $X^d\in C$ and $[X^d]\cap[w]_a=X$. For the proof,
+  first note that $X^d\in C$ because $C$ is closed under Boolean
+  operations and $S'\subseteq C$.  So assume $u\in[X^d]\cap[w]_a$,
+  which implies $X^d\in u$.  Since $u$ is maxcons in $C\supseteq S'$,
+  we have for some $v\in X$ that $\bigwedge_{\chi\in v\cap S'}\chi\in
+  u$ and hence $v\cap S'\subseteq u$.  Since $u$ is maxcons in $C$ and
+  hence maxcons in $S'$ and $S'$ is closed under the operation
+  ${\sim}:\Lang_\KB\to\Lang_\KB$ defined by
+  \[
+  {\sim}\varphi :=
+  \begin{cases}
+    \phantom{\lnot}\psi & \text{if }\varphi=\lnot\psi\\
+    \lnot\varphi & \text{otherwise,} \\
+  \end{cases}
+  \]
+  it follows that $u\cap S'=v\cap S'$, and hence $u=v\in X$ by the
+  Identity Lemma.  Conversely, suppose $u\in X\subseteq[w]_a$.  By the
+  definition of $X^d$, we have $\KB\vdash(\bigwedge_{\chi\in u\cap
+    S'}\chi)\to X^d$ and therefore $X^d\in u$ because $u$ is maxcons
+  in $C$. Hence $u\in[X^d]\cap[w]_a$ because $u\in X\subseteq[w]_a$.
 
-  \item For (kbf), we must show that $\emptyset\notin N_a(\Gamma)$.
-    Assume toward a contradiction that $\emptyset\in N_a(\Gamma)$.
-    It follows that $B_a\emptyset\in\Gamma$.
-    We have $\KB\vdash\emptyset\leftrightarrow\bot$ by the fact that
-    $\bot$ defines the $L^+$-$a$-region $\emptyset$.
-    By Proposition~\ref{prop:KBgt-derivables}\eqref{derivables:Bimp},
-    we have
-    $\KB\vdash B_a\emptyset\to B_a\bot$.  Since $B_a\bot\in L^+$, we have
-    $B_a\bot\in\Gamma$ by maximal consistency.  But this
-    contradicts the consistency of $\Gamma$ because we have
-    $\lnot B_a\bot\in\Gamma$ by (BF), maximal consistency, and the fact that
-    $\lnot B_a\bot\in L^+$.
-    Conclusion: $\emptyset\notin N_a(\Gamma)$.
+  Our definitions above specify the structure $\M=(W,R,V,N)$.  $W$ is
+  nonempty because $\theta$ is consistent and so may be extended to a
+  maxcons $w_\theta\in W$.  Since $S'$ is finite, it follows by the
+  Identity Lemma that $W$ is finite.  Further, $R_a$ is an equivalence
+  relation. So to conclude that $M$ is an epistemic neighborhood
+  model, all that remains is for us to show that $N_a$ satisfies the
+  neighborhood function properties.
+  \begin{description}
+  \item[(kbc)] $X\in N_a(w)$ implies $X\subseteq[w]_a$.
 
-  \item For (n), we must show that $[\Gamma]_a\in N_a(\Gamma)$.
-    Proceeding, we have $B_a\top\in\Gamma$ by (N), maximal consistency, and the
-    fact that $B_a\top\in L^+$.
-    We have $\KB\vdash\top\leftrightarrow[\Gamma]_a$ by the fact that
-    $\top$ defines the $L^+$-$a$-region $[\Gamma]_a$, and therefore
-    $\KB\vdash B_a\top\to B_a[\Gamma]_a$ by Proposition~\ref{prop:KBgt-derivables}\eqref{derivables:Bimp}.
-    Hence
-    $B_a[\Gamma]_a\in\Gamma$ by maximal consistency.  But then
-    $[\Gamma]_a\in N_a(\Gamma)$.
+    By definition.
 
-  \item For (a), we must show that $\Delta\in[\Gamma]_a$ implies
-    $N_a(\Delta)=N_a(\Gamma)$.  Choosing $\Delta\in[\Gamma]_a$, we have by
-    our argument in the proof of
-    Lemma~\ref{lemma:definability} that
-    $B_a\phi\in\Gamma$ iff $B_a\phi\in\Delta$ for each $B_a\phi\in L^+$.
-    Applying the definition of $N_a$, we have $N_a(\Delta)=N_a(\Gamma)$.
+  \item[(bf)] $\emptyset\notin N_a(w)$.
 
-  \item For (kbm), we must show $X\in N_a(\Gamma)$ and $X\subseteq
-    Y\subseteq[\Gamma]_a$ together imply that $Y\in
-    N_a(\Gamma)$. So suppose $X\in N_a(\Gamma)$ and $X\subseteq
-    Y\subseteq[\Gamma]_a$.  It follows that $B_aX\in\Gamma$.
-    Since $X,Y\in L'_0$, it follows that
-    $X\to Y\in L'$ and therefore that $K_a(X\to Y)\in L^+$.
-    Further, it follows from $X\subseteq
-    Y\subseteq[\Gamma]_a$ by maximal consistency that
-    $K_a(X\to Y)\in\Gamma$.  Applying (KBM), maximal consistency, and the fact that
-    $B_aY\in L^+$, we obtain $B_aY\in\Gamma$.
-    Hence $Y\in N_a(\Gamma)$.
-  \end{itemize}
-  So $\M$ is indeed an epistemic neighborhood model.  
+    Choose $\varphi\in C$ satisfying $[\varphi]\cap[w]_a=\emptyset$.
+    It follows that $w_a\vdash_\KB\varphi\to\bot$, since otherwise we
+    could extend $w_a\cup\{\varphi\}$ to some
+    $v\in[\varphi]\cap[w]_a$, which would contradict
+    $[\varphi]\cap[w]_a=\emptyset$.  So by (MN), we have
+    $w_a\vdash_\KB K_a(\varphi\to\bot)$ and hence $w_a\vdash_\KB
+    B_a\varphi\to B_a\bot$ by (KBM).  Since $w_a\vdash\lnot B_a\bot$
+    by (BF), it follows that $w_a\vdash_\KB \lnot B_a\varphi$.  So we
+    have shown that $w_a\vdash_\KB \lnot B_a\varphi$ for each
+    $\varphi\in C$ satisfying $[\varphi]\cap[w]_a=\emptyset$.
+    Conclusion: $\emptyset\notin N_a(w)$.
 
-  We prove the
-  following \emph{Truth Lemma\/}: for each $\phi\in L^+$ and
-  $\Gamma\in W$, we have $\phi\in\Gamma$ iff
-  $\M,\Gamma\modelsn\phi$. The proof is by induction on the
-  construction of $\phi$.  Most cases are straightforward; we only
-  consider the modal cases $\phi=K_a\psi$ and $\phi=B_a\psi$.
-  \begin{itemize}
-  \item For $K_a\psi\in L^+$: $K_a\psi\in\Gamma$ iff
-    $\M,\Gamma\modelsn K_a\psi$.
+  \item[(n)] $[w]_a\in N_a(w)$.
 
-    Suppose $K_a\psi\in\Gamma$. Take $\Delta\in[\Gamma]_a$.
-    It follows that $K_a\psi\in\Delta$ by the definition of
-    $R_a$.  Hence $\psi\in\Delta$ by the definition of $L$,
-    the $\mathsf{S5}$ scheme $K_a\chi\to\chi$, and maximal consistency.
-    Applying the induction hypothesis, we have
-    $\M,\Delta\modelsn\psi$.  Since $\Delta\in[\Gamma]_a$ was
-    chosen arbitrarily, we have shown that 
-    $[\Gamma]_a\subseteq\semn{\psi}$.  That is,
-    $\M,\Gamma\modelsn
-    K_a\psi$.
+    $w_a\vdash_\KB B_a\top$ by (N), so $w_a\nvdash_\KB\lnot B_a\top$.
+    Hence $[\top]\cap[w]_a=[w]_a\in N_a(w)$.
 
-    Conversely, suppose $K_a\psi\in L^+-\Gamma$.  It follows that $\lnot
-    K_a\psi\in\Gamma$ by the definition of $L^+$ and maximal
-    consistency.  We claim that the set
-    \[
-    S:=\{\lnot\psi\}\cup\{K_a\chi\in L^+\mid K_a\chi\in\Gamma\}
-    \]
-    is consistent.  Toward a contradiction, suppose $S$ is not
-    consistent.  It follows that there are
-    $K_a\chi_1,\ldots,K_a\chi_n\in\Gamma$ such that
-    \[
-    \KB\vdash K_a\chi_1\land\cdots\land K_a\chi_n\to \psi\enspace.
-    \]
-    It follows by modal reasoning using the $\mathsf{S5}$ operator
-    $K_a$ that
-    \[
-    \KB\vdash K_a\chi_1\land\cdots\land K_a\chi_n\to K_a\psi\enspace.
-    \]
-    Hence $K_a\psi\in\Gamma$ by maximal consistency, which contradicts
-    the consistency of $\Gamma$ because $\lnot K_a\psi\in\Gamma$.  
-    So $S$ is indeed consistent and can therefore be
-    extended to a maximal consistent $\Delta\in W^{L^+}$.  By construction,
-    $\Delta\in[\Gamma]_a$ and, since $K_a\psi\in L^+$ implies $\lnot\psi\in L^+$,
-    we also have $\lnot\psi\in\Delta$. But then
-    $\psi\notin\Delta$ by consistency. By the definition
-    of $L^+$, it follows from $K_a\psi\in L^+$ that $\psi\in L^+$, so we may
-    apply the induction hypothesis: from $\psi\in L^+-\Delta$, we
-    conclude that $\M,\Delta\not\modelsn\psi$ and therefore
-    $\M,\Gamma\not\modelsn K_a\psi$.
-    
-  \item For $B_a\psi\in L^+$: $B_a\psi\in\Gamma$ iff
-    $\M,\Gamma\modelsn B_a\psi$.
+  \item[(a)] $v\in[w]_a$ implies $N_a(v)=N_a(w)$.
 
-    Let $X_\chi\subseteq[\Gamma]_a$ be the $L^+$-$a$-region defined
-    by $\chi\in L^+$.  Since $B_a\psi\in L^+$, it follows that
-    $\psi\in L'$ and therefore we may choose
-    $\psi_0\in L'_0$
-    such that $\KB\vdash\psi\leftrightarrow\psi_0$.
+    $v\in[w]_a$ implies $[v]_a=[w]_a$ and $v_a=w_a$.  Therefore for
+    each $X\subseteq[v]_a=[w]_a$, we have $\varphi\in C$ satisfying
+    $X=[\varphi]\cap[w]_a$ and $w_a\nvdash_\KB \lnot B_a\varphi$ iff
+    $X=[\varphi]\cap[v]_a$ and $v_a\nvdash_\KB \lnot B_a\varphi$.
+    Hence $N_a(v)=N_a(w)$.
 
-    Now suppose $B_a\psi\in\Gamma$. By
-    Proposition~\ref{prop:KBgt-derivables}\eqref{derivables:Bimp} and maximal consistency,
-    this is equivalent to $B_a\psi_0\in\Gamma$.  This means
-    $X_{\psi_0}\in N_a(\Gamma)$.  But $X_{\psi_0}=X_{\psi}$.  Applying the
-    induction hypothesis, we have 
-    $X_{\psi}\in N_a(\Gamma)$ iff $\semn{\psi}\cap[w]_a\in N_a(\Gamma)$.
-    But the latter is the meaning of $\M,\Gamma\modelsn B_a\psi$.
-  \end{itemize}
-  This completes the proof of the Truth Lemma.
+  \item[(kbm)] If $X\subseteq Y\subseteq[w]_a$ and $X\in N_a(w)$, then
+    $Y\in N_a(w)$.
 
-  Since
-  $\theta\in\Gamma_\theta$, it follows by the Truth
-  Lemma that $\M,\Gamma_\theta\modelsn\theta$.  Therefore, the
-  satisfiable formula $\theta$ is satisfiable at the finite pointed
-  epistemic neighborhood model $(\M,\Gamma_\theta)$.
-  Completeness follows.
+    Suppose $X\subseteq Y\subseteq[w]_a$ and $X\in N_a(w)$. Then there
+    is $\varphi\in C$ satisfying $X=[\varphi]\cap[w]_a$ and
+    $w_a\nvdash_\KB \lnot B_a\varphi$.  Since $X\subseteq Y$, it
+    follows that $[\varphi]\cap[w]_a\subseteq[Y^d]\cap[w]_a$. From
+    this we obtain that $w_a\vdash_\KB\varphi\to Y^d$, since otherwise
+    we could extend $w_a\cup\{\varphi,\lnot Y^d\}$ to some
+    $v\in[\varphi]\cap[\lnot Y^d]\cap[w]_a$, which would contradict
+    $[\varphi]\cap[w]_a\subseteq[Y^d]\cap[w]_a$.  Hence $w_a\vdash_\KB
+    K_a(\varphi\to Y^d)$ by (MN) and so $w_a\vdash_\KB B_a\varphi\to
+    B_a Y^d$ by (KBM).  Since $w_a\nvdash_\KB \lnot B_a\varphi$, we
+    have $w_a\nvdash_\KB \lnot B_aY^d$.  Hence $Y\in N_a(w)$.
+  \end{description}
+  So $M$ is indeed and epistemic neighborhood model. To complete our
+  overall argument, it suffices to prove the \emph{Truth Lemma\/}: for
+  each $\varphi\in C$ and $w\in W$, we have $\varphi\in w$ iff
+  $\M,w\modelsn\varphi$. The argument is by induction on the
+  construction of $\varphi\in C$.  Boolean cases are straightforward,
+  so we restrict our attention to the modal cases: formulas
+  $B_a\varphi$ and $K_a\varphi$ in $C$.  Note that by the definition
+  of $C$ as the Boolean closure of the set $S$ of subformulas of
+  $\theta$, either of $B_a\varphi\in C$ or $B_a\varphi\in C$ implies
+  $\varphi\in C$.
+
+  Suppose $B_a\varphi\in w$. Then $w_a\vdash_\KB B_a\varphi$ and
+  therefore $w_a\nvdash_\KB\lnot B_a\varphi$.  Hence
+  $[\varphi]\cap[w]_a\in N_a(w)$ by the definition of $N_a$ and the
+  fact that $\varphi\in C$. Applying the induction hypothesis,
+  $[\varphi]=\semn{\varphi}^\M$, so $\semn{\varphi}^\M\cap[w]_a\in
+  N_a(w)$.  But this is what it means to have $\M,w\modelsn
+  B_a\varphi$.
+
+  Conversely, assume $\M,w\modelsn B_a\varphi$ for $B_a\varphi\in
+  C$. This means $\semn{\varphi}^\M\cap[w]_a\in N_a(w)$.  By the
+  induction hypothesis and the fact that $\varphi\in C$, we have
+  $[\varphi]=\semn{\varphi}^\M$, so $[\varphi]\cap[w]_a\in N_a(w)$.
+  By the definition of $N_a$, there exists $\psi\in C$ such that
+  $w_a\nvdash_\KB \lnot B_a\psi$ and
+  $[\varphi]\cap[w]_a=[\psi]\cap[w]_a$.  But then
+  $w_a\vdash_\KB\psi\to\varphi$, for otherwise we could extend
+  $w_a\cup\{\psi,\lnot\varphi\}$ to some $v\in[w]_a$ such that
+  $v\in[\psi]\cap[w]_a$ and $v\notin[\varphi]\cap[w]_a$, contradicting
+  $[\varphi]\cap[w]_a=[\psi]\cap[w]_a$.  Applying (MN), we have
+  $w_a\vdash_\KB K_a(\psi\to\varphi)$ and hence $w_a\vdash_\KB
+  B_a\psi\to B_a\varphi$ by (KBM).  Since $w_a\nvdash_\KB \lnot
+  B_a\psi$, it follows that $w_a\nvdash_\KB \lnot B_a\varphi$.  Hence
+  $\lnot B_a\varphi\notin w$. But since $B_a\varphi\in C$ and $w$ is
+  maxcons in $C$, we conclude that $B_a\varphi\in w$.
+
+  Now suppose $K_a\varphi\in w$.  Then for each $v\in [w]_a$, we have
+  that $K_a\varphi\in v$ and therefore $\varphi\in v$ by $\mathsf{S5}$
+  reasoning (using scheme $\mathsf{T}$) and the fact that $v$ is
+  maxcons in $C$.  But then we have shown that
+  $[w]_a\subseteq[\varphi]$.  Since $\varphi\in C$, it follows by the
+  induction hypothesis that $[w]_a\subseteq\semn{\varphi}^\M$, which
+  is what it means to have $\M,w\modelsn K_a\varphi$.
+
+  Conversely, assume $\M,w\modelsn K_a\varphi$ for $K_a\varphi\in
+  C$. It follows that $[w]_a\subseteq\semn{\varphi}^\M$.  By the
+  induction hypothesis, $[w]_a\subseteq[\varphi]$.  But then
+  $w_a\vdash_\KB\varphi$, for otherwise we could extend
+  $w_a\cup\{\lnot\varphi\}$ to some $v\in[w]_a$ satisfying
+  $v\notin[\varphi]$, contradicting $[w]_a\subseteq[\varphi]$.  By
+  (MN), we have $w_a\vdash_\KB K_a\varphi$.  Since $K_a\varphi\in C$
+  and $w$ is maxcons in $C$, it follows that $K_a\varphi\in w$.
 \end{proof}
+
+Since $\KB$ is sound and complete with respect to the class of
+epistemic neighborhood models, we would expect that in light of
+Theorem~\ref{theorem:walleyfine} that $\KB$ is at most sound for the
+probability interpretation.
 
 \begin{theorem}[$\KB$ Probability Soundness]
-  $\KB$ is sound for any threshold $c\in[\frac 12,1)\cap\Rat$ with respect to the class of epistemic
-  probability models:
+  $\KB$ is sound for any threshold $c\in(0,1)\cap\Rat$ with respect to
+  the class of epistemic probability models:
   \[
-  \textstyle \forall c\in[\frac 12,1)
+  \textstyle \forall c\in(0,1)
   \cap\Rat,\forall\phi\in\Lang_\KB:\quad
   \KB\vdash\phi
    \quad\Rightarrow\quad
@@ -2266,18 +2521,17 @@ which takes the form of the following lemma.
   \]
 \end{theorem}
 \begin{proof}
-  By Propositions~\ref{prop:knowledge} and \ref{prop:belief}.  Note that by the proofs of these
-  propositions, we can extend the result to all thresholds $c\in(0,1)\cap\Rat$.
+  Theorems~\ref{theorem:knowledge} and \ref{theorem:belief}.
 \end{proof}
 
-\begin{theorem}[\cite{WalleyFine1979:vomacp}; $\KB$ Probability Incompleteness]
+\begin{theorem}[$\KB$ Probability Incompleteness]
   \label{theorem:KB-probability-incompleteness}
-  $\KBc$ is incomplete for all thresholds $c\in[\frac 12,1)\cap\Rat$ with respect to the class of epistemic
-  probability models:
+  $\KBc$ is incomplete for all thresholds $c\in(0,1)\cap\Rat$ with
+  respect to the class of epistemic probability models:
   \[
   \textstyle 
   \exists\phi\in\Lang_\KB,
-  \forall c\in[\frac 12,1)
+  \forall c\in(0,1)
   \cap\Rat:\quad
   {}\modelsp\phi^c
   \quad\text{and}\quad
@@ -2285,159 +2539,41 @@ which takes the form of the following lemma.
   \]
 \end{theorem}
 \begin{proof}
-  We adapt Example~2 from \cite[pp.~344-345]{WalleyFine1979:vomacp} to the present setting.
-  Fix $c\in(0,1)\cap\Rat$.
-  Let $\Prop:=\{a,b,c,d,e,f,g\}$ and $A=\{1\}$.  Define the set
+  Take $\M$ as in the proof of Theorem~\ref{theorem:walleyfine}.  Let
+  $\sigma$ be the modal formula describing $(\M,a)$: informally (and
+  easily formalizable),
   \[
-  \mathcal{X}:=\{efg, abg, adf, bde, ace, cdg, bcf\}\enspace,
+  \textstyle \sigma \quad:=\quad a\bar{b}\cdots\bar{g}\land
+  KW\land(\bigwedge_{Z\in N(a)} BZ)\land
+  (\bigwedge_{Z'\in\wp(W)-N_0(a)}\lnot BZ')\enspace.
   \]
-  where we use the notation $xyz$ for $\{x,y,z\}$.  
-  Let $X_1,\dots,X_7$ denote the members of $\mathcal{X}$ (named here as in the order above.)
-  Define the single-agent structure $\M$ by
-  \begin{eqnarray*}
-    \M &:=& (W,R,V,N) \\
-    W &:=& \Prop \\
-    R_1 &:=& W\times W \\
-    V(p) &:=& \{p\} \\
-    N_1(x) &:=& \{Z\subseteq W\mid \exists X\in\mathcal{X}: X\subseteq Z\}
-  \end{eqnarray*}
-  It is easy to verify that $\M$ satisfies (kbc), (kbf), (n), (a), and (kbm).  So
-  $\M$ is a finite epistemic neighborhood model.
-  For each $x\in W$, let $\hat x$ denote the $\Lang_\KB$-formula
-  \[
-  \textstyle
-  x \land (\bigwedge_{y\in W-\{x\}}\lnot y) \enspace.
-  \]
-  Extend this to sets of worlds: for each $X\subseteq W$, let $\hat X$ denote
-  the formula $\textstyle\bigvee_{x\in X}\hat x$. Note that
-  $\textstyle\bigvee_{x\in\emptyset}\hat x=\bot$.
-  Now let $\sigma$ be the $\Lang_\KB$-formula
-  \begin{eqnarray*}
-    \hat a \;\;\land\;\; K_1\hat W &\land&
-    \textstyle
-    (\bigwedge_{Z\in N_1(a)} B_1\hat Z)
-    \;\land 
-    \\
-    &&
-    \textstyle
-    (\bigwedge_{Z\in\pow(W)-N_1(a)}\lnot B_1\hat Z) \enspace.
-  \end{eqnarray*}
-  It is clear that $\M,a\modelsn\sigma$ and therefore that
-  $\not\modelsn\lnot\sigma$.  By neighborhood soundness
-  (Theorem~\ref{theorem:KB-neighborhood-soundness}), we have
-  $\KB\nvdash\lnot\sigma$.
-
-  Define $\mathcal{Y}$ by a cyclic permutation of the letters
-  making up the sets in $\mathcal{X}$:  each letter goes
-  to the next in the alphabet, except that $g$ goes to $a$.  That is,
-  \[
-  \mathcal{Y}:=\{fga, bca, beg, cef, bdf, dea, cdg\}\enspace.
-  \]
-  Let $Y_1,\dots,Y_7$ denote the members of $\mathcal{Y}$ (named here as in the order above.)
-  Note that $\mathcal{Y}\cap\mathcal{X}=\emptyset$.  Therefore,
-  if $Y\in\mathcal{Y}$, then $Y\notin N_1(x)$ for any $x\in W$.
-  In words: no member of $\mathcal{Y}$ is a neighborhood in $\M$.
-  Further, we observe that each world in $W$ is a member of exactly three
-  sets in $\mathcal{Y}$ and a member of exactly three sets in $\mathcal{X}$.
-
-  We wish to show that $\modelsp\lnot\sigma^c$.
-  Note that the $\Lang$-formula $\sigma^c$ is
-  \begin{eqnarray*}
-    \hat a \;\;\land\;\; [P_1(\hat W)=1] &\land& 
-    \textstyle(\bigwedge_{Z\in N_1(a)} [P_1(\hat Z)>c])
-    \;\land 
-    \\
-    && 
-    \textstyle(\bigwedge_{Z\in\pow(W)-N_1(a)}\lnot [P_1(\hat Z)>c]) \enspace.
-  \end{eqnarray*}
-  Toward a contradiction, assume $\N,w\modelsp\sigma^c$.  It follows that
-  \begin{eqnarray}
-    && P_{1,w}(\semp{\hat W}^\N)=1
-    \label{eq:P1weq1}
-    \\
-    && \forall Z\in N_1(a): P_{1,w}(\semp{\hat Z}^\N)>c
-    \label{eq:P1wgtc}
-    \\
-    && \forall Z\in\pow(W)-N_1(a): P_{1,w}(\semp{\hat Z}^\N)\leq c
-    \label{eq:P1wleqc}
-  \end{eqnarray}
-  By \eqref{eq:P1wgtc} and the fact that each $\hat x$ occurs
-  in exactly three $\hat X_i$'s, we have
-  \begin{equation}
-    \textstyle
-    7c<\sum_{i=1}^7P_{1,w}(\semp{\hat X_i}^\N)=3\sum_{x\in W}P_{1,w}(\semp{\hat x}^\N)\enspace.
-    \label{eq:incomp:sum1}
-  \end{equation}
-  By \eqref{eq:P1wleqc} and the fact that each $\hat x$ occurs
-  in exactly three $\hat Y_i$'s, we have
-  \begin{equation}
-    \textstyle
-    7c\geq\sum_{i=1}^7P_{1,w}(\semp{\hat Y_i}^N)=3\sum_{x\in W}P_{1,w}(\semp{\hat x}^\N)\enspace.
-    \label{eq:incomp:sum2}
-  \end{equation}
-  But \eqref{eq:incomp:sum1} contradicts \eqref{eq:incomp:sum2}.
-  Therefore that we cannot have $\N,w\modelsp\sigma^c$ for any pointed epistemic probability
-  model $(\N,w)$.  Hence $\modelsp\lnot\sigma^c$.  And, as we have seen,
-  $\KB\nvdash\lnot\sigma$.
+  We have $\M,w\modelsn\sigma$ so that $\not\modelsn\lnot\sigma$ and
+  therefore $\KB\nvdash\lnot\sigma$ by
+  Theorem~\ref{theorem:KB-neighborhood-completeness}.  By the proof of
+  Theorem~\ref{theorem:walleyfine}, there is no probability measure
+  agreeing with $\M$ for any threshold.  Hence
+  $\modelsp\lnot\sigma^c$. So $\phi:=\lnot\sigma$ gives us the desired
+  formula.
 \end{proof}
-
-\begin{remark}
-  We use the notation of the proof of
-  Theorem~\ref{theorem:KB-probability-incompleteness}.  It follows
-  from this proof that there can be no epistemic probability model
-  $\N=(W,R,V,P)$ based on the same underlying Kripke model $(W,R,V)$
-  as $\M$ such that $\N^c=\M$.  For if there were such an $\N$, then
-  it would follow from $\M,a\modelsn\sigma$ by
-  Theorem~\ref{BettingTheorem} that $\N,a\modelsp\sigma^c$.  But as we
-  have seen, no pointed epistemic probability model can satisfy
-  $\sigma^c$.
-
-  Examining the model $\M$ further, one may verify that that no
-  $X_j\in\mathcal{X}$ is contained in the complement $W-X_i$ of some
-  $X_i\in\mathcal{X}$.  It follows that $\M$ satisfies
-  \[
-    (X\mathbb{I}_1Y)_{i=1}^7,\enspace
-    X_1\in N_1(a)\text{, and}\enspace
-    \forall i\in\{2,\dots,7\}:W-X_i\notin N_1(a)\enspace,
-  \]
-  which is the antecedent of property (l), also from
-  Definition~\ref{definition:extra-properties}.  However, $\M$ does
-  not satisfy
-  \[
-  \exists j\in\{1,\dots,7\}:Y_j\in N_1(a)\enspace,
-  \]
-  which is the corresponding consequent of the indicated instance of
-  (l).  So we see that if we were to restrict ourselves to the class
-  of finite epistemic neighborhood models satisfying this property, we
-  would no longer able to use $\M$ as a counterexample to the claim
-  ``every epistemic neighborhood model $\M$ (in the class in question)
-  gives rise to an epistemic probability model $\N$ on the same
-  underlying Kripke model such that $\N^{\frac 12}=\M$.''  Of course
-  ruling out $\M$ as a counterexample to this claim does not prove the
-  claim.  Nevertheless, it is suggestive of the problem with models
-  that do not satisfy (l).  And, as we will see in the proof of
-  Theorem~\ref{theorem:KBeq-probability-completeness}, this property
-  is key among the sufficient (and necessary) conditions needed to
-  guarantee that the claim holds.
-\end{remark}
 
 \subsection{Results for the Mid-Threshold Calculus \texorpdfstring{$\KBeq$}{KB.5}}
 \label{section:kbeq}
 
-We first show that the $\KB$ scheme (KBM) is redundant in the theory
-$\KBeq$.
+We first show that the $\KB$ schemes (BF) and (KBM) are redundant in
+the theory $\KBeq$.
 
-\begin{proposition}
-  \label{prop:KBminus}
+\begin{theorem}
+  \label{theorem:KBminus}
   $\KBeqm$ and $\KBeq$ derive the same theorems:
   \[
   \forall\phi\in\Lang_\KB:\quad
   \KBeqm\vdash\varphi \quad\Leftrightarrow\quad \KBeq\vdash\varphi\enspace.
   \]
-\end{proposition}
+\end{theorem}
 \begin{proof}
-  It suffices to prove that the scheme (KBM) is derivable in $\KBeqm$.
-  By Definition~\ref{definition:segerberg-notation}, the formula
+  It suffices to prove that the schemes (BF) and (KBM) are derivable
+  in $\KBeqm$. For (KBM), we have by
+  Definition~\ref{definition:segerberg-notation} that the formula
   $\phi\mathbb{I}_a\psi$ is just
   \begin{equation}
     K_a\bigl(\;
@@ -2447,27 +2583,32 @@ $\KBeq$.
     \label{eq:KaPhitoPsi}
   \end{equation}
   where we have explicitly indicated the subformulas $C_0$ and $C_1$
-  used in the notation of Definition~\ref{definition:segerberg-notation}.
-  Semantically, \eqref{eq:KaPhitoPsi} says that in each of $a$'s accessible worlds,
-  $\psi$ is true whenever $\phi$ is true.
-  Now reasoning within $\KBeqm$, it follows that
-  $K_a(\phi\to\psi)$ is provably equivalent to
-  $\phi\mathbb{I}_a\psi$.  But then from
-  $K_a(\phi\to\psi)$ and $B_a\phi$, we may derive
-  $\phi\mathbb{I}_a\psi$ and $B_a\phi$, from which we may derive
-  $B_a\psi$ by (L). Hence (KBM) is derivable.
+  used in the notation of
+  Definition~\ref{definition:segerberg-notation}.  Semantically,
+  \eqref{eq:KaPhitoPsi} says that in each of $a$'s accessible worlds,
+  $\psi$ is true whenever $\phi$ is true.  Now reasoning within
+  $\KBeqm$, it follows that $K_a(\phi\to\psi)$ is provably equivalent
+  to $\phi\mathbb{I}_a\psi$.  But then from $K_a(\phi\to\psi)$ and
+  $B_a\phi$, we may derive $\phi\mathbb{I}_a\psi$ and $B_a\phi$, from
+  which we may derive $B_a\psi$ by (Scott). Hence (KBM) is derivable.
+
+  We now consider (BF).  The formula $\bot\to\lnot\top$ is a classical
+  tautology and hence $K_a(\bot\to\lnot\top)$ follows by (MN).  Hence
+  by an instance of (KBM), which can be defined away in terms of
+  axioms other than (BF) as above, it follows that $B_a\bot\to
+  B_a\lnot\top$ and therefore that $\lnot B_a\lnot\top\to\lnot
+  B_a\bot$.  Also by (N), (D), and (MP), we may derive $\lnot
+  B_a\lnot\top$.  That is, (BF) is derivable.
 \end{proof}
 
 \begin{theorem}[$\KBeq$ Neighborhood Soundness and Completeness]
+  \label{theorem:KBeq}
   $\KBeq$ is sound and complete with respect to the class $\Ceq$ of
   mid-threshold neighborhood models:
   \[
   \forall\phi\in\Lang_\KB:\quad
   \KBeq\vdash\phi \quad\Leftrightarrow\quad \Ceq\modelsn\phi \enspace.
   \]
-  Further, every $\phi\in\Lang_\KB$ that is satisfiable at a pointed
-  mid-threshold neighborhood model is satisfiable at a finite
-  pointed mid-threshold neighborhood model.
 \end{theorem}
 \begin{proof}
   Soundness is by induction on the length of derivation.  Most cases
@@ -2480,8 +2621,8 @@ $\KBeq$.
     Suppose $\M,w\modelsn B_a\phi$. This means
     $[w]_a\cap\semn\phi\in N_a(w)$.  By (d), 
     \[
-    [w]_a\cap\semn{\lnot\psi}=[w]_a-\semn\phi=[w]_a-([w]_a\cap\semn\phi)\notin
-    N_a(w)\enspace.
+    [w]_a\cap\semn{\lnot\psi}=[w]_a-\semn\phi =
+    [w]_a-([w]_a\cap\semn\phi)\notin N_a(w)\enspace.
     \]
     But this is what it means to have $\M,w\modelsn\check B_a\phi$.
 
@@ -2500,123 +2641,126 @@ $\KBeq$.
     therefore $[w]_a\cap\semn{\phi\lor\psi}\in N_a(w)$ by (sc). Hence
     $\M,w\models B_a(\phi\lor\psi)$.
 
-  \item Scheme (L) is valid:
+  \item Scheme (Scott) is valid:
     \[
     \modelsn \textstyle [(\phi_i\mathbb{I}_a\psi_i)_{i=1}^m
     \land B_a\phi_1 \land \bigwedge_{i=2}^m \check B_a\phi_i] \to
     \bigvee_{i=1}^m B_a\psi_i\enspace.
     \]
 
-    Suppose $(\M,w)$ satisfies the antecedent of scheme (L).  It
-    follows that each $v\in[w]_a$ satisfies just as many $\phi_i$'s as
-    $\psi_i$'s, that $[w]_a\cap\semn{\psi_1}\in N_a(w)$, and that
-    $[w]_a-\semn{\phi_k}\notin N_a(w)$ for each $k\in\{2,\dots,m\}$.
-    Hence
+    Suppose $(\M,w)$ satisfies the antecedent of scheme (Scott).  It
+    follows that each $v\in[w]_a$ satisfies at least as many
+    $\phi_i$'s as $\psi_i$'s, that $[w]_a\cap\semn{\psi_1}\in N_a(w)$,
+    and that $[w]_a-\semn{\phi_k}\notin N_a(w)$ for each
+    $k\in\{2,\dots,m\}$.  Hence
     \[
     [w]_a\cap\semn{\phi_1},\dots,[w]_a\cap\semn{\phi_m}\mathbb{I}_a
     [w]_a\cap\semn{\psi_1},\dots, [w]_a\cap\semn{\psi_m}\enspace,
     \]
-    from which it follows by (l) that $[w]_a\cap\semn{\psi_j}\in
-    N_a(w)$ for some $j\in\{1,\dots,m\}$.  Hence $\M,w\modelsn B_a\psi_j$,
-    and thus $\M,w\modelsn\bigvee_{i=1}^m B_a\psi_i$.
+    from which it follows by (scott) that $[w]_a\cap\semn{\psi_j}\in
+    N_a(w)$ for some $j\in\{1,\dots,m\}$.  Hence $\M,w\modelsn
+    B_a\psi_j$, and thus $\M,w\modelsn\bigvee_{i=1}^m B_a\psi_i$.
   \end{itemize}
   Soundness has been proved.  
 
-  Completeness is as in the proof of Theorem~\ref{theorem:KB-neighborhood-completeness},
-  except that all relevant definitions and results that make use of derivability are changed
-  so as to take derivability with respect to $\KBeq$.  All that needs
-  to be shown is that the model $\M$ defined as in the proof of
-  Theorem~\ref{theorem:KB-neighborhood-completeness} is a mid-threshold
-  neighborhood model; the rest of the argument is as in that proof,
-  \emph{mutatis mutandis}.  Most of the properties of $\M$ are shown
-  in that proof.  What remains is for us to show that $\M$ also satisfies
-  (d), (sc), and (l).
+  For completeness, it suffices to show that the model $\M$ defined as
+  in the proof of
+  Theorem~\ref{theorem:KB-neighborhood-completeness}---except that now
+  derivability is always taken with respect to $\KBeq$---is a
+  mid-threshold neighborhood model; the rest of the argument is as in
+  that proof, \emph{mutatis mutandis}.  Most of the properties of $\M$
+  are shown in that proof.  What remains is for us to show that $\M$
+  also satisfies (d), (sc), and (scott).
+  \begin{description}
+  \item[(d)] $X\in N_a(w)$ implies $X'\notin N_a(w)$, where
+    $X':=[w]_a-X$.
+
+    Suppose $X\in N_a(w)$.  Then we have $\varphi\in C$ such that
+    $X=[\varphi]\cap[w]_a$ and $w_a\nvdash_\KB \lnot B_a\varphi$.  By
+    (D), it follows that $w_a\nvdash_\KB\lnot \check B_a\varphi$.
+    Choose $\psi\in C$ satisfying $X'=[\psi]\cap[w]_a$.  We have
+    $w_a\vdash_\KB\lnot\varphi\to\psi$, since otherwise we could
+    extend $w_a\cup\{\lnot\varphi,\lnot\psi\}$ to a $v\in[w]_a$ such
+    that $v\in[\lnot\varphi]\cap[w]_a=X'$ and
+    $v\in[\lnot\psi]\cap[w]_a=X$, contradicting $X'\cap X=\emptyset$.
+    By (MP), we have $w_a\vdash_\KB K_a(\lnot\varphi\to\psi)$ and
+    therefore $w_a\vdash_\KB B_a\lnot\varphi\to B_a\psi$ by (KBM).
+    Since $\lnot\check B_a\varphi=\lnot\lnot B_a\lnot\varphi$ and
+    $w_a\nvdash_\KB\lnot \check B_a\varphi$, it follows that
+    $w_a\nvdash_\KB\lnot B_a\psi$.  So we have shown that
+    $w_a\nvdash_\KB\lnot B_a\psi$ for each $\psi\in C$ satisfying
+    $X'=[\psi]\cap[w]_a$.  Conclusion: $X'\notin N_a(w)$.
+
+  \item[(sc)] If $X'\notin N_a(w)$ and $X\subsetneq Y\subseteq[w]_a$,
+    then $Y\in N_a(w)$.
+
+    So assume that $X'\notin
+    N_a(w)$ and $X\subsetneq Y\subseteq[w]_a$. Define
+    \begin{eqnarray*}
+      \varphi &:=&
+      \textstyle \bigvee_{v\in X}\bigwedge_{\chi\in v\cap S'}\chi
+      \enspace,\text{ and}
+      \\
+      \psi &:=&
+      \textstyle \bigvee_{v\in Y-X}\bigwedge_{\chi\in v\cap S'}\chi\enspace.
+    \end{eqnarray*}
+    It follows that $\{\varphi,\psi\}\subseteq C$,
+    $[\varphi]\cap[w]_a=X$, and $[\psi]\cap[w]_a=Y-X$.  Hence
+    $\varphi\lor\psi\in C$ and $[\varphi\lor\psi]\cap[w]_a=Y$.  Since
+    $\varphi\in C$ and $[\varphi]\cap[w]_a=X$, it follows that
+    $\lnot\varphi\in C$ and $[\lnot\varphi]\cap[w]_a=X'$.  Hence by
+    $X'\notin N_a(w)$, we have $w_a\nvdash_\KB B_a\lnot\varphi$.  For
+    each $v\in[w]_a$,
+
+  \end{description}
+
+  % XXX
   \begin{itemize}
-  \item For (d), we must show $X\in N_a(\Gamma)$ implies
-    $X'\notin N_a(\Gamma)$, where 
-    $X\subseteq[\Gamma]_a$ and
-    $X':=[\Gamma]_a-X$.  Toward a contradiction, assume
-    $X,X'\in N_a(\Gamma)$.
-    This means $B_aX,B_aX'\in N_a(\Gamma)$.  Since $X,X'\in L'_0$,
-    we have $X\to\lnot X'\in L'$ and therefore
-    $K_a(X\to\lnot X')\in L^+$.  But
-    $X\cap X'=\emptyset$, so it follows by maximal consistency that
-    $K_a(X\to\lnot X')\in\Gamma$.  By (M), maximal consistency,
-    and the fact that $\lnot X'\in L'$ and hence $B_a\lnot X'\in L^+$, we obtain
-    $B_a\lnot X'\in\Gamma$.  But since $B_a X'\in\Gamma$ and
-    $X'\in L'$ implies $\lnot B_a\lnot X'\in L^+$, it follows by (D) and
-    maximal consistency that $\lnot B_a\lnot X'\in\Gamma$, contradicting
-    the consistency of $\Gamma$.
 
-  \item For (sc), we must show $X':=[\Gamma]_a-X\notin N_a(\Gamma)$ and
-    $X\subsetneq Y\subseteq[\Gamma]_a$ together imply $Y\in
-    N_a(\Gamma)$.  So suppose we have the antecedent of this implication.
-    It follows that $B_aX'\notin\Gamma$ and therefore $\lnot B_aX'\in\Gamma$
-    by the definition of $L^+$ and maximal consistency.  Notice that
-    $\KBeq\vdash X'\leftrightarrow\lnot X$ because $X'=[\Gamma]_a-X$
-    and therefore we have by Proposition~\ref{prop:KBgt-derivables}\eqref{derivables:Bimp}
-    (and the fact that $\KBeq$ extends $\KBgt$) that $\check B_aX\in\Gamma$.
-    Further, $\check K_a(\lnot X\land Y)\in L^+$, so since $X\subsetneq Y\subseteq[\Gamma]_a$,
-    we have $\check K_a(\lnot X\land Y)\in\Gamma$ by maximal consistency.  Further,
-    since $B_a(X\lor Y)\in L^+$, it follows by (SC) and maximal consistency that
-    $B_a(X\lor Y)\in\Gamma$.  Since $K_a(X\lor Y\to Y)\in L^+$, we have
-    by $X\subsetneq Y\subseteq[\Gamma]_a$ and maximal consistency that
-    $K_a(X\lor Y\to Y)\in\Gamma$.  Hence by maximal consistency and (KBM),
-    we have $B_aY\in\Gamma$ and therefore $Y\in N_a(\Gamma)$.
+  \item For (sc), we must show $X':=[\Gamma]_a-X\notin N_a(\Gamma)$
+    and $X\subsetneq Y\subseteq[\Gamma]_a$ together imply $Y\in
+    N_a(\Gamma)$.  So suppose we have the antecedent of this
+    implication.  It follows that $B_aX'\notin\Gamma$ and therefore
+    $\lnot B_aX'\in\Gamma$ by the definition of $L^+$ and maximal
+    consistency.  Notice that $\KBeq\vdash X'\leftrightarrow\lnot X$
+    because $X'=[\Gamma]_a-X$ and therefore we have by
+    Theorem~\ref{theorem:KBgt-derivables}\eqref{derivables:Bimp} (and
+    the fact that $\KBeq$ extends $\KBgt$) that $\check
+    B_aX\in\Gamma$.  Further, $\check K_a(\lnot X\land Y)\in L^+$, so
+    since $X\subsetneq Y\subseteq[\Gamma]_a$, we have $\check
+    K_a(\lnot X\land Y)\in\Gamma$ by maximal consistency.  Further,
+    since $B_a(X\lor Y)\in L^+$, it follows by (SC) and maximal
+    consistency that $B_a(X\lor Y)\in\Gamma$.  Since $K_a(X\lor Y\to
+    Y)\in L^+$, we have by $X\subsetneq Y\subseteq[\Gamma]_a$ and
+    maximal consistency that $K_a(X\lor Y\to Y)\in\Gamma$.  Hence by
+    maximal consistency and (KBM), we have $B_aY\in\Gamma$ and
+    therefore $Y\in N_a(\Gamma)$.
 
-  \item For (l), we must show $(X_i\mathbb{I}_aY_i)_{i=1}^m$,
-    $X_1\in N_a(\Gamma)$, and $[\Gamma]_a-X_i\notin N_a(\Gamma)$
-    for all $i\neq 1$ together imply that $Y_j\in N_a(\Gamma)$
-    for some $j$.  Suppose we have the antecedent of this implication.
-    Then $B_aX_1\in\Gamma$.  Further, as in the argument for (sc), our
-    assumptions imply $\check B_aX_i\in\Gamma$ for all $i\neq 1$.
-    By our argument for (wl), we have $(X_i\mathbb{I}_aY_i)_{i=1}^m\in\Gamma$.
-    Since $\bigvee_{i=1}^mY_i\in L^+$, it follows by (L) and maximal consistency
-    that $\bigvee_{i=1}^mY_i\in\Gamma$ and therefore by maximal consistency
-    that $Y_j\in\Gamma$ for some $j$.  But then $Y_j\in N_a(\Gamma)$.
-    \qedhere
+  \item For (scott), we must show $(X_i\mathbb{I}_aY_i)_{i=1}^m$,
+    $X_1\in N_a(\Gamma)$, and $[\Gamma]_a-X_i\notin N_a(\Gamma)$ for
+    all $i\neq 1$ together imply that $Y_j\in N_a(\Gamma)$ for some
+    $j$.  Suppose we have the antecedent of this implication.  Then
+    $B_aX_1\in\Gamma$.  Further, as in the argument for (sc), our
+    assumptions imply $\check B_aX_i\in\Gamma$ for all $i\neq 1$.  By
+    our argument for (wl), we have
+    $(X_i\mathbb{I}_aY_i)_{i=1}^m\in\Gamma$.  Since
+    $\bigvee_{i=1}^mY_i\in L^+$, it follows by (Scott) and maximal
+    consistency that $\bigvee_{i=1}^mY_i\in\Gamma$ and therefore by
+    maximal consistency that $Y_j\in\Gamma$ for some $j$.  But then
+    $Y_j\in N_a(\Gamma)$.  \qedhere
   \end{itemize}
 \end{proof}
 
-We make use of the following theorem due to Scott \cite{Sco64:JMP} in
-formulating Lenzen's proof of probability completeness for $\KBeq$
-(Theorem~\ref{theorem:KBeq-probability-completeness}).
-
-\begin{theorem}[{\cite[Theorem 1.2]{Sco64:JMP}}]
-  Let $X$ be a finite, rational, symmetric subset of
-  the vector space $L$ of all real-valued functions defined on a finite set 
-  $S$.\footnote{So $L$ is the $S$-dimensional vector space.
-  To say $x:S\to\mathbb{R}$ is \emph{rational} means that all of its
-  coordinates (i.e., values) are rational numbers.  
-  To say $X\subseteq L$ is \emph{rational} means every $x\in X$ is rational.
-  To say $X$ is \emph{symmetric} means that $X=-X:=\{-x\mid x\in X\}$.}
-  For each $N\subseteq X$,
-  there exists a linear functional $\varphi$ on $L$ such that
-  \[
-  N = \{x\in X\mid \varphi(x)\geq 0\}
-  \]
-  if and only if the following conditions are satisfied:
-  \begin{itemize}
-  \item for each $x\in X$, we have $x\in N$ or $-x\in N$; and
-
-  \item for each integer $n\geq 0$ and $x_0,\dots,x_n\in N$, we have
-  \[
-  \sum_{i=0}^n x_i = 0
-  \quad\Rightarrow\quad
-  -x_0\in N\enspace.
-  \]
-  \end{itemize}
-\end{theorem}
-
-That $\KBeq$ is sound and complete for the probabilistic semantics
-with threshold $c=\frac 12$ was originally proved by Lenzen
-\cite{Lenzen1980:gwuw}.
+Since $\KBeq$ is sound and complete with respect to mid-threshold
+neighborhood models, we would expect from
+Corollary~\ref{corollary:lenzen} that $\KBeq$ is sound and complete
+with respect to the probability interpretation for threshold $c=\frac
+12$.
 
 \begin{theorem}[Due to \cite{Lenzen1980:gwuw}; $\KBeq$
   Probability Soundness and Completeness]
-  \label{theorem:KBeq-probability-completeness}\label{theorem:lenzen}
-  $\KBeq$ is sound and complete for threshold $\frac12$ with respect to the class of epistemic
-  probability models:
+  $\KBeq$ is sound and complete for threshold $\frac12$ with respect
+  to the class of epistemic probability models:
   \[
   \textstyle 
   \forall\phi\in\Lang_\KB:\quad
@@ -2626,153 +2770,9 @@ with threshold $c=\frac 12$ was originally proved by Lenzen
   \]
 \end{theorem}
 \begin{proof}
-  Soundness is by Propositions~\ref{prop:knowledge} and \ref{prop:belief}.
-
-  For completeness, we will show that every finite mid-threshold neighborhood model can be
-  extended to an epistemic probability model.
-
-  Let $\M = (W,R,V,N)$ be a mid-threshold neighborhood model for agent 
-  set $A$ and proposition set $\Prop$. 
-  Assume that $W$ is finite. Let $a \in A$ be some agent and let $w \in W$. 
-  We will construct a probability measure $P_{a,w}$ on $\pow([w]_a)$ satisfying full support. 
-  From these $P_{a,w}$ a probability function $P_a$ on $W$ can be defined as follows. 
-  Let $n = | \{ [w]_a \mid w \in W \}|$, i.e., let $n$ be the size of the partition 
-  generated by $R_a$. Then $P_a$ defined by $P_a(w) = \frac{P_{a,w}(w)}{n}$ is a probability 
-  measure on $W$ satisfying full support. 
-
-  Let $[w]_a = \{ w_1, \ldots, w_n \}$.  For convenience in what
-  follows, we will often conflate the function $N$ with its value
-  $N_a(w)$ for agent $a$ at world $w$; this ought not cause confusion
-  because every mention of the function $N$ in this proof will only be
-  to mention its value on $(a,w)$. Consider the $n$-dimensional vector
-  space $\Ree^n$, with the usual operations for vector addition and
-  scalar multiplication.  Let $X \subseteq [w]_a$. Then $X$ is mapped
-  to a vector by
-  \[
-  V(X) = (\Psi_X(w_1), \ldots, \Psi_X(w_n))\enspace,
-  \]
-  where $\Psi_X$ is the decision function for $X$ given by $\Psi_X(w)
-  = 1$ if $w \in X$, $\Psi_X(w) = 0$ otherwise. Note that
-  $V(\emptyset) = 0^n$ and $V([w]_a) = 1^n$.  Let us write $[w]_a - X$
-  as $\overline{X}$.  Let
-  \begin{eqnarray*} 
-    M_1 & = & \{ V(X) \in \Ree^n \mid X \subseteq [w]_a \}, \\
-    M_2 & = & \{ (V(X) - V(\overline{X})) \in \Ree^n \mid X \subseteq [w]_a, 
-                  \overline{X} \notin N \} \\
-    M & = & M_1 \cup M_2 \\
-    K & = & M \cup M^-, 
-  \end{eqnarray*}
-  where $M^- =  \{ -r \mid r \in M \} = \{ -1 \cdot r \mid r \in M \}$.
-
-  Note that $K$ is finite, $K$ is symmetric by definition (meaning:
-  $K = K^-$), and $K$ is rational (all vector values are rational numbers). 
-  We can apply a theorem of \cite{Sco64:JMP} (Theorem 1.2): there is a real-valued
-  linear function $\phi$ on $\Ree^n$ with ($\phi(v) \geq 0$ iff $v \in M$) iff 
-  the following two conditions hold: 
-  \begin{enumerate} 
-  \item $\forall r \in K: r \in M \lor -r \in M$. 
-  \item $\forall m \geq 1 \ \forall r_1, \ldots, r_m \in K:$ \\
-   $\text{ if } \sum_{i=1}^m r_i = 0^n \text{ then } 
-     r_1, \ldots, r_{m-1} \in M \text{ implies } -r_m \in M$. 
-  \end{enumerate}
-  It follows immediately from the definition of $M$ that condition (1) holds. 
-  For condition (2), assume $r_m \in K-M$. Then $r_m = -r$ for some $r \in M$, 
-  and therefore $-r \in M$, and done. 
-  
-  Now assume that $r_m \in M$. We have to show that $\sum_{i=1}^m r_i =
-  0^n$ and $r_1, \ldots, r_{m} \in M$ together imply $-r_m \in M$.
-  
-  Split the $r_j$ as to whether they are from $M_1$ or $M_2$. Without loss of 
-  generality we may assume there is $i$ with $\{ r_1, \ldots, r_i \} \subseteq M_1$ 
-  and $\{ r_{i+1}, \ldots, r_m \} \subseteq M_2$. Each $r_j$ corresponds to a set 
-  $X_i \subseteq [w]_a$ via $r_j = V(X_j)$ for $r_j \in M_1$, and $r_j = V(X_j) - 
-  V(\overline{X_j})$ for $r_j \in M_2$. 
-  
-  Suppose for some vector $r$ in $\{ r_1, \ldots, r_i \}$ we have $r \neq 0^n$. Then 
-  \[
-    \sum \{ r_1, \ldots, r_i \} = r^* = (r^*_1, \ldots, r^*_n),
-  \]
-  with all components $\geq 0$, and some $r^*_k > 0$. 
-  
-  From $\sum \{ r_1, \ldots, r_i \} + \sum \{ r_{i+1}, \ldots, r_m \}   = 0^n$ we get 
-  that $\sum \{ r_{i+1}, \ldots, r_m \} = -r^*$. 
-  By the definition of $M_2$ this means that  
-  \[
-    \sum_{j= i+1}^m (V(X_j) - V(\overline{X_j}) = -r^*, 
-  \]
-  so all components are $\leq 0$, and $-r^*_k < 0$.  So any $v \in
-  [w]_a$ occurs at most as often in one of the $X_{i+1}, \ldots, X_m$ as
-  in one of the complements $\overline{X_{i+1}},\ldots, \overline{X_m}$.
-  Moreover, $w_k$ occurs less often in one of the $X_{i+1}, \ldots, X_m$
-  than in one of the complements $\overline{X_{i+1}},\ldots,
-  \overline{X_m}$. Without loss of generality, assume $w_k \notin
-  X_{i+1}$. Then:
-  \[
-   X_{i+1} \cup \{ w_k \}, \ldots, X_m \mathbb{I}_a \overline{X_{i+1}},\ldots, \overline{X_m}.
-  \]
-  From (l) and the fact that $\overline{X_{i+1}} \notin N,\ldots,
-  \overline{X_m} \notin N$ it follows that $X_{i+1} \cup \{ w_k \}
-  \notin N$. But now we have $X_{i+1} \subsetneq X_{i+1} \cup \{ w_k \} \notin N$
-  and $\overline{X_{i+1}} \notin N$, and contradiction with (sc).
-  
-  So we can assume $r_i \in M_2$ for all $i$ with $1 \leq i \leq m$. Therefore, we have, 
-  by definition of $M_2$: 
-  \[
-  \sum_{i=1}^m V(X_i) - V(\overline{X_i}) = 0^n. 
-  \]
-  This means, by definition of $V$, that for each $v \in [a]_w$ the following holds: 
-  \[
-   \sum_{i=1}^m \Psi_{X_i}(v) - \Psi_{\overline{X_i}}(v) = 0. 
-  \]
-  In other words, each $v \in [a]_w$ occurs exactly as often in one of the $X_i$ as in one 
-  of the complements: 
-  \[
-    X_1, \ldots, X_m \mathbb{E}_a  \overline{X_1}, \ldots, \overline{X_m}. 
-  \]
-  Since none of the complements is in $N$, it follows from this and (l) that $X_m \notin N$. 
-  Therefore $-r_m = V(\overline{X}_m - V(X_m) \in M_2$. This proves (2). 
-  
-  The conditions of Scott's theorem are fulfilled, so there is a real-valued
-  linear function $\phi$ on $\Ree^n$ with $\phi(v) \geq 0$ iff $v \in M$.
-  Suppose $\phi(V([w]_a) = \phi(1^n) = 0$. Since $\phi$ is linear, $\phi(0^n) = 0$.
-  This gives, by linearity of $\phi$ again:  $\phi(0^n - 1^n) =  \phi(0^n) - \phi(1^n) = 0$, 
-  and therefore, by the conditions on $\phi$: $0^n - 1^n = -1^n \in M$. Since 
-  $-1^n \notin M_1$ this gives $-1^n \in M_2$, and it follows by the definition of $M_2$ 
-  that $[w]_a \notin N$. Contradiction with (n). 
-
-  We may conclude that $\phi(1^n) > 0$, and we can define our probability measure 
-  $P_{a,w}$ on $\pow ([w]_a)$ by means of 
-  \[
-     P_{a,w}(X) = \frac{\phi(V(X))}{\phi(1^n)}.
-  \]
-  We still have to show that the value of this is $ P_{a,w}(X) > \frac{1}{2}$ iff $ X \in N$. 
-
-  Suppose $\overline{X} \notin N$. Then, by definition of $M_n$, $V(X) - V(\overline{X}) \in M_2$, 
-  and by the properties of $\phi$,  $\phi(V(X) - V(\overline{X})) \geq 0$. 
-  Since $V(X) - V(\overline{X}) = 2V(X) - V([w]_a)$, we have by linearity of $\phi$: 
-  \[
-    2 \phi(V(X)) - \phi(V([w]_a)) \geq 0, 
-  \]
-  and therefore: 
-  \[
-     2 \phi(V(X)) \geq \phi(1^n).
-  \]
-  It follows that $P_{a,w} (X) \geq \frac{1}{2}$. 
-  
-  Suppose $\overline{X} \in N$. Then $V(X) - V(\overline{X}) \notin M_2$, and by definition of $M$, 
-  also $V(X) - V(\overline{X}) \notin M$. This means $\phi(V(X) - V(\overline{X}) < 0$, 
-  and by reasoning similar to the above we derive that $2 \phi(V(X)) < \phi(1^n)$, 
-  from which it follows that  $P_{a,w} (X) < \frac{1}{2}$. 
-
-  Putting these two implications together, we get: $\overline{X}
-  \notin N$ iff $P_{a,w} (X) \geq \frac{1}{2}$.  From this, by
-  substitution: $X \notin N$ iff $P_{a,w} (\overline{X}) \geq
-  \frac{1}{2}$ iff $P_{a,w} (X) \leq \frac{1}{2}$. From this, by
-  contraposition:
-\[
-    X \in N \text{ iff } P_{a,w} (X) > \frac{1}{2}. 
-\]
-The full support property of $P_{a,w}$ now follows easily from the above plus (sc). 
+  Soundness is by Theorems~\ref{theorem:knowledge} and
+  \ref{theorem:belief}.  Completeness is by Theorem~\ref{theorem:KBeq}
+  and Corollary~\ref{corollary:lenzen}.
 \end{proof}
 
 \section{Conclusion} 
@@ -2811,9 +2811,9 @@ the class of epistemic probability models, in the sense that we would have:
 \quad\Leftrightarrow\quad
 {}\modelsp\phi^c \enspace.
 \]
-Observing that (SC) and (L) are not valid for high-thresholds $c>\frac
+Observing that (SC) and (Scott) are not valid for high-thresholds $c>\frac
 12$, we conjecture that what is required are threshold-specific
-variants of (SC) and (L) that will together guarantee probability
+variants of (SC) and (Scott) that will together guarantee probability
 soundness and completeness.  Toward this end, we suggest the following
 schemes as a starting point:
 \begin{center}
@@ -2857,7 +2857,7 @@ from another disjoint proposition $\phi_0$ will yield a disjunction whose
 probability again exceeds $c$.  In either case, exceeding probability
 $c$ is what we equate with belief, so soundness is proved.  We note
 that scheme (WL) can be shown to be sound by adapting the proof
-Proposition~\ref{prop:belief}\eqref{item:B-Len}.  The epistemic
+Theorem~\ref{theorem:belief}\eqref{item:B-Len}.  The epistemic
 neighborhood model versions of (SC$_0^s$), (SC$_1^s$), and (WL) are:
 \begin{description}
 \item[(sc$_0^s$)] $\forall X_1,\dots,X_s,Y\subseteq[w]_a$:
@@ -2917,7 +2917,7 @@ $q\cdot\phi(V(X))-p\cdot\phi(V([w]_a))\geq 0$.  Since
 $\phi(V([w]_a))=1$, it follows that $P_{a,w}(X)\geq p/q=c$.  The
 argument for the case $\overline{X}\in N$ is similar.  However, we
 note that the existence of $\phi$ seems to require a
-threshold-specific version of (L) and it is not clear how this might
+threshold-specific version of (Scott) and it is not clear how this might
 come about so as to follow the logic of the proof of
 Theorem~\ref{theorem:lenzen}.  Perhaps some variant of (WL) that takes
 into account the specific values of $p$ and $q$ is required.
@@ -2959,10 +2959,10 @@ Probabilistic Dynamic Epistemic Logic
 
 \paragraph{Acknowledgements} 
 
-Thanks to Alexandru Baltag, Jim Delgrande, Andreas Herzig, and Sonja Smets for 
-helpful comments and pointers to the literature. 
+Thanks to Alexandru Baltag, Jim Delgrande, Andreas Herzig, and Sonja
+Smets for helpful comments and pointers to the literature.
 
 \bibliographystyle{alpha}
-\bibliography{BEPL}  
+\bibliography{vER-BEPL}  
 
 \end{document} 
