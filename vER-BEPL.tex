@@ -258,7 +258,7 @@ a bit more on this later).
 In Section~\ref{Section:EPL} we identify a Kripke-style semantics for
 probability logic similar to
 \cite{EijckSchwarzentruber2014:epls,Halpern2003:rau} (and no doubt to
-many others).  We require that all worlds are probabalistically
+many others).  We require that all worlds are probabilistically
 possible but not necessarily epistemically so, and we provide some
 examples of how this semantics works.  In particular, we demonstrate
 that our requirement is not problematic.
@@ -288,7 +288,7 @@ that for $c=\frac 12$, certain desirable properties are preserved.
 
 In Section~\ref{Section:Calculi}, we introduce the modal theory
 $\KBeq$, which is our name for our modern reformulation of Lenzen's
-modal theory of knowledge and belief.  We prove this is theory sound
+modal theory of knowledge and belief.  We prove this theory is sound
 and complete with respect to a certain class of our epistemic
 neighborhood models.  Using our notation and concepts, we also present
 Lentzen's proof \cite{Lenzen1980:gwuw} that $\KBeq$ determines belief
@@ -344,16 +344,16 @@ $a$ assigns to an event $X$ at $w$ is given by
   P_{a,w}(X) := \frac{P_a(X\cap[w]_a)}{P_a([w]_a)}\enspace.
   \label{eq:probability}
 \end{equation}
-In words: the probability agent $a$ assigns to event $X$ at
-world $w$ is the probability she assigns to $X$ conditional
-on her knowledge at $w$.  This
-reading makes sense because the right side of \eqref{eq:probability}
-is just $P_a(X|[w]_a)$, the probability of $X$ conditional on
-$[w]_a$.  Note that $P_{a,w}(X)$ is always well-defined:
-we have $w\in[w]_a$ by the reflexivity of
-$R_a$ and hence
-$0<P_a(w)\leq P_a([w]_a)$ by full support, so the denominator on the right side of 
-\eqref{eq:probability} is nonzero.
+In words: the probability agent $a$ assigns to event $X$ at world $w$
+is the probability she assigns to $X$ conditional on her knowledge at
+$w$. Slogan: subjective probability is always conditioned, and the
+most general condition is the given by the knowledge of the
+agent. This makes sense because the right side of
+\eqref{eq:probability} is just $P_a(X|[w]_a)$, the probability of $X$
+conditional on $[w]_a$.  Note that $P_{a,w}(X)$ is always
+well-defined: we have $w\in[w]_a$ by the reflexivity of $R_a$ and
+hence $0<P_a(w)\leq P_a([w]_a)$ by full support, so the denominator on
+the right side of \eqref{eq:probability} is nonzero.
 
 \begin{example}[Horse Racing] 
   \label{ExampleHorseRacing}
@@ -617,8 +617,8 @@ the assumption $P_a(\phi)>p/q$.  Therefore, it is rational for agent
 $a$ to take this bet.  Said in the parlance of the subjective
 probability literature, ``If agent $a$ stakes $p$ to win $q-p$ in a
 bet on $\phi$, then her winning expectation is positive in case she
-believes $\phi$ with threshold $c$.''  Or in a short motto: ``Belief
-is willingness to bet.''
+believes $\phi$ with threshold $c= p/q$.''  Or in a short motto:
+``Belief is willingness to bet.''
 
 \begin{remark}
   Belief based on threshold $c=0$ or $c=1$ is trivial to express in
@@ -685,8 +685,8 @@ $\check B^c_a\phi$.
     & \text{since $\semp{\lnot\phi}=W-\semp{\phi}$}
   \end{array}
   \]
-  For Item~\ref{item:dual-half}, we observe that $1-\frac 12=\frac 12$
-  and apply Item~\ref{item:dual}. 
+  For Item~\ref{item:dual-half}, apply Item~\ref{item:dual} 
+  with $c =\frac 12$. 
   % For Item~\ref{item:dual-low}, we
   % observe that $c\in(0,\frac 12)$ implies $1-c>c$, so the result
   % follows by Item~\ref{item:dual}. 
@@ -1006,7 +1006,8 @@ in the following proposition.
     \geq 1 - c$. So $P_{a,w}(\semp{\phi})\geq 1-c$.  The result
     therefore follows by Lemma~\ref{lemma:dual}.
 
-  \item Assume $c\in(0,\frac 12]\cap\Rat$ and $\M,w\modelsp\check B^c_a\phi$.  By
+  \item We prove something more general. 
+    Assume $c\in(0,\frac 12]\cap\Rat$ and $\M,w\modelsp\check B^c_a\phi$.  By
     Lemma~\ref{lemma:dual}, it follows that
     $P_{a,w}(\semp{\phi})\geq c$.  Let us assume further that
     $\M,w\modelsp\check K_a(\lnot\phi\land\psi)$.  This means
@@ -1038,7 +1039,8 @@ in the following proposition.
     That is,
     $\M,w\modelsp B_a^c(\phi\lor\psi)$.
 
-  \item We assume $c\in(0,\frac 12]\cap\Rat$ plus the following:
+  \item Again, we prove something more general. 
+  We assume $c\in(0,\frac 12]\cap\Rat$ plus the following:
     \begin{eqnarray}
       &&
       \M,w\modelsp (\phi_i\mathbb{I}_a\psi_i)_{i=1}^m
@@ -1363,53 +1365,56 @@ neighborhood model gives rise to an agreeing probability measure.
 \begin{proof}
   We adapt Example~2 from \cite[pp.~344-345]{WalleyFine1979:vomacp} to
   the present setting.  Fix $c\in(0,1)\cap\Rat$.  Let
-  $\Prop:=\{a,b,c,d,e,f,g\}$ and $A=\{0\}$.  Define the sets
-  \begin{eqnarray*}
-    \mathcal{X} &:=&
-    \{efg, abg, adf, bde, ace, cdg, bcf\}\enspace,
-    \\
-    \mathcal{Y} &:=&
-    \{fga,bca,beg,cef,bdf,dea,cdg\}\enspace,
-  \end{eqnarray*}
-  where we use the notation $xyz$ for $\{x,y,z\}$. Let $\M:=(W,R,V,N)$
-  be defined by $W:=\Prop$, $R_0=W\times W$, $V(w)=\{w\}$, and
-  $N_0(w)$ is the $\Prop$-superset closure of $\mathcal{X}$ (i.e., the
-  smallest extension $\mathcal{X}'\supseteq\mathcal{X}$ such that
-  $X\in\mathcal{X}'$ and $X\subseteq X'\subseteq\Prop$ implies $X'\in
-  \mathcal{X}'$).  Note that no member of $\mathcal{Y}$ is a member of
-  $N_0(a)$.
-  
-  Toward a contradiction, suppose there exists a probability measure
-  $P_a:\wp(W)\to[0,1]$ that agrees with $\M$ for threshold $c$ and
-  agent $a$.  Since $P_a$ agrees with $\M$ and each letter $p\in W$
-  occurs in exactly three of the seven members of $\mathcal{X}$, we
-  have:
-  \[
-  \textstyle 7c < \sum_{X\in\mathcal{X}}P_{a,w}(X)=\sum_{p\in W}3\cdot
-  P_{a,w}(\{p\})\enspace.
-  \]
-  But each letter $p\in W$ also occurs in exactly three of the seven
-  members of $\mathcal{Y}$, none of which is in $N_0(a)$, so:
-  \[
-  \textstyle 7c \geq \sum_{Y\in\mathcal{Y}}P_{a,w}(Y)=\sum_{p\in
-    W}3\cdot P_{a,w}(\{p\})\enspace,
-  \]
-  a contradiction.  So no such $P_a$ exists.
+  $\Prop:=\{a,b,c,d,e,f,g\}$ and $A=\{0\}$.  Assume a single agent
+  $0$.  Define:
+\[
+   \mathcal{X} := \{efg, abg, adf, bde, ace, cdg, bcf\}. 
+\]
+\[
+   \mathcal{X'} := \{abcd, cdef, bceg, acfg, bdfg, abef, adeg \}. 
+\]
+Notation:  $xyz$ for $\{x,y,z\}$.
+\[
+  \mathcal{Y}  := \{ Y \mid \exists X \in  \mathcal{X}: X \leq Y \leq W \}. 
+\]
+Let $\M:=(W,R,V,N)$ be defined by $W:=\Prop$, $R_0=W\times W$,
+$V(w)=\{w\}$, and for all $w \in W$, $N_0(w) = \mathcal{Y}$. 
+Check that   $\mathcal{X'} \cap \mathcal{Y} = \emptyset$. 
+So $\M$ is a neighborhood model. 
+
+Toward a contradiction, suppose there exists a probability function $P$
+that agrees with $\M$. Since each letter $p\in W$ occurs in exactly
+three of the seven members of $\mathcal{X}$, we have:
+\[
+   \sum_{X \in \mathcal{X}} P_0(X) = \sum_{p\in W}3\cdot P_0(\{p\}). 
+\]
+Since each letter $p\in W$ occurs in exactly four of the seven
+members of $\mathcal{X'}$, we have:
+\[
+\sum_{X \in \mathcal{X'}} P_0(X) = \sum_{p\in W} 4\cdot P_0(\{p\}). 
+\]
+On the other hand, from the fact that $P_0 (X) > P_o (W-X)$ for all members
+$X$ of $\mathcal{X}$ we get: 
+\[
+   \sum_{X \in \mathcal{X}} P_0 (X) >  
+   \sum_{X \in \mathcal{X}} P_0 (W - X) = \sum_{X \in \mathcal{X'}} P_0 (X). 
+\]
+Contradiction. So no such $P_0$ exists.
 \end{proof}
 
-The model $\M$ from the proof of
-Theorem~\ref{theorem:KB-probability-incompleteness} allows us to
-divide the space into overlapping pieces in two ways: one way
-$\mathcal{X}$ in which an agreeing measure must assign probability
-above threshold to each piece in $\mathcal{X}$ and another way
-$\mathcal{Y}$ in which the same agreeing measure must assign
-probability at or below threshold to the pieces in $\mathcal{Y}$.
-Since the pieces of $\mathcal{X}$ and those of $\mathcal{Y}$ use each
-world in $\M$ the same number of times, the sum of the probabilities
-of the pieces must be the same for $\mathcal{X}$ as it is for
-$\mathcal{Y}$.  So we see that the neighborhoods in $\M$ are arranged
-in a manner that is fundamentally inconsistent with an agreeing
-probability measure.
+%The model $\M$ from the proof of
+%Theorem~\ref{theorem:KB-probability-incompleteness} allows us to
+%divide the space into overlapping pieces in two ways: one way
+%$\mathcal{X}$ in which an agreeing measure must assign probability
+%above threshold to each piece in $\mathcal{X}$ and another way
+%$\mathcal{Y}$ in which the same agreeing measure must assign
+%probability at or below threshold to the pieces in $\mathcal{Y}$.
+%Since the pieces of $\mathcal{X}$ and those of $\mathcal{Y}$ use each
+%world in $\M$ the same number of times, the sum of the probabilities
+%of the pieces must be the same for $\mathcal{X}$ as it is for
+%$\mathcal{Y}$.  So we see that the neighborhoods in $\M$ are arranged
+%in a manner that is fundamentally inconsistent with an agreeing
+%probability measure.
 
 Question: what are the additional restrictions on the neighborhood
 function that one must impose in order to guarantee the existence of
