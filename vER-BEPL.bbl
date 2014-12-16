@@ -1,0 +1,124 @@
+\begin{thebibliography}{vBGK09}
+
+\bibitem[BdRV01]{BlaRijVen:ml}
+P.~Blackburn, M.~de~Rijke, and Y.~Venema.
+\newblock {\em Modal Logic}.
+\newblock Cambridge Tracts in Theoretical Computer Science. Cambridge
+  University Press, 2001.
+
+\bibitem[BS08]{BalSme08:Synt}
+Alexandru Baltag and Sonja Smets.
+\newblock Probabilistic dynamic belief revision.
+\newblock {\em Synthese}, 165(2):179--202, 2008.
+
+\bibitem[Che80]{Chellas:ml}
+B.F. Chellas.
+\newblock {\em Modal Logic: An Introduction}.
+\newblock Cambridge University Press, 1980.
+
+\bibitem[dF37]{deFinetti37}
+Bruno de~Finetti.
+\newblock La pr{\'e}vision: ses lois logiques, ses sources subjectives.
+\newblock {\em Annals de l'Institut Henri Poincar{\'e}}, 7:1--68, 1937.
+\newblock Translated into English in H.E.~Kyburg, Jr. and H.E.~Smokler (eds.),
+  \emph{Studies in Subjective Probability}, 1964, pp.~93--158.
+
+\bibitem[dF51]{deFinetti51}
+Bruno de~Finetti.
+\newblock La ``logica del plausibile'' secondo la concezione di polya.
+\newblock In {\em Atti della {XLII} Riunione, Societa Italiana per il Progresso
+  delle Scienze}, pages 227--236, 1951.
+
+\bibitem[Eij13]{Eijck2013:lap}
+Jan~van Eijck.
+\newblock Learning about probability.
+\newblock available from http://homepages.cwi.nl:~/jve/software/prodemo, 2013.
+
+\bibitem[EoS14]{EijckSchwarzentruber2014:epls}
+Jan~van Eijck and Fran\c ois Schwarzentruber.
+\newblock Epistemic probability logic simplified.
+\newblock In Rajeev Gor{\'e}, Barteld Kooi, and Agi Kurucz, editors, {\em
+  Advances in Modal Logic}, volume~10, pages 158--177, 2014.
+
+\bibitem[G{\"a}r75]{Gardenfors75}
+Peter G{\"a}rdenfors.
+\newblock Qualitative probability as an intensional logic.
+\newblock {\em Journal of Philosophical Logic}, 4(2):171--185, 1975.
+
+\bibitem[Hal03]{Halpern2003:rau}
+J.~Halpern.
+\newblock {\em Reasoning About Uncertainty}.
+\newblock {MIT} Press, 2003.
+
+\bibitem[Her03]{Herzig2003:mpbaa}
+A.~Herzig.
+\newblock Modal probability, belief, and actions.
+\newblock {\em Fundamenta Informaticae}, 57:323--344, 2003.
+
+\bibitem[HI13]{HollidayIcard2013:msaqs}
+Wesley~H. Holliday and Thomas~F. Icard.
+\newblock Measure semantics and qualitative semantics for epistemic modals.
+\newblock In {\em Proceedings of {SALT}}, volume~23, pages 514---534, 2013.
+
+\bibitem[Jef04]{Jeffrey2004:sptrt}
+Richard Jeffrey.
+\newblock {\em Subjective Probability --- The Real Thing}.
+\newblock Cambridge University Press, 2004.
+
+\bibitem[K{\"o}r08]{koerner2008naive}
+T.W. K{\"o}rner.
+\newblock {\em Naive Decision Making: Mathematics Applied to the Social World}.
+\newblock Cambridge University Press, 2008.
+
+\bibitem[KPS59]{KraPraSei59:AMS}
+Charles~H. Kraft, John~W. Pratt, and A.~Seidenberg.
+\newblock Intuitive probability on finite sets.
+\newblock {\em The Annals of Mathematical Statistics}, 30(2):408--419, 1959.
+
+\bibitem[KT12]{KyburgTeng2012:tlorkr}
+Henry~E. Kyburg and Choh~Man Teng.
+\newblock The logic of risky knowledge, reprised.
+\newblock {\em International Journal of Approximate Reasoning}, 53:274--285,
+  2012.
+
+\bibitem[Kyb61]{Kyburg1961:patlorb}
+H.E. Kyburg.
+\newblock {\em Probability and the Logic of Rational Belief}.
+\newblock Wesleyan University Press, Middletown, {CT}, 1961.
+
+\bibitem[Len80]{Lenzen1980:gwuw}
+Wolfgang Lenzen.
+\newblock {\em Glauben, {W}issen und {W}ahrscheinlichkeit --- {S}ystene der
+  epistemischen {L}ogik}.
+\newblock Springer Verlag, Wien \&\ New York, 1980.
+
+\bibitem[Len03]{Lenzen2003:kbasp}
+Wolfgang Lenzen.
+\newblock Knowledge, belief, and subjective probability --- outlines of a
+  unified theory of epistemic/doxastic logic.
+\newblock In V.F. Hendricks, K.F. Jorgensen, and S.A. Pedersen, editors, {\em
+  Knowledge Contributors}, number 322 in Synthese Library, pages 17--31.
+  Kluwer, 2003.
+
+\bibitem[Sco64]{Sco64:JMP}
+Dana Scott.
+\newblock Measurement structures and linear equalities.
+\newblock {\em Journal of Mathematical Psychology}, 1:233--247, 1964.
+
+\bibitem[Seg71]{Segerberg1971:qpiams}
+K.~Segerberg.
+\newblock Qualitative probability in a modal setting.
+\newblock In J.~Fenstad, editor, {\em Proceedings of the 2nd {S}candinavian
+  Logic Symposium}, pages 341--352, Amsterdam, 1971. North Holland.
+
+\bibitem[vBGK09]{BenGerKoo09:SL}
+Johan van Benthem, Jelle Gerbrandy, and Barteld Kooi.
+\newblock Dynamic update with probabilities.
+\newblock {\em Studia Logica}, 93(1):67--96, 2009.
+
+\bibitem[WF79]{WalleyFine1979:vomacp}
+P.~Walley and T.L. Fine.
+\newblock Varieties of modal (classificatory) and comparative probability.
+\newblock {\em Synthese}, 41:321--374, 1979.
+
+\end{thebibliography}

@@ -36,7 +36,7 @@ Thumbs.db
 *.acr
 *.alg
 *.aux
-*.bbl
+#*.bbl
 *.blg
 *.cut
 *.dvi
