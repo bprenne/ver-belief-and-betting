@@ -475,11 +475,12 @@ probability measure for threshold $c=\frac 12$.
 
 Stated in an analogy: $\KB$ is to de Finetti's axiomatization as
 $\KBeq$ is to the KPS/Scott axiomatization.  However, do not be
-mislead: de Finetti, KPS, and Scott considered qualitative
+misled: de Finetti, KPS, and Scott considered qualitative
 probabilistic comparison, which is a binary notion based on a binary
-operator $\preceq$.  We, on the other hand, consider high probability,
-which is a unary notion based on unary operators we denote as $K$ and
-$B$.
+operator $\preceq$.  See also \cite{HollidayIcard2013:msaqs} for a
+revival of this tradition. We, on the other hand, consider high
+probability, which is a unary notion based on unary operators we
+denote as $K$ and $B$.
 
 Another version of our main open question can be restated in the
 following syntactic form: given a threshold $c\neq\frac 12$, find the
@@ -1775,12 +1776,13 @@ satisfy
 which is the corresponding consequent of the indicated instance of
 (scott).  So we see that if we were to restrict ourselves to the class
 of epistemic neighborhood models satisfying this property, we would no
-longer able to use $\M$ as a counterexample to the claim that not
+longer be able to use $\M$ as a counterexample to the claim that not
 every epistemic neighborhood model gives rise to an agreeing
 probability measure.  Of course ruling out $\M$ as a counterexample to
 this claim does not prove the claim.  However, utilizing (scott) in
 conjunction with (d) and (sc), we are able to prove the claim.  This
-proof makes crucial use of a theorem due to Scott.
+proof makes crucial use of a theorem due to Scott that is closely 
+related to \cite[Theorem 4.1]{Sco64:JMP}. 
 
 In preparation for the statement of Scott's theorem, we recall some
 well-known notions from linear algebra.  For a nonempty set $S$, let
@@ -1791,7 +1793,7 @@ vectors $x,y:S\to\mathbb{R}$ and a scalar real $r\in\mathbb{R}$, the
 vector $(x+y):S\to\mathbb{R}$ is defined by $(x+y)(s):=x(s)+y(s)$ for
 each coordinate $s\in S$ and the vector $(r\cdot x):S\to\mathbb{R}$ is
 defined by $(r\cdot x)(s):=r\cdot x(s)$ for each coordinate $s\in S$.
-Note that we have just used the usual notational clash wherein the $+$
+Note that we have just used the usual notational overloading wherein the $+$
 or $\cdot$ symbol on one side of an equation refers to the vector
 operation, and yet the same symbol on the other side of the same
 equation refers to the operation in $\mathbb{R}$. Other common
@@ -2020,7 +2022,7 @@ following result.
   also realizes $\mathcal{N}_{v}$.  So, letting $[W]$ be the set
   $\{[w]\mid w\in W\}$ of equivalence classes, let $h:[W]\to W$ be a
   choice function that selects for each class $[w]\in[W]$ a
-  representative $h([w])\in[w]$. Using a notational clash that ought
+  representative $h([w])\in[w]$. Using a notational overloading that ought
   to be harmless, we define a new function $h_w:\wp([w])\to\mathbb{R}$
   by setting $h_w(X):=g_{h([w])}(X)$.  Obviously, $v\in[w]$ implies
   $h_{v}=h_w$.  Finally, we define $P:\wp(W)\to[0,1]$ by
@@ -3294,7 +3296,7 @@ $c=\frac 12$ (Theorem~\ref{theorem:lenzen}).
 \item Another open question is the exact relationship between
   Segerberg's comparitive operator $\varphi\preceq\psi$ (``$\varphi$
   is no more probable than $\psi$'')
-  \cite{Gardenfors75,Segerberg1971:qpiams} our unary operators $K$ and
+  \cite{Gardenfors75,Segerberg1971:qpiams} and our unary operators $K$ and
   $B$.  The formula $B\varphi$ is equivalent to
   $\lnot\varphi\prec\varphi$.  However, it is not clear how the logics
   of these operators are related. Also, we suspect that a language
