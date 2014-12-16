@@ -6,5 +6,6 @@ Following the general [gitflow](http://nvie.com/posts/a-successful-git-branching
 * ```develop```: the branch for stepwise improvements to the paper (not including the pdf)
 * ```master```: the branch for releases of the paper (i.e., official versions submitted to people/places, including the pdf)
 * ```arXiv```: the branch for arXiv submissions
+* ```talks```: the branch for talks based on (a version of) the paper
 
 (C) Copyright 2014 Jan van Eijck and Bryan Renne
