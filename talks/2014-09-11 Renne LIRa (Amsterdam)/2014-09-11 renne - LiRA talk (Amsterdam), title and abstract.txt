@@ -1,5 +1,0 @@
-LiRA Talk, ILLC Amsterdam, 11 Sep. 2014
-
-Title:  Belief as Willingness to Bet
-
-Abstract:  I will discuss joint work with Jan van Eijck on modal logics of knowledge and belief where knowledge is probabilistic certainty and belief is probability exceeding a fixed probabilistic threshold c ≥ 0.5.  The logic with c=0.5 is due to Lenzen and makes use of the well-known Kraft--Pratt--Seidenberg Theorem from measure theory.  My coauthor and I show that this logic, which is sub-normal, is sound and complete with respect to a new neighborhood semantics that bears an exact relationship with the probabilistic semantics.
